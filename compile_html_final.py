@@ -70,8 +70,9 @@ DATASET_DESCRIPTIONS = {
         In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.
         Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. 
         The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. 
-        We fine-tune the Wan2.1 (1.3B) text-to-video model. 
+        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. 
     </p>
+    </div>
     """,
     "Motivation: Why study gear simulation? ": """
     Gear systems are governed by a simple local rule: meshed gears rotate in opposite directions, with absolute angular velocities inversely proportional to their diameters. 
@@ -715,6 +716,24 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 setRoute(pageId, null);
             }};
 
+            window.navigateToSection = function(sectionName) {{
+                activePage = "Overview";
+                activeDatasetName = sectionName;
+
+                if (window.location.hash !== '#' + encodeURIComponent(sectionName)) {{
+                    window.history.pushState(null, null, '#' + encodeURIComponent(sectionName));
+                }}
+
+                updateView();
+
+                setTimeout(() => {{
+                    const targetSection = document.getElementById('section-' + sectionName);
+                    if (targetSection) {{
+                        targetSection.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+                    }}
+                }}, 10);
+            }};
+
             window.backToOverview = function() {{
                 const sectionDataset = activeDatasetName || pageToFirstDatasetMap[activePage] || null;
                 activePage = "Overview";
@@ -749,7 +768,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     btn.classList.remove('active');
 
                     if (activePage === "Overview") {{
-                         if (targetPage === "Overview") btn.classList.add('active');
+                         if (targetPage === "Overview" || btn.dataset.section === activeDatasetName) {{
+                             btn.classList.add('active');
+                         }}
                     }} 
                     else if (btn.classList.contains('level-2')) {{
                         if (targetPage === activePage) {{
@@ -873,24 +894,32 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     activePage = "Overview";
                     activeDatasetName = null;
                 }} else {{
-                    // Check if it matches a dataset first
-                    if (datasetToPageMap[decodedHash]) {{
+                    const overviewSection = document.getElementById('section-' + decodedHash);
+                    if (overviewSection) {{
+                        activePage = "Overview";
+                        activeDatasetName = decodedHash;
+                    }} else if (datasetToPageMap[decodedHash]) {{
                         activePage = datasetToPageMap[decodedHash];
                         activeDatasetName = decodedHash;
                     }} else if (pagesData[decodedHash]) {{
-                        // Or just a page group
                         activePage = decodedHash;
                         activeDatasetName = null;
                     }} else {{
-                        // Fallback
                         activePage = "Overview";
+                        activeDatasetName = null;
                     }}
                 }}
                 
                 updateView();
 
-                // Scroll to target if specific dataset
-                if (activeDatasetName && activePage !== "Overview") {{
+                if (activePage === "Overview" && activeDatasetName) {{
+                    setTimeout(() => {{
+                        const targetSection = document.getElementById('section-' + activeDatasetName);
+                        if (targetSection) {{
+                            targetSection.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+                        }}
+                    }}, 100);
+                }} else if (activeDatasetName && activePage !== "Overview") {{
                     setTimeout(() => {{
                         const targetCard = document.getElementById('dataset-block-' + activeDatasetName);
                         if (targetCard) {{
@@ -955,7 +984,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div class="paper-footer">
             <div style="font-weight: 600; margin-bottom: 10px;">Citation</div>
             <div class="citation-block">
-@article{{CoG-DiT,
+@article{{CoGDiT,
   title={{{paper_title}}},
   author={{{authors_string}}},
   journal={{Conference Name}},
@@ -1036,10 +1065,15 @@ def generate_single_index(input_folder):
 
     # A. Process Configured Categories
     for category_name, items in SIDEBAR_CONFIG:
-        # A category with no children can still define a text-only page when
-        # its content is present in DATASET_DESCRIPTIONS.
-        if not items and category_name in DATASET_DESCRIPTIONS:
-            dataset_nav_html += f'<button class="dataset-btn level-2" data-target="{category_name}" onclick="navigateToGroup(\'{category_name}\')">{category_name}</button>\n'
+        # Every configured category is a clickable level-2 sidebar title.
+        # Its children, when present, are level-3 titles.
+        if not items and category_name not in DATASET_DESCRIPTIONS:
+            continue
+
+        dataset_nav_html += f'<button class="dataset-btn level-2" data-target="{category_name}" data-section="{category_name}" onclick="navigateToSection(\'{category_name}\')">{category_name}</button>\n'
+        cat_subitems = []
+
+        if not items:
             pages.append({
                 "id": category_name,
                 "title": category_name,
@@ -1050,14 +1084,8 @@ def generate_single_index(input_folder):
             page_to_first_dataset_map[category_name] = category_name
             used_datasets.add(category_name)
             dataset_to_page_map[category_name] = category_name
-            # Keep the text-only section in the overview without adding a
-            # redundant level-2 heading.
             overview_structure.append((category_name, []))
             continue
-
-        dataset_nav_html += f'<div class="nav-category">{category_name}</div>\n'
-        
-        cat_subitems = [] 
 
         for item in items:
             is_group = False
@@ -1067,20 +1095,15 @@ def generate_single_index(input_folder):
             if isinstance(item, tuple):
                 if len(item) == 2 and isinstance(item[1], list):
                     sub_name, sub_datasets = item
-                    # An empty list denotes a text-only entry. If its
-                    # description is configured, treat it as a standalone
-                    # page rather than as an empty group with no content.
                     if not sub_datasets and sub_name in DATASET_DESCRIPTIONS:
                         is_group = False
                         sub_datasets = [sub_name]
                     else:
                         is_group = True
                 elif len(item) == 1:
-                    is_group = False
                     sub_name = item[0]
                     sub_datasets = [sub_name]
             elif isinstance(item, str):
-                is_group = False
                 sub_name = item
                 sub_datasets = [sub_name]
 
@@ -1088,46 +1111,47 @@ def generate_single_index(input_folder):
                 d for d in sub_datasets
                 if d in found_datasets or d in DATASET_DESCRIPTIONS
             ]
-            
-            if valid_subs:
-                if is_group:
-                    dataset_nav_html += f'<button class="dataset-btn level-2" data-target="{sub_name}" onclick="navigateToGroup(\'{sub_name}\')">{sub_name}</button>\n'
-                    pages.append({
-                        "id": sub_name,
-                        "title": sub_name,
-                        "datasets": valid_subs,
-                        "is_group": True
-                    })
-                    page_to_first_dataset_map[sub_name] = valid_subs[0]
 
-                    for d_name in valid_subs:
-                        dataset_nav_html += f'<button class="dataset-btn level-3" data-target="{sub_name}" data-dataset="{d_name}" onclick="navigateToDataset(\'{d_name}\')">{d_name}</button>\n'
-                        used_datasets.add(d_name)
-                        dataset_to_page_map[d_name] = sub_name
-                        dataset_to_page_map[sub_name] = sub_name
-                else:
-                    d_name = valid_subs[0]
-                    dataset_nav_html += f'<button class="dataset-btn level-2" data-target="{d_name}" onclick="navigateToGroup(\'{d_name}\')">{d_name}</button>\n'
-                    pages.append({
-                        "id": d_name,
-                        "title": d_name,
-                        "datasets": [d_name],
-                        "is_group": False
-                    })
-                    page_to_first_dataset_map[d_name] = d_name
-                    
+            if not valid_subs:
+                continue
+
+            if is_group:
+                dataset_nav_html += f'<button class="dataset-btn level-3" data-target="{sub_name}" data-section="{sub_name}" onclick="navigateToSection(\'{sub_name}\')">{sub_name}</button>\n'
+                pages.append({
+                    "id": sub_name,
+                    "title": sub_name,
+                    "datasets": valid_subs,
+                    "is_group": True
+                })
+                page_to_first_dataset_map[sub_name] = valid_subs[0]
+                dataset_to_page_map[sub_name] = sub_name
+
+                for d_name in valid_subs:
+                    dataset_nav_html += f'<button class="dataset-btn level-3" data-target="{sub_name}" data-dataset="{d_name}" data-section="{d_name}" onclick="navigateToSection(\'{d_name}\')">{d_name}</button>\n'
                     used_datasets.add(d_name)
-                    dataset_to_page_map[d_name] = d_name
+                    dataset_to_page_map[d_name] = sub_name
+            else:
+                d_name = valid_subs[0]
+                dataset_nav_html += f'<button class="dataset-btn level-3" data-target="{category_name}" data-dataset="{d_name}" data-section="{d_name}" onclick="navigateToSection(\'{d_name}\')">{d_name}</button>\n'
+                pages.append({
+                    "id": d_name,
+                    "title": d_name,
+                    "datasets": [d_name],
+                    "is_group": False
+                })
+                page_to_first_dataset_map[d_name] = d_name
+                used_datasets.add(d_name)
+                dataset_to_page_map[d_name] = d_name
 
-                cat_subitems.append((sub_name, valid_subs, is_group))
+            cat_subitems.append((sub_name, valid_subs, is_group))
 
-        if cat_subitems:
+        if cat_subitems or category_name in DATASET_DESCRIPTIONS:
             overview_structure.append((category_name, cat_subitems))
 
     # B. Process "Others"
     remaining_datasets = sorted(list(found_datasets - used_datasets))
     if remaining_datasets:
-        dataset_nav_html += '<div class="nav-category">Others</div>\n'
+        dataset_nav_html += '<button class="dataset-btn level-2" data-target="Others" data-section="Others" onclick="navigateToSection(\'Others\')">Others</button>\n'
         others_subitems = []
         for d_name in remaining_datasets:
             pages.append({
@@ -1136,11 +1160,11 @@ def generate_single_index(input_folder):
                 "datasets": [d_name],
                 "is_group": False
             })
-            dataset_nav_html += f'<button class="dataset-btn level-2" data-target="{d_name}" onclick="navigateToGroup(\'{d_name}\')">{d_name}</button>\n'
+            dataset_nav_html += f'<button class="dataset-btn level-3" data-target="Others" data-dataset="{d_name}" data-section="{d_name}" onclick="navigateToSection(\'{d_name}\')">{d_name}</button>\n'
             dataset_to_page_map[d_name] = d_name
             page_to_first_dataset_map[d_name] = d_name
             others_subitems.append((d_name, [d_name], False))
-        
+
         overview_structure.append(("Others", others_subitems))
 
     # --- GENERATE OVERVIEW HTML ---
@@ -1149,7 +1173,7 @@ def generate_single_index(input_folder):
     overview_html = ""
     for category_name, sub_items in overview_structure:
         overview_html += f'''
-        <div class="hierarchy-bar level-1-header">
+        <div class="hierarchy-bar level-1-header" id="section-{category_name}">
             {category_name}
         </div>
         '''
@@ -1163,8 +1187,9 @@ def generate_single_index(input_folder):
             )
         
         for sub_name, d_list, is_group in sub_items:
+            sub_header_id = f' id="section-{sub_name}"' if is_group else ""
             overview_html += f'''
-            <div class="hierarchy-bar level-2-header">
+            <div class="hierarchy-bar level-2-header"{sub_header_id}>
                 {sub_name}
             </div>
             '''
