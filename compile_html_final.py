@@ -18,7 +18,7 @@ import urllib.parse
 
 # --- CONFIGURATION ---
 
-PAPER_TITLE = "Towards Designing and Simulating Mechanical Systems with Video Diffusion Models: A Study with 2D Gear Systems"
+PAPER_TITLE = "When Video Diffusion Transformers Meet Long-Chain Kinematic Reasoning: A Study of 2D Gear Systems"
 
 if True:
     AUTHORS = [
@@ -56,386 +56,41 @@ Overall, this work demonstrates that video diffusion transformers are capable of
 # --- 3-LEVEL HIERARCHY CONFIG ---
 # The script automatically detects if an item is a "Group" (tuple with list) or "Single" (string)
 SIDEBAR_CONFIG = [
-    ("Motivation", [
+    ("Task definition",[]),
+    ("Motivation: Why study gear simulation? ", [
         "Animating Gear Systems with Commercial Video Models",
-        "Task Definition",
     ]),
-    ("Conclusions: ", []),
 ]
 
 
 DATASET_DESCRIPTIONS = {
-    # --- DATASETS (Bottom Level) ---
+    "Task definition": """
+    <div>
+    <p>
+        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.
+        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. 
+        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. 
+        We fine-tune the Wan2.1 (1.3B) text-to-video model. 
+    </p>
+    """,
+    "Motivation: Why study gear simulation? ": """
+    Gear systems are governed by a simple local rule: meshed gears rotate in opposite directions, with absolute angular velocities inversely proportional to their diameters. 
+    Despite this simple rule, simulating a gear train provides a challenging testbed for long-chain kinematic reasoning. 
+    In particular, determining the rotational direction of each gear requires computing its rotational <b>parity</b>, which is determined by the number of meshing interactions along the kinematic path from the driving gear. 
+    Thus, simulating a gear system requires propagating kinematic information across potentially long chains of gears. Notably, once the rotational parity is determined, the angular velocity magnitude follows directly from the gear diameters, independent of the kinematic graph topologies. 
+    """,
     "Animating Gear Systems with Commercial Video Models": """
     <div>
     <p>
-        In this work, we explore the capabilities of state-of-the-art video generative models built on Diffusion Transformers (DiTs) to simulate and design mechanical systems, using 2D gear systems as a testbed. 
-        To start with, we first examine off-the-shelf commercial video generative models<sup>*</sup> on their ability to generate plausible gear interactions via first-frame conditioned video generation (I2V) tasks. 
-        As shown below, while these models demonstrate remarkable visual fidelity, they struggle to adhere to basic kinematic constraints, resulting in meshed gears with conflicting rotational directions and mismatched angular velocities.
+       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.
+       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.
     </p>
-    
     <p style="margin-top: 1em;">
         <small><sup>*</sup>Videos were generated using <a href="https://lumalabs.ai" target="_blank" rel="noopener noreferrer">lumalabs.ai</a>.</small>
     </p>
     </div>
     """,
-    "Study 1: Simulating Gear Systems (Sec 4)": """
-    <div>
-    <p>
-        In the simulation task, the model takes the <b>spatial layout of a gear system</b> at the first frame and a conditioning video of <b>a single driving gear</b> as inputs. 
-        The objective is to simulate the motion of the remaining gears while adhering to the kinematic constraints of meshing pairs. 
-        We study both non-autoregressive and autoregressive formulations to assess the VDM's ability to reason about individual gear motion across long chains of gear interactions.
-    </p>
-    </div>
-    """,
-    "Non-autoregressive Simulation": """
-    The non-autoregressive formulation animates the entire gear mechanism simultaneously in a single generation process. 
-    This setting evaluates whether a single generation process is sufficient for the VDM to reason about kinematic dependencies across the long-range interacting gear chains.
-    """,
-    "Autoregressive Simulation": """
-    The autoregressive formulation animates the system through an iterative generative process. 
-    In each generation process, the model only animates gears adjacent to those whose motion has already been determined.
-    """,
-    "Study 2: Designing Gear Systems (Sec 5)": """
-    <div>
-    <p>
-        In the design task, the model is conditioned solely on a video of a single driving gear and must synthesize a functional multi-gear system. 
-        We evaluate whether the VDM can learn to generate gear systems that form a valid tree topology while satisfying kinematic constraints. 
-        Similar to Study 1, we compare the performance of non-autoregressive and autoregressive formulations.
-    </p>
-    </div>
-    """,
-    "Non-autoregressive Design": """
-    The non-autoregressive design synthesizes the entire multi-gear system simultaneously in a single generation process.
-    """,
-    "Autoregressive Design": """
-    The autoregressive design progressively constructs the mechanism, adding a new gear that meshes with the existing system at each step.
-    """,
-    "Quantitative Comparisons": """
-    <div>
-    <p>
-        The table below summarizes simulation accuracy for non-autoregressive and autoregressive formulations. 
-        Overall, both achieve similar performance across metrics.
-    </p>
-    <div class="table-wrap">
-        <table class="latex-table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th colspan="2" class="center cmid">Physical Correctness</th>
-                    <th colspan="3" class="center cmid">Fidelity to GT</th>
-                </tr>
-                <tr class="headrule">
-                    <th># of Gears</th>
-                    <th>Formulation</th>
-                    <th>E<sub>topo</sub> &darr;</th>
-                    <th>E<sub>kine</sub> &darr;</th>
-                    <th>E<sup>GT</sup><sub>topo</sub> &darr;</th>
-                    <th>E<sup>GT</sup><sub>kine</sub> &darr;</th>
-                    <th>E<sup>GT</sup><sub>spat</sub> &darr;</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="midrule">
-                    <td rowspan="2">5</td>
-                    <td>Non-autoregressive</td>
-                    <td data-value="0.0"><span class="u">0.0000</span></td>
-                    <td data-value="0.0085"><span class="u">0.0085</span></td>
-                    <td data-value="0.0"><span class="u">0.0000</span></td>
-                    <td data-value="0.0497"><span class="u">0.0497</span></td>
-                    <td data-value="0.0475">0.0475</td>
-                </tr>
-                <tr>
-                    <td>Autoregressive</td>
-                    <td data-value="0.0"><span class="u">0.0000</span></td>
-                    <td data-value="0.0115">0.0115</td>
-                    <td data-value="0.0"><span class="u">0.0000</span></td>
-                    <td data-value="0.0660">0.0660</td>
-                    <td data-value="0.0402"><span class="u">0.0402</span></td>
-                </tr>
-                <tr class="midrule">
-                    <td rowspan="2">10</td>
-                    <td>Non-autoregressive</td>
-                    <td data-value="0.0"><span class="u">0.0000</span></td>
-                    <td data-value="0.0223"><span class="u">0.0223</span></td>
-                    <td data-value="0.0"><span class="u">0.0000</span></td>
-                    <td data-value="0.1349">0.1349</td>
-                    <td data-value="0.0539">0.0539</td>
-                </tr>
-                <tr>
-                    <td>Autoregressive</td>
-                    <td data-value="0.001">0.001</td>
-                    <td data-value="0.0285">0.0285</td>
-                    <td data-value="0.001">0.001</td>
-                    <td data-value="0.1307"><span class="u">0.1307</span></td>
-                    <td data-value="0.0401"><span class="u">0.0401</span></td>
-                </tr>
-                <tr class="midrule">
-                    <td rowspan="2">15</td>
-                    <td>Non-autoregressive</td>
-                    <td data-value="0.0007">0.0007</td>
-                    <td data-value="0.0224"><span class="u">0.0224</span></td>
-                    <td data-value="0.0013">0.0013</td>
-                    <td data-value="0.1046"><span class="u">0.1046</span></td>
-                    <td data-value="0.0441"><span class="u">0.0441</span></td>
-                </tr>
-                <tr>
-                    <td>Autoregressive</td>
-                    <td data-value="0.0000"><span class="u">0.0000</span></td>
-                    <td data-value="0.0352">0.0352</td>
-                    <td data-value="0.0000"><span class="u">0.0000</span></td>
-                    <td data-value="0.1357">0.1357</td>
-                    <td data-value="0.0732">0.0732</td>
-                </tr>
-                <tr class="midrule">
-                    <td rowspan="2">20</td>
-                    <td>Non-autoregressive</td>
-                    <td data-value="0.0005">0.0005</td>
-                    <td data-value="0.0427">0.0427</td>
-                    <td data-value="0.0005">0.0005</td>
-                    <td data-value="0.1829"><span class="u">0.1829</span></td>
-                    <td data-value="0.0670"><span class="u">0.0670</span></td>
-                </tr>
-                <tr>
-                    <td>Autoregressive</td>
-                    <td data-value="0.0000"><span class="u">0.0000</span></td>
-                    <td data-value="0.0396"><span class="u">0.0396</span></td>
-                    <td data-value="0.0005"><span class="u">0.0005</span></td>
-                    <td data-value="0.1945">0.1945</td>
-                    <td data-value="0.0679">0.0679</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="table-note">
-        Performance Comparison of Non-Autoregressive and Autoregressive Formulations trained and inference on the specific number of gears. Lower values indicate better performance.
-    </div>
-    </div>
-    """,
-    "Per-sample Kinematic Alignment Error": """
-    <div>
-    <p>
-        We plot the per-sample kinematic alignment error (E<sup>GT</sup><sub>kine</sub>) for a 20-gear system, comparing non-autoregressive and autoregressive simulations.
-        Each point corresponds to one sample (x-axis is the sample index); lower values indicate closer agreement with the ground-truth kinematics.
-    </p>
-    <div style="width: 100%; text-align: center;">
-        <img src="per_sample_kinematic_tracking_error.png" alt="Per-sample kinematic alignment error for a 20-gear system." style="max-width: 100%; height: auto;">
-    </div>
-    <p>
-        While most samples maintain low error rates, both formulations occasionally exhibit catastrophic failures that result in sharp error spikes. 
-        As visualized below, their failure modes differ: the non-autoregressive formulation flips rotational parity at a subgraph level, whereas the autoregressive formulation accumulates mistakes following an early incorrect prediction. 
-        Furthremore, autoregressive simulation generally exhibits a slightly higher overall error due to its tendency to compound deviations over iterative generation processes.
-    </p>
-    </div>
-    """,
-    "Failure Cases of Non-autoregressive Simulation": """
-    <div>
-    <p>
-    In non-autoregressive simulation, failures often occur at the subgraph level: a cluster of connected gears is assigned the wrong rotational parity, leading to spikes in kinematic error.
-    </p>
-    <p style="margin-top: 1em;">
-        <small> Note:In the visualization below, green circles denote correct gear movements relative to the ground truth, whereas blue circles denote incorrect motion. </small>
-    </p>
-    </div>
-    """,
-    "Failure Cases of Autoregressive Simulation": """
-    <div>
-    <p>
-    The autoregressive simulation suffers from error accumulation. Once a specific gear is assigned an incorrect movements, later steps inherit and amplify the error.
-    </p>
-    <p style="margin-top: 1em;">
-        <small> Note: In the visualization below, green circles denote correct gear movements relative to the ground truth, whereas blue circles denote incorrect motion. </small>
-    </p>
-    </div>
-    """,
-    "Generalization to Unseen Complexity": """
-    <div>
-    <p>
-        We evaluate zero-shot generalization to unseen gear counts by training and testing on differing numbers of gears. 
-        When the complexity at inference exceeds that of the training set, performance degrades unpredictably for both non-autoregressive and autoregressive simulations. 
-        This drop suggests that the model does not necessarily learn fully generalizable reasoning capabilities, highlighting the necessity of aligning the training data distribution with expected inference complexity to guarantee robust performance.
-    </p>
-    <div class="table-wrap">
-        <table class="latex-table heatmap-generalization">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Metric:</th>
-                    <th colspan="4" class="center cmid">Non-autoregressive</th>
-                    <th colspan="4" class="center cmid sep-left">Autoregressive</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>E<sup>GT</sup><sub>kine</sub> &darr;</th>
-                    <th colspan="4" class="center">Inference</th>
-                    <th colspan="4" class="center sep-left">Inference</th>
-                </tr>
-                <tr class="headrule">
-                    <th></th>
-                    <th></th>
-                    <th>5 Gears</th>
-                    <th>10 Gears</th>
-                    <th>15 Gears</th>
-                    <th>20 Gears</th>
-                    <th class="sep-left">5 Gears</th>
-                    <th>10 Gears</th>
-                    <th>15 Gears</th>
-                    <th>20 Gears</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="midrule">
-                    <th rowspan="4" class="vlabel">Train</th>
-                    <th scope="row">5 Gears</th>
-                    <td data-group="nar" data-value="0.0496">0.0496</td>
-                    <td data-group="nar" data-value="0.2481">0.2481</td>
-                    <td data-group="nar" data-value="0.4025">0.4025</td>
-                    <td data-group="nar" data-value="0.7964">0.7964</td>
-                    <td class="sep-left" data-group="ar" data-value="0.0661">0.0661</td>
-                    <td data-group="ar" data-value="0.0584">0.0584</td>
-                    <td data-group="ar" data-value="0.1360">0.1360</td>
-                    <td data-group="ar" data-value="0.2383">0.2383</td>
-                </tr>
-                <tr>
-                    <th scope="row">10 Gears</th>
-                    <td data-group="nar" data-value="0.0534">0.0534</td>
-                    <td data-group="nar" data-value="0.1349">0.1349</td>
-                    <td data-group="nar" data-value="0.2103">0.2103</td>
-                    <td data-group="nar" data-value="0.3461">0.3461</td>
-                    <td class="sep-left" data-group="ar" data-value="0.0758">0.0758</td>
-                    <td data-group="ar" data-value="0.1101">0.1101</td>
-                    <td data-group="ar" data-value="0.2137">0.2137</td>
-                    <td data-group="ar" data-value="0.2950">0.2950</td>
-                </tr>
-                <tr>
-                    <th scope="row">15 Gears</th>
-                    <td data-group="nar" data-value="0.0459">0.0459</td>
-                    <td data-group="nar" data-value="0.0562">0.0562</td>
-                    <td data-group="nar" data-value="0.1046">0.1046</td>
-                    <td data-group="nar" data-value="0.1676">0.1676</td>
-                    <td class="sep-left" data-group="ar" data-value="0.0983">0.0983</td>
-                    <td data-group="ar" data-value="0.1108">0.1108</td>
-                    <td data-group="ar" data-value="0.1360">0.1360</td>
-                    <td data-group="ar" data-value="0.3076">0.3076</td>
-                </tr>
-                <tr>
-                    <th scope="row">20 Gears</th>
-                    <td data-group="nar" data-value="0.0512">0.0512</td>
-                    <td data-group="nar" data-value="0.0607">0.0607</td>
-                    <td data-group="nar" data-value="0.1853">0.1853</td>
-                    <td data-group="nar" data-value="0.1829">0.1829</td>
-                    <td class="sep-left" data-group="ar" data-value="0.0916">0.0916</td>
-                    <td data-group="ar" data-value="0.0758">0.0758</td>
-                    <td data-group="ar" data-value="0.1185">0.1185</td>
-                    <td data-group="ar" data-value="0.1945">0.1945</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="table-note">
-        Zero-shot generalization across mechanism complexity. We report E<sup>GT</sup><sub>kine</sub> for models trained on a maximum gear count and evaluated at different inference counts.
-    </div>
-    </div>
-    """,
-
-    
-    "PCA Analysis": """
-    <div>
-    <p>
-        While we have observed that video diffusion transformers (DiTs) can simulate gear systems with high success rates after minimal fine-tuning, 
-        an important question arises: how do these models reason about complex kinematic dependencies? 
-        To investigate this, we PCA-visualize the self-attention maps of video diffusion transformers fine-tuned for non-autoregressive simulation task, trained on 20 gear systems.
-    </p>
-    <div style="width: 100%; text-align: center;">
-        <img src="PCA.png" alt="PCA visualization of feature maps." style="max-width: 100%; height: auto;">
-    </div>
-    <p>
-        As visualized above, layer 6 − 21 reveal a form of recursive propagation of signals originating from the driving
-        gear and spreading to its neighbors. 
-        In layer 25, the internal feature maps distinguish gears by its rotational parity.
-        This empirical evidence suggests that the transformer layers may be executing a learned, recursive graph algorithm to 
-        determine the kinematic state of each component. 
-        While we do not claim that diffusion transformers always converge to such algorithmic solutions, these observations 
-        highlight their ability to learn algorithmic reasoning from video data without explicitly being taught to perform such reasoning steps.
-    </p>
-    </div>
-    """,
-    "Ablation: Default training noise schedule": """
-    <div>
-        <p>
-        In this design task, we have observed that naively fine-tuned DiTs struggle to produce valid topological layouts, often generating gears detached from others.
-        The key reasons behind this is that the generation of layout is determined during the extremely high-noise regime (>= 0.98) of the flow path, a phase often overlooked by standard training noise-schedules.
-        </p>
-        <div style="width: 100%; text-align: center; margin-top: 1.5em;">
-            <video src="one_step_pred.mp4" autoplay loop muted playsinline controls style="max-width: 100%; height: auto;"></video>
-            <div class="table-note"><b>One-step predictions in autoregressive design task.</b> Visualization of the one-step predictions along the analytically constructed flow trajectory. The model commits to a specific spatial layout very early in the generation process, with the overall structure already largely determined by &sigma; = 0.98.</div>
-        </div>
-        <div style="width: 100%; text-align: center;">
-            <img src="noise_schedule.png" alt="Noise schedule" style="max-width: 100%; height: auto;">
-            <div class="table-note"> <b>The role of noise levels during generation in the autoregressive design task.</b> <i>Graph:</i> Evolution of the contribution assigned to each candidate gear configuration (represented by individual lines) as a function of the noise level &sigma; along a single analytically constructed generation trajectory. <i>Overlay:</i> Gear configurations whose contributions have converged to zero at each noise level. The analysis shows that the model effectively locks in a particular spatial layout by &sigma; = 0.98, after which generation is dominated by relatively minor refinements. </div>
-        </div>
-        As will be shown below, by simply adjusting the training noise schedule to focus on those extremely high-noise regimes, we observe drastic improvements in the model's ability to generate valid topologies.    
-    </div>
-    """,
-    "Ablation: Non-autoregressive Design":"""
-    When the model is trained with the default noise schedule, the model struggles to learn to generate the correct topological layout.
-    """,
-    "Ablation: Autoregressive Design": """
-    Surprisingly, even in the autoregressive setting, where the task is simplified to generating only a single gear at a time condition on the existing layout, the model trained on the the default noise schedule still struggles to generate gears that are properly attached to the existing system. 
-    """,
-    "Quantitative Analysis": """
-    <div>
-    <p>
-        Consistent with the visual results shown above, we quantitatively demonstrate that our schedule achieves a substantial reduction in topological error for both non-autoregressive and autoregressive settings.
-    </p>
-    <div class="table-wrap">
-        <table class="latex-table">
-            <thead>
-                <tr>
-                    <th rowspan="2">Schedule</th>
-                    <th colspan="2" class="center cmid">Non-autoregressive (NAR)</th>
-                    <th colspan="2" class="center cmid">Autoregressive (AR)</th>
-                </tr>
-                <tr class="headrule">
-                    <th>E<sub>topo</sub> &darr;</th>
-                    <th>E<sub>kine</sub> &darr;</th>
-                    <th>E<sub>topo</sub> &darr;</th>
-                    <th>E<sub>kine</sub> &darr;</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="midrule">
-                    <th scope="row">Original Schedule</th>
-                    <td data-value="0.1306">0.1306</td>
-                    <td data-value="0.1877">0.1877</td>
-                    <td data-value="0.1385">0.1385</td>
-                    <td data-value="0.1695">0.1695</td>
-                </tr>
-                <tr class="midrule">
-                    <th scope="row">Our Schedule</th>
-                    <td data-value="0.0794"><b>0.0794</b></td>
-                    <td data-value="0.1808"><b>0.1808</b></td>
-                    <td data-value="0.0736"><b>0.0736</b></td>
-                    <td data-value="0.1139"><b>0.1139</b></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="table-note">
-        We compare topological and kinematic errors with and without our schedule. All models are trained to generate up to 20 gears. Lower values indicate better performance.
-    </div>
-    </div>
-    """,
-    "Non-autoregressive vs Autoregressive Design": """
-    <div>
-    <p>
-        Finally, we evaluate the performance gap between non-autoregressive and autoregressive models. 
-        The qualitative examples below and quantitative results in the table above demonstrate that autoregressive models demonstrate a much higher frequency of generating valid topologies and kinematic relationships. 
-        This advantage likely stems from the sequential nature of the autoregressive approach, which breaks down complex system generation into manageable, step-by-step gear synthesis for the DiT backbone.
-    </p>
-    </div>
-    """
+   
 }
 
 # --- HTML Template ---
@@ -766,6 +421,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         /* Base styles for Level 1 & 2 Headers */
         .hierarchy-bar {{
             width: 100%;
+            box-sizing: border-box;
             text-align: center; 
             padding: 15px 0; 
             border-radius: 6px;
@@ -1115,7 +771,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 if (!data) return;
 
                 const headerDiv = document.createElement('div');
-                headerDiv.className = "hierarchy-bar level-2-header";
+                headerDiv.className = data.is_text_only ? "hierarchy-bar level-1-header" : "hierarchy-bar level-2-header";
                 headerDiv.style.marginBottom = "40px";
                 headerDiv.innerText = data.title;
                 cardsContainer.appendChild(headerDiv);
@@ -1299,7 +955,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div class="paper-footer">
             <div style="font-weight: 600; margin-bottom: 10px;">Citation</div>
             <div class="citation-block">
-@article{{GearVDM,
+@article{{CoG-DiT,
   title={{{paper_title}}},
   author={{{authors_string}}},
   journal={{Conference Name}},
@@ -1380,6 +1036,25 @@ def generate_single_index(input_folder):
 
     # A. Process Configured Categories
     for category_name, items in SIDEBAR_CONFIG:
+        # A category with no children can still define a text-only page when
+        # its content is present in DATASET_DESCRIPTIONS.
+        if not items and category_name in DATASET_DESCRIPTIONS:
+            dataset_nav_html += f'<button class="dataset-btn level-2" data-target="{category_name}" onclick="navigateToGroup(\'{category_name}\')">{category_name}</button>\n'
+            pages.append({
+                "id": category_name,
+                "title": category_name,
+                "datasets": [category_name],
+                "is_group": False,
+                "is_text_only": True
+            })
+            page_to_first_dataset_map[category_name] = category_name
+            used_datasets.add(category_name)
+            dataset_to_page_map[category_name] = category_name
+            # Keep the text-only section in the overview without adding a
+            # redundant level-2 heading.
+            overview_structure.append((category_name, []))
+            continue
+
         dataset_nav_html += f'<div class="nav-category">{category_name}</div>\n'
         
         cat_subitems = [] 
@@ -1391,8 +1066,15 @@ def generate_single_index(input_folder):
 
             if isinstance(item, tuple):
                 if len(item) == 2 and isinstance(item[1], list):
-                    is_group = True
                     sub_name, sub_datasets = item
+                    # An empty list denotes a text-only entry. If its
+                    # description is configured, treat it as a standalone
+                    # page rather than as an empty group with no content.
+                    if not sub_datasets and sub_name in DATASET_DESCRIPTIONS:
+                        is_group = False
+                        sub_datasets = [sub_name]
+                    else:
+                        is_group = True
                 elif len(item) == 1:
                     is_group = False
                     sub_name = item[0]
@@ -1579,6 +1261,7 @@ def generate_single_index(input_folder):
             "title": page["title"],
             "description": group_description,
             "is_group": page["is_group"],
+            "is_text_only": page.get("is_text_only", False),
             "blocks": []
         }
         
