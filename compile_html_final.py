@@ -35,6 +35,152 @@ ARXIV_LINK = "https://Cog-DiT.github.io/"
 CODE_LINK = "https://Cog-DiT.github.io/"
 
 
+SUCCESS_HEIGHTS = (10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
+SUCCESS_TABLES = {
+    20: (
+        (10, (100, None, None, None, None, None, None, None, None, None)),
+        (20, (100, 100, None, None, None, None, None, None, None, None)),
+        (30, (100, 99, 68, None, None, None, None, None, None, None)),
+        (40, (99, 98, 63, 42, None, None, None, None, None, None)),
+        (50, (98, 86, 49, 23, 12, None, None, None, None, None)),
+        (60, (98, 80, 33, 18, 9, 6, None, None, None, None)),
+        (70, (100, 70, 22, 16, 12, 7, 2, None, None, None)),
+        (80, (100, 54, 19, 7, 10, 3, 2, 3, None, None)),
+        (90, (100, 46, 10, 5, 4, 7, 2, 3, 0, None)),
+        (100, (97, 28, 15, 4, 5, 1, 2, 1, 3, 4)),
+    ),
+    30: (
+        (10, (100, None, None, None, None, None, None, None, None, None)),
+        (20, (100, 99, None, None, None, None, None, None, None, None)),
+        (30, (99, 99, 97, None, None, None, None, None, None, None)),
+        (40, (99, 99, 94, 84, None, None, None, None, None, None)),
+        (50, (99, 98, 86, 74, 58, None, None, None, None, None)),
+        (60, (97, 88, 78, 66, 47, 32, None, None, None, None)),
+        (70, (100, 80, 72, 37, 34, 30, 14, None, None, None)),
+        (80, (100, 70, 59, 31, 27, 16, 11, 12, None, None)),
+        (90, (100, 68, 47, 24, 24, 12, 16, 5, 2, None)),
+        (100, (98, 53, 38, 24, 15, 7, 7, 3, 5, 3)),
+    ),
+    40: (
+        (10, (99, None, None, None, None, None, None, None, None, None)),
+        (20, (99, 99, None, None, None, None, None, None, None, None)),
+        (30, (99, 100, 100, None, None, None, None, None, None, None)),
+        (40, (100, 99, 100, 97, None, None, None, None, None, None)),
+        (50, (99, 97, 98, 96, 84, None, None, None, None, None)),
+        (60, (98, 90, 88, 86, 66, 54, None, None, None, None)),
+        (70, (100, 96, 81, 60, 44, 47, 30, None, None, None)),
+        (80, (100, 92, 78, 58, 46, 31, 25, 17, None, None)),
+        (90, (100, 83, 69, 51, 43, 31, 23, 20, 10, None)),
+        (100, (99, 84, 71, 40, 35, 16, 12, 10, 9, 6)),
+    ),
+    50: (
+        (10, (100, None, None, None, None, None, None, None, None, None)),
+        (20, (100, 100, None, None, None, None, None, None, None, None)),
+        (30, (99, 100, 100, None, None, None, None, None, None, None)),
+        (40, (99, 100, 100, 100, None, None, None, None, None, None)),
+        (50, (99, 99, 97, 98, 95, None, None, None, None, None)),
+        (60, (99, 95, 97, 96, 95, 85, None, None, None, None)),
+        (70, (100, 99, 89, 67, 56, 54, 43, None, None, None)),
+        (80, (100, 97, 84, 62, 57, 42, 35, 31, None, None)),
+        (90, (100, 90, 74, 63, 46, 38, 29, 25, 19, None)),
+        (100, (99, 92, 73, 47, 35, 20, 23, 13, 15, 5)),
+    ),
+    100: (
+        (10, (99, None, None, None, None, None, None, None, None, None)),
+        (20, (100, 98, None, None, None, None, None, None, None, None)),
+        (30, (99, 100, 100, None, None, None, None, None, None, None)),
+        (40, (100, 99, 99, 100, None, None, None, None, None, None)),
+        (50, (99, 96, 97, 95, 97, None, None, None, None, None)),
+        (60, (96, 95, 92, 97, 98, 96, None, None, None, None)),
+        (70, (100, 98, 98, 93, 95, 94, None, None, None, None)),
+        (80, (99, 100, 97, 93, 96, 93, 86, 98, None, None)),
+        (90, (100, 100, 93, 91, 95, 85, 84, 80, 97, None)),
+        (100, (100, 99, 96, 95, 91, 81, 73, 72, 82, 84)),
+    ),
+}
+
+
+def render_success_table(train_limit, rows):
+    """Render one success_all.tex table without duplicating its values in HTML."""
+    headings = "".join(f"<th>{height}</th>" for height in SUCCESS_HEIGHTS)
+    body_rows = []
+    for gear_count, values in rows:
+        cells = []
+        for height, value in zip(SUCCESS_HEIGHTS, values):
+            in_training_envelope = gear_count <= train_limit and height <= gear_count
+            cell_class = ' class="training-region"' if in_training_envelope else ""
+            if value is None:
+                cells.append(f"<td{cell_class}>&mdash;</td>")
+            else:
+                cells.append(f'<td{cell_class} data-value="{value}">{value}</td>')
+        body_rows.append(f'<tr><th scope="row">{gear_count}</th>{"".join(cells)}</tr>')
+    return f"""
+        <section class="success-table-card">
+            <h5>Training: <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; {train_limit}</h5>
+            <div class="table-wrap">
+                <table class="latex-table success-heatmap" aria-label="Simulation success rate after training on up to {train_limit} gears and kinematic height {train_limit}">
+                    <thead>
+                        <tr><th rowspan="2"><i>N</i></th><th colspan="10">Test kinematic height <i>h</i></th></tr>
+                        <tr>{headings}</tr>
+                    </thead>
+                    <tbody>{"".join(body_rows)}</tbody>
+                </table>
+            </div>
+        </section>
+    """
+
+
+def render_mlp_probe_gallery():
+    figures = []
+    for count in (20, 30, 40, 50, 100):
+        filename = f"train_{count}_eval_{count}.png"
+        figures.append(f"""
+            <figure>
+                <a class="pca-media-link" href="data/2.2.%20MLP%20Probing/{filename}" target="_blank" rel="noopener noreferrer">
+                    <img src="data/2.2.%20MLP%20Probing/{filename}" alt="Root-relative parity probing after training and evaluation at {count} gears" loading="lazy" decoding="async">
+                </a>
+                <figcaption><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; {count}; evaluated on the {count}-gear linear chain.</figcaption>
+            </figure>
+        """)
+    return '<div class="mlp-probing-figures analysis2-probe-grid">' + "".join(figures) + "</div>"
+
+
+def render_pairwise_gallery():
+    cases = []
+    for count in (5, 10, 20, 30, 40, 50, 100):
+        static_name = f"pairwise_parity_all_{count}.png"
+        gif_name = f"pairwise_parity_all_{count}.gif"
+        cases.append(f"""
+            <section class="pca-case">
+                <div class="pca-case-header">
+                    <span class="pca-case-label">{count} gears</span>
+                    <h5>Pairwise parity across transformer layers</h5>
+                </div>
+                <p class="pca-case-summary">
+                    Trained through <i>N</i>, <i>h</i> &le; {count} and evaluated on a linear chain of height {count}.
+                    Bright blocks indicate locally accurate parity relations; late-layer agreement across the full matrix indicates global consistency.
+                </p>
+                <div class="pca-media-pair">
+                    <figure class="pca-media-panel">
+                        <div class="pca-media-heading">Paper figure</div>
+                        <a class="pca-media-link" href="data/2.2.%20MLP%20Probing/{static_name}" target="_blank" rel="noopener noreferrer">
+                            <img src="data/2.2.%20MLP%20Probing/{static_name}" alt="Paper figure showing all pairwise parity probing matrices for {count} gears" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption>The exact multi-layer panel included by <code>pairwise_parity_all.tex</code>.</figcaption>
+                    </figure>
+                    <figure class="pca-media-panel">
+                        <div class="pca-media-heading">Layer animation</div>
+                        <a class="pca-media-link" href="data/2.2.%20MLP%20Probing/{gif_name}" target="_blank" rel="noopener noreferrer">
+                            <img src="data/2.2.%20MLP%20Probing/{gif_name}" alt="Animation of pairwise parity probing matrices across transformer layers for {count} gears" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption>The same probe run animated one transformer layer at a time.</figcaption>
+                    </figure>
+                </div>
+            </section>
+        """)
+    return '<div class="pca-analysis-gallery pairwise-gallery">' + "".join(cases) + "</div>"
+
+
 ABSTRACT_TEXT = """
 
 <p>
@@ -475,34 +621,84 @@ DATASET_DESCRIPTIONS = {
     </p>
     """,
     "2.1. PCA Analysis": """
-    <p>
-        Early transformer layers still show propagation near the driving gear, but later layers depart from a single BFS frontier.
-        Parity signals emerge simultaneously in gears that have not yet been reached from the root.
-    </p>
-    <p>
-        These signals are initially consistent only within local neighborhoods.
-        Across subsequent layers, the local parity regions become mutually aligned, suggesting that the model constructs several partial solutions before combining them globally.
-    </p>
+    <div class="pca-analysis-gallery">
+        <div class="pca-lead">
+            <p>
+                Figure <code>fig:PCA_30_30</code> analyzes a model trained on mechanisms with
+                <i>N</i>, <i>h</i> &le; 30 and evaluated on a 30-gear linear chain of height 30.
+                Early transformer layers still propagate information near the driving gear, but later layers no longer follow a single breadth-first frontier.
+            </p>
+            <p>
+                Instead, parity-sensitive features appear simultaneously in distant portions of the chain.
+                They are first consistent inside local neighborhoods and become aligned across neighborhoods in later layers&mdash;the qualitative signature of a divide-and-conquer-like computation.
+            </p>
+        </div>
+        <div class="pca-reading-guide">
+            <b>How to compare the panels.</b>
+            The paper panel uses the authors' manual local-parity grouping to make the emerging regions easy to see.
+            The animation is an inspection-neutral companion: every gear contour, including the driving gear, is overlaid with the same blue color while the underlying PCA frames advance.
+        </div>
+        <section class="pca-case">
+            <div class="pca-case-header">
+                <span class="pca-case-label">30 gears / height 30</span>
+                <h5>Layer-wise PCA: local regions emerge before global alignment</h5>
+            </div>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">Paper figure (manual grouping)</div>
+                    <a class="pca-media-link" href="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30.png" alt="Paper PCA figure for a model trained and evaluated on 30-gear height-30 mechanisms" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>The static image used for <code>fig:PCA_30_30</code>; gear colors encode manually identified local parity-consistent groups.</figcaption>
+                </figure>
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">All frames (automatic blue overlay)</div>
+                    <a class="pca-media-link" href="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30_blue.gif" target="_blank" rel="noopener noreferrer">
+                        <img src="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30_blue.gif" alt="Animated layer-wise PCA for 30 gears with all gear contours automatically overlaid in blue" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>No manual group labels are used: all gears share one blue contour so the PCA evolution can be inspected directly.</figcaption>
+                </figure>
+            </div>
+        </section>
+        <div class="pca-takeaway">
+            <b>Takeaway.</b> The later-layer representation contains parity information for gears that a one-layer-per-depth BFS could not yet have reached. Local agreement preceding global agreement is consistent with parallel subproblem solving followed by merging.
+        </div>
+    </div>
     """,
-    "2.2. MLP Probing": """
+    "2.2. MLP Probing": f"""
     <p>
-        For long chains, root-relative parity probing improves gradually in shallow layers and then rises rapidly in later layers.
-        Pairwise probing reveals why: intermediate representations form clusters with accurate parity relationships inside each cluster but inconsistent relationships between clusters.
+        Root-relative parity probing complements the PCA view. Across the long-chain models below, accuracy grows roughly linearly in shallow layers and rises sharply near the end of the transformer stack.
+        This indicates that early layers create partial parity solutions and later layers consolidate them relative to the driving gear.
     </p>
-    <p>
-        In the final layers, those clusters merge into a globally consistent representation.
-        This local-to-global transition is the quantitative signature of the divide-and-conquer-like strategy.
-    </p>
+    <h5 class="analysis2-subheading">Root-relative parity by layer and kinematic depth</h5>
+    {render_mlp_probe_gallery()}
+    <div class="pca-reading-guide">
+        <b>Pairwise view.</b> Each matrix asks whether a probe can recover the relative parity of every gear pair.
+        Intermediate bright blocks reveal accurate local clusters even when the whole chain is not root-aligned; their merger into a uniformly accurate late-layer matrix exposes the local-to-global transition directly.
+    </div>
+    {render_pairwise_gallery()}
     """,
-    "2.3. Generalizability": """
+    "2.3. Generalizability": f"""
     <p>
-        Divide-and-conquer-like reasoning enables chains deeper than the transformer stack, but it generalizes less reliably than parallel BFS.
-        Even when test height remains within the training range, performance can decline as unseen gear counts introduce new tree structures.
+        The tables below reproduce the simulation success rates from <code>success_all.tex</code> for every model trained on at least 20 gears.
+        Rows are test gear count <i>N</i>, columns are test kinematic height <i>h</i>, and values are success percentages.
+        Red inset borders mark the feasible cells inside each model's training envelope.
     </p>
-    <p>
-        The exception is shallow height (roughly <i>h</i> &le; 10), where the model can still rely on the simpler parallel-BFS mechanism.
-        A likely explanation is that decomposition and merging admit many topology-dependent strategies, so the particular shortcut learned during training may not transfer to novel structures.
+    <div class="success-table-grid">
+        {render_success_table(20, SUCCESS_TABLES[20])}
+        {render_success_table(30, SUCCESS_TABLES[30])}
+        {render_success_table(40, SUCCESS_TABLES[40])}
+        {render_success_table(50, SUCCESS_TABLES[50])}
+        {render_success_table(100, SUCCESS_TABLES[100])}
+    </div>
+    <p class="table-note">
+        Color runs from red (0% success) to green (100% success). Em dashes are entries not reported in the paper table.
     </p>
+    <div class="pca-takeaway">
+        <b>Interpretation.</b> In-distribution long mechanisms are simulated reliably, including heights greater than the 30 transformer layers.
+        Generalization nevertheless weakens as unseen gear counts introduce new topology statistics, even when height is within the training range.
+        Shallow tests around <i>h</i> &le; 10 remain robust because the model can still fall back on parallel BFS; the learned decomposition-and-merge strategy is more sensitive to topology shifts.
+    </div>
     """,
 }
 
@@ -802,11 +998,20 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             line-height: 1.4;
         }}
         .dataset-description:has(.pca-analysis-gallery),
-        .overview-desc:has(.pca-analysis-gallery) {{
+        .overview-desc:has(.pca-analysis-gallery),
+        .dataset-description:has(.success-table-grid),
+        .overview-desc:has(.success-table-grid) {{
             width: 100%;
             max-width: 1400px;
             box-sizing: border-box;
         }}
+        .analysis2-subheading {{
+            margin: 30px 0 8px;
+            color: var(--text-title);
+            font-size: 1.08rem;
+        }}
+        .analysis2-probe-grid {{ margin-bottom: 34px; }}
+        .pairwise-gallery {{ margin-top: 28px; }}
         .pca-analysis-gallery {{
             display: flex;
             flex-direction: column;
@@ -918,6 +1123,30 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             border-radius: 7px;
             background: #f4f7f9;
             color: #38444e;
+        }}
+        .success-table-grid {{
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-top: 26px;
+        }}
+        .success-table-card {{
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            background: #fff;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.045);
+        }}
+        .success-table-card h5 {{
+            margin: 0 0 14px;
+            color: var(--text-title);
+            font-size: 1rem;
+        }}
+        .success-heatmap td[data-value] {{
+            transition: background-color 0.2s ease;
+        }}
+        .success-heatmap td.training-region {{
+            box-shadow: inset 0 0 0 1.5px #d62728;
         }}
         .table-wrap {{ overflow-x: auto; }}
         .table-note {{ font-size: 12px; color: #666; margin-top: 6px; }}
@@ -1201,6 +1430,18 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
                     applyGroup('nar', 1.15);
                     applyGroup('ar', 1.4);
+                }});
+
+                document.querySelectorAll('table.success-heatmap td[data-value]').forEach(cell => {{
+                    const value = Math.max(0, Math.min(100, parseFloat(cell.dataset.value)));
+                    if (Number.isNaN(value)) return;
+                    const t = value / 100;
+                    const low = [248, 180, 180];
+                    const high = [180, 230, 185];
+                    const r = Math.round(low[0] + (high[0] - low[0]) * t);
+                    const g = Math.round(low[1] + (high[1] - low[1]) * t);
+                    const b = Math.round(low[2] + (high[2] - low[2]) * t);
+                    cell.style.backgroundColor = `rgb(${{r}}, ${{g}}, ${{b}})`;
                 }});
             }}
 
