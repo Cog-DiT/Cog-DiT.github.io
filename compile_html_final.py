@@ -68,9 +68,11 @@ SIDEBAR_CONFIG = [
             "50-Gear Count",
             "100-Gear Count"
     ]),
-    ("Analysis Introduction", []),
-    ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", []),
-    ("Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", []),
+    ("Analysis: How does Video Diffusion Transformers simulate gear systems?", [
+                    ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", []),
+                    ("Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", []),
+                ]
+    )
 ]
 
 
@@ -151,6 +153,13 @@ DATASET_DESCRIPTIONS = {
         Here the model is trained and tested up to 100-gear system.
     </p>
     </div>
+    """,
+    "Analysis: How does Video Diffusion Transformers simulate gear systems?": """
+    Given the successful performance on gear simulations, the question arises: how do video diffusion transformers simulate gear mechanisms, given this requires resolving long-chain kinematic dependencies?
+    In this section, we present two distinct reasoning mechanisms that emerge depending on the <b>kinematic height</b> $h$ (i.e., the maximum depth from the driving gear) observed during training.
+    When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. 
+    In contrast, when the model is exposed to larger kinematic heights, for which a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.  
+    The following two sections demonstrate these two reasoning mechanisms, respectively.
     """
 }
 

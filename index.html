@@ -863,6 +863,7 @@
 <button class="dataset-btn level-3" data-target="Qualitative Results" data-dataset="40-Gear Count" data-section="40-Gear Count" onclick="navigateToSection('40-Gear Count')">40-Gear Count</button>
 <button class="dataset-btn level-3" data-target="Qualitative Results" data-dataset="50-Gear Count" data-section="50-Gear Count" onclick="navigateToSection('50-Gear Count')">50-Gear Count</button>
 <button class="dataset-btn level-3" data-target="Qualitative Results" data-dataset="100-Gear Count" data-section="100-Gear Count" onclick="navigateToSection('100-Gear Count')">100-Gear Count</button>
+<button class="dataset-btn level-2" data-target="Analysis: How does Video Diffusion Transformers simulate gear systems?" data-section="Analysis: How does Video Diffusion Transformers simulate gear systems?" onclick="navigateToSection('Analysis: How does Video Diffusion Transformers simulate gear systems?')">Analysis: How does Video Diffusion Transformers simulate gear systems?</button>
 
     </div>
 
@@ -1185,6 +1186,16 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     </div>
                 </div>
                 
+        <div class="hierarchy-bar level-1-header" id="section-Analysis: How does Video Diffusion Transformers simulate gear systems?">
+            Analysis: How does Video Diffusion Transformers simulate gear systems?
+        </div>
+        <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
+    Given the successful performance on gear simulations, the question arises: how do video diffusion transformers simulate gear mechanisms, given this requires resolving long-chain kinematic dependencies?
+    In this section, we present two distinct reasoning mechanisms that emerge depending on the <b>kinematic height</b> $h$ (i.e., the maximum depth from the driving gear) observed during training.
+    When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. 
+    In contrast, when the model is exposed to larger kinematic heights, for which a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.  
+    The following two sections demonstrate these two reasoning mechanisms, respectively.
+    </div>
         </div>
 
         <div id="cards-container" class="container"></div>
