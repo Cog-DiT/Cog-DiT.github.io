@@ -175,8 +175,105 @@ DATASET_DESCRIPTIONS = {
     Notably, this maximum height is smaller than the number of transformer layers 30.
     """,
     "1.1. PCA Analysis": """
-    The PCA analysis reveals an interesting observation:  there is a principal direction that separates features associated with gears of different rotational parity. 
-    Remarkably, this parity signal first emerges around the driving gear, and then progressively propagates to neighboring gears across successive transformer layers, resembling a parallel BFS-like progression.
+    <div class="pca-analysis-gallery">
+        <p class="pca-lead">
+            PCA reveals a principal feature direction that separates gears with opposite rotational parity.
+            This parity signal first appears around the driving gear and then expands to progressively more distant gears across transformer layers, resembling parallel breadth-first search (BFS) over the kinematic tree.
+        </p>
+
+        <div class="pca-reading-guide">
+            <strong>How to read these visualizations.</strong>
+            Within each image, panels progress from earlier to later transformer layers.
+            The animated view sweeps through all video frames while keeping the selected layers fixed; the paper-frame view shows the representative frame selected for the paper.
+            Red contours indicate gears reached by the corresponding ground-truth BFS depth, while cyan contours indicate gears beyond that frontier.
+            Click any visualization to open it at full resolution.
+        </div>
+
+        <article class="pca-case">
+            <div class="pca-case-header">
+                <span class="pca-case-label">(a) In-distribution chain</span>
+                <h5>General-tree training, 10-gear linear-chain evaluation</h5>
+            </div>
+            <p class="pca-case-summary">
+                The model is trained on general kinematic trees with <i>N</i>, <i>h</i> &le; 10 and evaluated on a linear chain with <i>N</i> = <i>h</i> = 10.
+                The parity-aligned PCA direction spreads outward from the driving gear as layer depth increases.
+            </p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">All video frames</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" alt="Animated layer-wise PCA overlays for a 10-gear linear chain" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
+                </figure>
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">Selected paper frame</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png" alt="Selected layer-wise PCA overlays for a 10-gear linear chain" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Representative frames used in the paper figure.</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <article class="pca-case">
+            <div class="pca-case-header">
+                <span class="pca-case-label">(b) Unseen topology</span>
+                <h5>Linear-chain training, branching-tree evaluation</h5>
+            </div>
+            <p class="pca-case-summary">
+                Although training uses only linear chains with <i>N</i>, <i>h</i> &le; 10, the same layer-wise parity propagation appears on an unseen branching topology.
+                This indicates that the learned parallel update generalizes across branching factors.
+            </p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">All video frames</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated layer-wise PCA overlays on an unseen branching gear topology" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
+                </figure>
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">Selected paper frame</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/unseen_PCA.png" alt="Selected layer-wise PCA overlays on an unseen branching gear topology" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Representative frames used in the paper figure.</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <article class="pca-case">
+            <div class="pca-case-header">
+                <span class="pca-case-label">(c) O.O.D. gear count</span>
+                <h5>Training on up to 10 gears, evaluation on 100 gears</h5>
+            </div>
+            <p class="pca-case-summary">
+                The model is evaluated on a 100-gear system while the kinematic height remains in-distribution (<i>h</i> &le; 10).
+                The same depth-by-depth progression scales to many more gears, showing that the learned computation depends on kinematic height rather than total gear count.
+            </p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">All video frames</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated layer-wise PCA overlays for an out-of-distribution 100-gear system" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
+                </figure>
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">Selected paper frame</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" alt="Selected layer-wise PCA overlays for an out-of-distribution 100-gear system" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Representative frames used in the paper figure; open full size to inspect individual gears.</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <p class="pca-takeaway">
+            <strong>Takeaway:</strong> across in-distribution chains, unseen branching structures, and much larger gear systems, the parity-separated feature direction advances outward with transformer depth in a parallel-BFS-like pattern.
+        </p>
+    </div>
     """,
     "1.2. MLP Probing": """
     To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. 
@@ -497,6 +594,124 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             font-size: 0.9rem;
             line-height: 1.4;
         }}
+        .dataset-description:has(.pca-analysis-gallery),
+        .overview-desc:has(.pca-analysis-gallery) {{
+            width: 100%;
+            max-width: 1400px;
+            box-sizing: border-box;
+        }}
+        .pca-analysis-gallery {{
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }}
+        .pca-lead {{
+            max-width: 900px;
+            margin: 0 auto;
+        }}
+        .pca-reading-guide {{
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            box-sizing: border-box;
+            border: 1px solid #cfe3f4;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 7px;
+            background: #f7fbff;
+            color: #3f5060;
+            line-height: 1.6;
+        }}
+        .pca-case {{
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+        }}
+        .pca-case-header {{
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }}
+        .pca-case-label {{
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: var(--bg-level1);
+            color: var(--primary-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }}
+        .pca-case h5 {{
+            margin: 0;
+            color: var(--text-title);
+            font-size: 1.05rem;
+            line-height: 1.4;
+        }}
+        .pca-case-summary {{
+            margin: 0 0 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }}
+        .pca-media-pair {{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            align-items: start;
+        }}
+        .pca-media-panel {{
+            min-width: 0;
+            margin: 0;
+        }}
+        .pca-media-heading {{
+            margin-bottom: 7px;
+            color: #444;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }}
+        .pca-media-link {{
+            display: block;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 7px;
+            background: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }}
+        .pca-media-link:hover {{
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 16px rgba(0, 120, 212, 0.14);
+            transform: translateY(-1px);
+        }}
+        .pca-media-link:focus-visible {{
+            outline: 3px solid rgba(0, 120, 212, 0.35);
+            outline-offset: 2px;
+        }}
+        .pca-media-link img {{
+            display: block;
+            width: 100%;
+            height: auto;
+        }}
+        .pca-media-panel figcaption {{
+            margin-top: 7px;
+            color: #666;
+            font-size: 0.83rem;
+            line-height: 1.45;
+        }}
+        .pca-takeaway {{
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 17px 20px;
+            box-sizing: border-box;
+            border-radius: 7px;
+            background: #f4f7f9;
+            color: #38444e;
+        }}
         .table-wrap {{ overflow-x: auto; }}
         .table-note {{ font-size: 12px; color: #666; margin-top: 6px; }}
         .latex-table {{
@@ -669,6 +884,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
         @media (max-width: 800px) {{
             .mlp-probing-figures {{ grid-template-columns: 1fr; }}
+            .pca-media-pair {{ grid-template-columns: 1fr; }}
+            .pca-case {{ padding: 18px 14px; }}
         }}
     </style>
     <script>

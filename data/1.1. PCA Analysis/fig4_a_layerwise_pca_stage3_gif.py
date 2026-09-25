@@ -6,8 +6,9 @@ five-field example syntax::
 
     BLOCK:HEAD:FEATURE:COMPONENT:FRAME
 
-The final ``FRAME`` value is accepted for command-line compatibility, but is
-ignored: every frame in each selected PCA component GIF is rendered in order.
+The final ``FRAME`` value selects the frame in the companion PNG, just as it
+does in the original stage-3 renderer.  It is ignored only for the animated
+GIF, where every frame in each selected PCA component is rendered in order.
 
 Example (figure a):
 
@@ -81,22 +82,23 @@ def load_static_renderer(path: Path = STATIC_RENDERER_PATH) -> ModuleType:
 
 
 def build_parser(static_renderer: ModuleType):
-    """Extend the original stage-3 CLI with GIF playback controls."""
+    """Extend the original stage-3 CLI with GIF and PNG output controls."""
     parser = static_renderer.build_parser()
     parser.description = (
         "Create an animated paper figure from every frame of selected PCA "
-        "components, with aligned gear outlines."
+        "components and a selected-frame PNG, with aligned gear outlines."
     )
     for action in parser._actions:
         if action.dest == "examples":
             action.help = (
                 "Panels to animate, e.g. --examples 12:3:v:0:7 "
-                "13:all:x:3:9. The required final frame number is parsed but "
-                "ignored; every available frame is rendered."
+                "13:all:x:3:9. The final frame number selects the companion "
+                "PNG frame and is ignored for the all-frame GIF."
             )
         elif action.dest == "output":
             action.help = (
-                "Output GIF path (default: PCA_results/"
+                "Output basename or GIF path; a companion PNG with the same "
+                "basename is also saved (default: PCA_results/"
                 "layerwise_pca_animated_overlays/<timestep>/"
                 "animated_pca_overlays.gif). A different suffix is replaced "
                 "with .gif."
@@ -378,7 +380,7 @@ def save_animation(
 
 
 def main() -> None:
-    """Render all PCA frames with gear overlays and save an animated GIF."""
+    """Save an all-frame GIF and an original-style selected-frame PNG."""
     static_renderer = load_static_renderer()
     args = build_parser(static_renderer).parse_args()
     manual_depth_groups = validate_arguments(args)
@@ -404,10 +406,34 @@ def main() -> None:
         args.output,
         default_output_path(attention_root, timestep_dir),
     )
+    png_output_path = output_path.with_suffix(".png")
     durations = (
         [args.duration_ms] * frame_count
         if args.duration_ms is not None
         else source_durations
+    )
+
+    selected_frames = static_renderer.render_selections(
+        args.examples,
+        timestep_dir,
+        metadata,
+        args.outline_color,
+        args.driving_color,
+        bool(args.color_depth),
+        manual_depth_groups,
+        args.outline_width,
+        args.show_gear_ids,
+        args.circle,
+        args.clean_gear_contour,
+    )
+    static_renderer.save_figure(
+        rendered=selected_frames,
+        output_path=png_output_path,
+        nrow=args.nrow,
+        width=args.width,
+        height=args.height,
+        dpi=args.dpi,
+        font_size=args.font_size,
     )
 
     animation_frames: list[Image.Image] = []
@@ -437,10 +463,12 @@ def main() -> None:
 
     save_animation(animation_frames, output_path, durations, args.loop)
     print(f"Using gear metadata: {metadata_path}")
-    print(
-        "Ignored requested frame indices: "
-        + ", ".join(str(selection.frame) for selection in args.examples)
-    )
+    for item in selected_frames:
+        print(
+            f"Layer {item.selection.block}: selected PCA frame "
+            f"{item.selection.frame}/{item.pca_frame_count} in PNG"
+        )
+    print(f"Saved selected-frame image to {png_output_path}")
     print(f"Saved {frame_count}-frame animation to {output_path}")
 
 

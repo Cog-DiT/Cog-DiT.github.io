@@ -292,6 +292,124 @@
             font-size: 0.9rem;
             line-height: 1.4;
         }
+        .dataset-description:has(.pca-analysis-gallery),
+        .overview-desc:has(.pca-analysis-gallery) {
+            width: 100%;
+            max-width: 1400px;
+            box-sizing: border-box;
+        }
+        .pca-analysis-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .pca-lead {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .pca-reading-guide {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            box-sizing: border-box;
+            border: 1px solid #cfe3f4;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 7px;
+            background: #f7fbff;
+            color: #3f5060;
+            line-height: 1.6;
+        }
+        .pca-case {
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+        }
+        .pca-case-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .pca-case-label {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: var(--bg-level1);
+            color: var(--primary-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .pca-case h5 {
+            margin: 0;
+            color: var(--text-title);
+            font-size: 1.05rem;
+            line-height: 1.4;
+        }
+        .pca-case-summary {
+            margin: 0 0 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .pca-media-pair {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            align-items: start;
+        }
+        .pca-media-panel {
+            min-width: 0;
+            margin: 0;
+        }
+        .pca-media-heading {
+            margin-bottom: 7px;
+            color: #444;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .pca-media-link {
+            display: block;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 7px;
+            background: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .pca-media-link:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 16px rgba(0, 120, 212, 0.14);
+            transform: translateY(-1px);
+        }
+        .pca-media-link:focus-visible {
+            outline: 3px solid rgba(0, 120, 212, 0.35);
+            outline-offset: 2px;
+        }
+        .pca-media-link img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .pca-media-panel figcaption {
+            margin-top: 7px;
+            color: #666;
+            font-size: 0.83rem;
+            line-height: 1.45;
+        }
+        .pca-takeaway {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 17px 20px;
+            box-sizing: border-box;
+            border-radius: 7px;
+            background: #f4f7f9;
+            color: #38444e;
+        }
         .table-wrap { overflow-x: auto; }
         .table-note { font-size: 12px; color: #666; margin-top: 6px; }
         .latex-table {
@@ -464,6 +582,8 @@
 
         @media (max-width: 800px) {
             .mlp-probing-figures { grid-template-columns: 1fr; }
+            .pca-media-pair { grid-template-columns: 1fr; }
+            .pca-case { padding: 18px 14px; }
         }
     </style>
     <script>
@@ -474,7 +594,7 @@
             const overviewVideosMap = {"Task Definition": ["./video/Task Definition/0.mp4", "./video/Task Definition/1.mp4", "./video/Task Definition/2.mp4", "./video/Task Definition/3.mp4", "./video/Task Definition/4.mp4"], "Animating Gear Systems with Commercial Video Models": ["./video/Animating Gear Systems with Commercial Video Models/0.mp4", "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "./video/Animating Gear Systems with Commercial Video Models/3.mp4"], "10-Gear Count": ["./video/10-Gear Count/0.mp4", "./video/10-Gear Count/1.mp4", "./video/10-Gear Count/2.mp4", "./video/10-Gear Count/3.mp4", "./video/10-Gear Count/4.mp4"], "20-Gear Count": ["./video/20-Gear Count/0.mp4", "./video/20-Gear Count/1.mp4", "./video/20-Gear Count/2.mp4", "./video/20-Gear Count/3.mp4", "./video/20-Gear Count/4.mp4", "./video/20-Gear Count/5.mp4"], "30-Gear Count": ["./video/30-Gear Count/0.mp4", "./video/30-Gear Count/1.mp4", "./video/30-Gear Count/2.mp4", "./video/30-Gear Count/3.mp4", "./video/30-Gear Count/4.mp4", "./video/30-Gear Count/5.mp4"], "40-Gear Count": ["./video/40-Gear Count/0.mp4", "./video/40-Gear Count/1.mp4", "./video/40-Gear Count/2.mp4", "./video/40-Gear Count/3.mp4", "./video/40-Gear Count/4.mp4"], "50-Gear Count": ["./video/50-Gear Count/0.mp4", "./video/50-Gear Count/1.mp4", "./video/50-Gear Count/2.mp4", "./video/50-Gear Count/3.mp4", "./video/50-Gear Count/4.mp4"], "100-Gear Count": ["./video/100-Gear Count/0.mp4", "./video/100-Gear Count/1.mp4", "./video/100-Gear Count/2.mp4", "./video/100-Gear Count/3.mp4", "./video/100-Gear Count/4.mp4", "./video/100-Gear Count/5.mp4"], "1.1. PCA Analysis": [], "1.2. MLP Probing": []}; 
             const datasetToPageMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count", "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", "1.1. PCA Analysis": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", "1.2. MLP Probing": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains"}; 
             const pageToFirstDatasetMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count", "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": "1.1. PCA Analysis"};
-            const pagesData = {"Task Definition": {"title": "Task Definition", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Task Definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Task Definition/0.mp4", "caption": ""}, {"src": "./video/Task Definition/1.mp4", "caption": ""}, {"src": "./video/Task Definition/2.mp4", "caption": ""}, {"src": "./video/Task Definition/3.mp4", "caption": ""}, {"src": "./video/Task Definition/4.mp4", "caption": ""}]}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}, "10-Gear Count": {"title": "10-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "10-Gear Count", "description": "\n    <div>\n    <p>\n        Herem the mode is trained and tested up to 10-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/10-Gear Count/0.mp4", "caption": ""}, {"src": "./video/10-Gear Count/1.mp4", "caption": ""}, {"src": "./video/10-Gear Count/2.mp4", "caption": ""}, {"src": "./video/10-Gear Count/3.mp4", "caption": ""}, {"src": "./video/10-Gear Count/4.mp4", "caption": ""}]}]}, "20-Gear Count": {"title": "20-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "20-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 20-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/20-Gear Count/0.mp4", "caption": ""}, {"src": "./video/20-Gear Count/1.mp4", "caption": ""}, {"src": "./video/20-Gear Count/2.mp4", "caption": ""}, {"src": "./video/20-Gear Count/3.mp4", "caption": ""}, {"src": "./video/20-Gear Count/4.mp4", "caption": ""}, {"src": "./video/20-Gear Count/5.mp4", "caption": ""}]}]}, "30-Gear Count": {"title": "30-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "30-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 30-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/30-Gear Count/0.mp4", "caption": ""}, {"src": "./video/30-Gear Count/1.mp4", "caption": ""}, {"src": "./video/30-Gear Count/2.mp4", "caption": ""}, {"src": "./video/30-Gear Count/3.mp4", "caption": ""}, {"src": "./video/30-Gear Count/4.mp4", "caption": ""}, {"src": "./video/30-Gear Count/5.mp4", "caption": ""}]}]}, "40-Gear Count": {"title": "40-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "40-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 40-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/40-Gear Count/0.mp4", "caption": ""}, {"src": "./video/40-Gear Count/1.mp4", "caption": ""}, {"src": "./video/40-Gear Count/2.mp4", "caption": ""}, {"src": "./video/40-Gear Count/3.mp4", "caption": ""}, {"src": "./video/40-Gear Count/4.mp4", "caption": ""}]}]}, "50-Gear Count": {"title": "50-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "50-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 50-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/50-Gear Count/0.mp4", "caption": ""}, {"src": "./video/50-Gear Count/1.mp4", "caption": ""}, {"src": "./video/50-Gear Count/2.mp4", "caption": ""}, {"src": "./video/50-Gear Count/3.mp4", "caption": ""}, {"src": "./video/50-Gear Count/4.mp4", "caption": ""}]}]}, "100-Gear Count": {"title": "100-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "100-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 100-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/100-Gear Count/0.mp4", "caption": ""}, {"src": "./video/100-Gear Count/1.mp4", "caption": ""}, {"src": "./video/100-Gear Count/2.mp4", "caption": ""}, {"src": "./video/100-Gear Count/3.mp4", "caption": ""}, {"src": "./video/100-Gear Count/4.mp4", "caption": ""}, {"src": "./video/100-Gear Count/5.mp4", "caption": ""}]}]}, "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": {"title": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", "description": "\n    We begin by demonstrating the emergence of parallel BFS reasoning by training a video DiT on gear mechanisms with kinematic heights up to 10, which require only short-chain reasoning, and then performing feature probing.\n    Notably, this maximum height is smaller than the number of transformer layers 30.\n    ", "is_group": true, "is_text_only": false, "blocks": [{"id": "1.1. PCA Analysis", "description": "\n    The PCA analysis reveals an interesting observation:  there is a principal direction that separates features associated with gears of different rotational parity. \n    Remarkably, this parity signal first emerges around the driving gear, and then progressively propagates to neighboring gears across successive transformer layers, resembling a parallel BFS-like progression.\n    ", "videos": []}, {"id": "1.2. MLP Probing", "description": "\n    To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. \n    As shown below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.\n\n    <div class=\"mlp-probing-figures\">\n        <figure>\n            <a href=\"1.2 MLP Probing/train_10_eval_10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"1.2 MLP Probing/train_10_eval_10.png\" alt=\"MLP probing results for training and evaluation on kinematic height 10\" loading=\"lazy\">\n            </a>\n            <figcaption>Training height 10; evaluation height 10.</figcaption>\n        </figure>\n        <figure>\n            <a href=\"1.2 MLP Probing/train_5_eval_5.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"1.2 MLP Probing/train_5_eval_5.png\" alt=\"MLP probing results for training and evaluation on kinematic height 5\" loading=\"lazy\">\n            </a>\n            <figcaption>Training height 5; evaluation height 5.</figcaption>\n        </figure>\n    </div>\n    ", "videos": []}]}};
+            const pagesData = {"Task Definition": {"title": "Task Definition", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Task Definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Task Definition/0.mp4", "caption": ""}, {"src": "./video/Task Definition/1.mp4", "caption": ""}, {"src": "./video/Task Definition/2.mp4", "caption": ""}, {"src": "./video/Task Definition/3.mp4", "caption": ""}, {"src": "./video/Task Definition/4.mp4", "caption": ""}]}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}, "10-Gear Count": {"title": "10-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "10-Gear Count", "description": "\n    <div>\n    <p>\n        Herem the mode is trained and tested up to 10-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/10-Gear Count/0.mp4", "caption": ""}, {"src": "./video/10-Gear Count/1.mp4", "caption": ""}, {"src": "./video/10-Gear Count/2.mp4", "caption": ""}, {"src": "./video/10-Gear Count/3.mp4", "caption": ""}, {"src": "./video/10-Gear Count/4.mp4", "caption": ""}]}]}, "20-Gear Count": {"title": "20-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "20-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 20-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/20-Gear Count/0.mp4", "caption": ""}, {"src": "./video/20-Gear Count/1.mp4", "caption": ""}, {"src": "./video/20-Gear Count/2.mp4", "caption": ""}, {"src": "./video/20-Gear Count/3.mp4", "caption": ""}, {"src": "./video/20-Gear Count/4.mp4", "caption": ""}, {"src": "./video/20-Gear Count/5.mp4", "caption": ""}]}]}, "30-Gear Count": {"title": "30-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "30-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 30-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/30-Gear Count/0.mp4", "caption": ""}, {"src": "./video/30-Gear Count/1.mp4", "caption": ""}, {"src": "./video/30-Gear Count/2.mp4", "caption": ""}, {"src": "./video/30-Gear Count/3.mp4", "caption": ""}, {"src": "./video/30-Gear Count/4.mp4", "caption": ""}, {"src": "./video/30-Gear Count/5.mp4", "caption": ""}]}]}, "40-Gear Count": {"title": "40-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "40-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 40-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/40-Gear Count/0.mp4", "caption": ""}, {"src": "./video/40-Gear Count/1.mp4", "caption": ""}, {"src": "./video/40-Gear Count/2.mp4", "caption": ""}, {"src": "./video/40-Gear Count/3.mp4", "caption": ""}, {"src": "./video/40-Gear Count/4.mp4", "caption": ""}]}]}, "50-Gear Count": {"title": "50-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "50-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 50-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/50-Gear Count/0.mp4", "caption": ""}, {"src": "./video/50-Gear Count/1.mp4", "caption": ""}, {"src": "./video/50-Gear Count/2.mp4", "caption": ""}, {"src": "./video/50-Gear Count/3.mp4", "caption": ""}, {"src": "./video/50-Gear Count/4.mp4", "caption": ""}]}]}, "100-Gear Count": {"title": "100-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "100-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 100-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/100-Gear Count/0.mp4", "caption": ""}, {"src": "./video/100-Gear Count/1.mp4", "caption": ""}, {"src": "./video/100-Gear Count/2.mp4", "caption": ""}, {"src": "./video/100-Gear Count/3.mp4", "caption": ""}, {"src": "./video/100-Gear Count/4.mp4", "caption": ""}, {"src": "./video/100-Gear Count/5.mp4", "caption": ""}]}]}, "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": {"title": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", "description": "\n    We begin by demonstrating the emergence of parallel BFS reasoning by training a video DiT on gear mechanisms with kinematic heights up to 10, which require only short-chain reasoning, and then performing feature probing.\n    Notably, this maximum height is smaller than the number of transformer layers 30.\n    ", "is_group": true, "is_text_only": false, "blocks": [{"id": "1.1. PCA Analysis", "description": "\n    <div class=\"pca-analysis-gallery\">\n        <p class=\"pca-lead\">\n            PCA reveals a principal feature direction that separates gears with opposite rotational parity.\n            This parity signal first appears around the driving gear and then expands to progressively more distant gears across transformer layers, resembling parallel breadth-first search (BFS) over the kinematic tree.\n        </p>\n\n        <div class=\"pca-reading-guide\">\n            <strong>How to read these visualizations.</strong>\n            Within each image, panels progress from earlier to later transformer layers.\n            The animated view sweeps through all video frames while keeping the selected layers fixed; the paper-frame view shows the representative frame selected for the paper.\n            Red contours indicate gears reached by the corresponding ground-truth BFS depth, while cyan contours indicate gears beyond that frontier.\n            Click any visualization to open it at full resolution.\n        </div>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(a) In-distribution chain</span>\n                <h5>General-tree training, 10-gear linear-chain evaluation</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                The model is trained on general kinematic trees with <i>N</i>, <i>h</i> &le; 10 and evaluated on a linear chain with <i>N</i> = <i>h</i> = 10.\n                The parity-aligned PCA direction spreads outward from the driving gear as layer depth increases.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif\" alt=\"Animated layer-wise PCA overlays for a 10-gear linear chain\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png\" alt=\"Selected layer-wise PCA overlays for a 10-gear linear chain\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(b) Unseen topology</span>\n                <h5>Linear-chain training, branching-tree evaluation</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                Although training uses only linear chains with <i>N</i>, <i>h</i> &le; 10, the same layer-wise parity propagation appears on an unseen branching topology.\n                This indicates that the learned parallel update generalizes across branching factors.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/unseen_PCA.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/unseen_PCA.gif\" alt=\"Animated layer-wise PCA overlays on an unseen branching gear topology\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/unseen_PCA.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/unseen_PCA.png\" alt=\"Selected layer-wise PCA overlays on an unseen branching gear topology\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(c) O.O.D. gear count</span>\n                <h5>Training on up to 10 gears, evaluation on 100 gears</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                The model is evaluated on a 100-gear system while the kinematic height remains in-distribution (<i>h</i> &le; 10).\n                The same depth-by-depth progression scales to many more gears, showing that the learned computation depends on kinematic height rather than total gear count.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif\" alt=\"Animated layer-wise PCA overlays for an out-of-distribution 100-gear system\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png\" alt=\"Selected layer-wise PCA overlays for an out-of-distribution 100-gear system\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure; open full size to inspect individual gears.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <p class=\"pca-takeaway\">\n            <strong>Takeaway:</strong> across in-distribution chains, unseen branching structures, and much larger gear systems, the parity-separated feature direction advances outward with transformer depth in a parallel-BFS-like pattern.\n        </p>\n    </div>\n    ", "videos": []}, {"id": "1.2. MLP Probing", "description": "\n    To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. \n    As shown below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.\n\n    <div class=\"mlp-probing-figures\">\n        <figure>\n            <a href=\"1.2 MLP Probing/train_10_eval_10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"1.2 MLP Probing/train_10_eval_10.png\" alt=\"MLP probing results for training and evaluation on kinematic height 10\" loading=\"lazy\">\n            </a>\n            <figcaption>Training height 10; evaluation height 10.</figcaption>\n        </figure>\n        <figure>\n            <a href=\"1.2 MLP Probing/train_5_eval_5.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"1.2 MLP Probing/train_5_eval_5.png\" alt=\"MLP probing results for training and evaluation on kinematic height 5\" loading=\"lazy\">\n            </a>\n            <figcaption>Training height 5; evaluation height 5.</figcaption>\n        </figure>\n    </div>\n    ", "videos": []}]}};
 
             const carouselIndices = {};
 
@@ -1242,8 +1362,105 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                         </div>
                         
                         <div class="overview-desc">
-    The PCA analysis reveals an interesting observation:  there is a principal direction that separates features associated with gears of different rotational parity. 
-    Remarkably, this parity signal first emerges around the driving gear, and then progressively propagates to neighboring gears across successive transformer layers, resembling a parallel BFS-like progression.
+    <div class="pca-analysis-gallery">
+        <p class="pca-lead">
+            PCA reveals a principal feature direction that separates gears with opposite rotational parity.
+            This parity signal first appears around the driving gear and then expands to progressively more distant gears across transformer layers, resembling parallel breadth-first search (BFS) over the kinematic tree.
+        </p>
+
+        <div class="pca-reading-guide">
+            <strong>How to read these visualizations.</strong>
+            Within each image, panels progress from earlier to later transformer layers.
+            The animated view sweeps through all video frames while keeping the selected layers fixed; the paper-frame view shows the representative frame selected for the paper.
+            Red contours indicate gears reached by the corresponding ground-truth BFS depth, while cyan contours indicate gears beyond that frontier.
+            Click any visualization to open it at full resolution.
+        </div>
+
+        <article class="pca-case">
+            <div class="pca-case-header">
+                <span class="pca-case-label">(a) In-distribution chain</span>
+                <h5>General-tree training, 10-gear linear-chain evaluation</h5>
+            </div>
+            <p class="pca-case-summary">
+                The model is trained on general kinematic trees with <i>N</i>, <i>h</i> &le; 10 and evaluated on a linear chain with <i>N</i> = <i>h</i> = 10.
+                The parity-aligned PCA direction spreads outward from the driving gear as layer depth increases.
+            </p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">All video frames</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" alt="Animated layer-wise PCA overlays for a 10-gear linear chain" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
+                </figure>
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">Selected paper frame</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png" alt="Selected layer-wise PCA overlays for a 10-gear linear chain" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Representative frames used in the paper figure.</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <article class="pca-case">
+            <div class="pca-case-header">
+                <span class="pca-case-label">(b) Unseen topology</span>
+                <h5>Linear-chain training, branching-tree evaluation</h5>
+            </div>
+            <p class="pca-case-summary">
+                Although training uses only linear chains with <i>N</i>, <i>h</i> &le; 10, the same layer-wise parity propagation appears on an unseen branching topology.
+                This indicates that the learned parallel update generalizes across branching factors.
+            </p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">All video frames</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated layer-wise PCA overlays on an unseen branching gear topology" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
+                </figure>
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">Selected paper frame</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/unseen_PCA.png" alt="Selected layer-wise PCA overlays on an unseen branching gear topology" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Representative frames used in the paper figure.</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <article class="pca-case">
+            <div class="pca-case-header">
+                <span class="pca-case-label">(c) O.O.D. gear count</span>
+                <h5>Training on up to 10 gears, evaluation on 100 gears</h5>
+            </div>
+            <p class="pca-case-summary">
+                The model is evaluated on a 100-gear system while the kinematic height remains in-distribution (<i>h</i> &le; 10).
+                The same depth-by-depth progression scales to many more gears, showing that the learned computation depends on kinematic height rather than total gear count.
+            </p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">All video frames</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated layer-wise PCA overlays for an out-of-distribution 100-gear system" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
+                </figure>
+                <figure class="pca-media-panel">
+                    <div class="pca-media-heading">Selected paper frame</div>
+                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" alt="Selected layer-wise PCA overlays for an out-of-distribution 100-gear system" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Representative frames used in the paper figure; open full size to inspect individual gears.</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <p class="pca-takeaway">
+            <strong>Takeaway:</strong> across in-distribution chains, unseen branching structures, and much larger gear systems, the parity-separated feature direction advances outward with transformer depth in a parallel-BFS-like pattern.
+        </p>
+    </div>
     </div>
                     </div>
                     
