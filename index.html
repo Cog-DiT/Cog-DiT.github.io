@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>When Video Diffusion Transformers Meet Long-Chain Kinematic Reasoning: A Study of 2D Gear Systems</title>
     <meta name="description" content="When Video Diffusion Transformers Meet Long-Chain Kinematic Reasoning: A Study of 2D Gear Systems">
-    
+
     <style>
         :root {
             /* --- COLOR PALETTE --- */
-            --primary-color: #0078d4;        
-            --primary-hover: #005a9e;        
-            --text-main: #333333;            
-            --text-title: #222222;           
-            --text-secondary: #555555;       
+            --primary-color: #0078d4;
+            --primary-hover: #005a9e;
+            --text-main: #333333;
+            --text-title: #222222;
+            --text-secondary: #555555;
             --bg-sidebar: #f4f4f4;
             --bg-body: #ffffff;
             --border-color: #e0e0e0;
             --bg-section: #f4f4f4;
-            --bg-level1: #e6f2fb; 
-            
+            --bg-level1: #e6f2fb;
+
             /* Standard System Sans-Serif Stack */
             --font-stack: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
         }
@@ -30,7 +30,7 @@
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            display: flex; 
+            display: flex;
             overflow-x: hidden;
         }
 
@@ -44,27 +44,27 @@
             top: -9999px;
             left: -9999px;
         }
-        
+
         /* --- Sidebar --- */
         .dataset-nav {
             position: fixed;
             top: 0;
             left: 0;
-            width: 250px; 
+            width: 250px;
             height: 100vh;
             background-color: var(--bg-sidebar);
             border-right: 1px solid #d0d0d0;
-            padding-top: 60px; 
+            padding-top: 60px;
             padding-left: 0;
             padding-right: 0;
             z-index: 1002;
             display: flex;
-            flex-direction: column; 
-            gap: 2px; 
-            overflow-y: auto; 
+            flex-direction: column;
+            gap: 2px;
+            overflow-y: auto;
             overflow-x: hidden;
             box-sizing: border-box;
-            transition: width 0.3s ease; 
+            transition: width 0.3s ease;
         }
 
         .dataset-nav::-webkit-scrollbar { width: 5px; }
@@ -73,8 +73,8 @@
 
         .nav-category {
             font-size: 11px;
-            text-transform: none; 
-            color: #777; 
+            text-transform: none;
+            color: #777;
             font-weight: 700;
             margin-top: 25px;
             margin-bottom: 5px;
@@ -83,7 +83,7 @@
             white-space: nowrap;
             transition: opacity 0.2s ease;
         }
-        
+
         .nav-subcategory {
             font-size: 12px;
             color: #444;
@@ -102,9 +102,9 @@
             border-left: 4px solid transparent;
             cursor: pointer;
             text-align: left;
-            word-break: break-word; 
-            white-space: normal;    
-            line-height: 1.4;        
+            word-break: break-word;
+            white-space: normal;
+            line-height: 1.4;
             transition: all 0.2s ease;
             font-family: var(--font-stack);
             width: 100%;
@@ -137,7 +137,7 @@
         .dataset-btn.level-2 {
             font-size: 13px;
             font-weight: 600;
-            padding: 8px 15px 8px 15px; 
+            padding: 8px 15px 8px 15px;
             margin-top: 2px;
             color: #333;
         }
@@ -149,9 +149,9 @@
             padding: 6px 15px 6px 30px; /* Indented */
             color: #555;
         }
-        
+
         .dataset-btn.level-3.active {
-             background-color: #f0f8ff; 
+             background-color: #f0f8ff;
              color: var(--primary-color);
         }
 
@@ -159,7 +159,7 @@
         #sidebar-toggle {
             position: fixed;
             top: 10px;
-            left: 5px; 
+            left: 5px;
             z-index: 1003;
             background-color: #fff;
             border: 1px solid #ccc;
@@ -183,12 +183,12 @@
         /* --- Main Content --- */
         .main-content {
             margin-left: 250px;
-            width: calc(100% - 250px); 
+            width: calc(100% - 250px);
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: margin-left 0.3s ease, width 0.3s ease;
-            box-sizing: border-box; 
+            box-sizing: border-box;
         }
 
         .paper-header {
@@ -204,12 +204,12 @@
         .paper-title {
             font-family: Georgia, 'Times New Roman', Times, serif;
             font-size: 2.2rem;
-            font-weight: 400; 
-            color: #444; 
+            font-weight: 400;
+            color: #444;
             margin: 0 auto 20px auto;
             line-height: 1.3;
             max-width: 900px;
-            letter-spacing: -0.2px; 
+            letter-spacing: -0.2px;
         }
 
         .paper-authors, .paper-institutions {
@@ -256,14 +256,14 @@
             border-radius: 50px; font-size: 14px; font-family: var(--font-stack);
             font-weight: 600; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.2s, background-color 0.2s; display: none; 
+            transition: transform 0.2s, background-color 0.2s; display: none;
             align-items: center; gap: 8px; letter-spacing: 0.3px;
         }
         .back-btn:hover { transform: translateY(-2px); background-color: #000; box-shadow: 0 8px 25px rgba(0,0,0,0.25); }
 
         /* --- Page & Dataset Styles --- */
         .content-block { margin-bottom: 80px; width: 100%; display: flex; flex-direction: column; align-items: center; scroll-margin-top: 80px; gap: 40px; }
-        
+
         h2.dataset-title { font-family: var(--font-stack); font-size: 1.6rem; font-weight: 400; color: var(--text-title); margin-bottom: 15px; border-bottom: 3px solid var(--primary-color); padding-bottom: 8px; display: inline-block; }
         h3.content-subtitle { font-size: 1.4rem; color: #444; margin-top: 0; margin-bottom: 10px; font-weight: 600; }
         .dataset-description { font-size: 1.05rem; color: var(--text-secondary); max-width: 800px; text-align: left; line-height: 1.7; margin: 0 auto 30px auto; padding: 0 20px; }
@@ -458,23 +458,23 @@
 
         /* --- Overview Styling --- */
         .overview-container { width: 98%; max-width: 1600px; padding: 0 20px 100px 20px; display: none; box-sizing: border-box; margin: 0 auto; }
-        
+
         .abstract-section { max-width: 900px; margin: 0 auto 60px auto; text-align: justify; background-color: #ffffff; padding: 30px 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; }
         .abstract-title { text-align: center; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; color: #444; margin-bottom: 15px; letter-spacing: 1px; }
         .abstract-content { font-size: 1.05rem; line-height: 1.8; color: #333; }
 
         /* === HIERARCHY STYLES (UPDATED) === */
-        
+
         /* Base styles for Level 1 & 2 Headers */
         .hierarchy-bar {
             width: 100%;
             box-sizing: border-box;
-            text-align: center; 
-            padding: 15px 0; 
+            text-align: center;
+            padding: 15px 0;
             border-radius: 6px;
             font-family: var(--font-stack);
             margin-bottom: 30px;
-            text-transform: none; 
+            text-transform: none;
             letter-spacing: 1px;
             font-weight: 600;
         }
@@ -485,7 +485,7 @@
             margin-top: 60px;
             background-color: var(--bg-level1); /* Solid Light Blue Color */
             color: var(--primary-color);
-            box-shadow: none; 
+            box-shadow: none;
             border-left: 5px solid var(--primary-color);
             border-top: none;
         }
@@ -495,8 +495,8 @@
             font-size: 1.25rem;
             margin-top: 30px;
             background-color: #f9f9f9;
-            color: #444; 
-            box-shadow: none; 
+            color: #444;
+            box-shadow: none;
             border: 1px solid #eee;
             border-left: 5px solid var(--primary-color);
         }
@@ -504,8 +504,8 @@
         /* LEVEL 3: Underscore Style (Content Title) */
         .level-3-header {
             font-family: var(--font-stack);
-            font-size: 1.3rem; 
-            color: #222; 
+            font-size: 1.3rem;
+            color: #222;
             margin: 0;
             font-weight: 600;
             display: inline-block;
@@ -564,13 +564,13 @@
         /* Cards */
         .container { display: flex; flex-direction: column; align-items: center; gap: 50px; padding-bottom: 100px; width: 98%; max-width: 1600px; box-sizing: border-box; padding-top: 20px; }
         .card { background-color: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; border: 1px solid #e0e0e0; display: block; transition: transform 0.2s ease; }
-        
+
         /* --- FIX: Ensure videos inside cards do not exceed screen width --- */
         .card video { width: 100%; height: auto; display: block; }
-        
+
         .caption-box { padding: 25px; background-color: #fff; border-top: 1px solid #eee; font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; line-height: 1.6; white-space: pre-wrap; color: #333; }
         .caption-line { display: block; }
-        
+
         .page-view { display: none; width: 100%; flex-direction: column; align-items: center; }
         .page-view.active { display: flex; }
 
@@ -590,11 +590,11 @@
         document.addEventListener("DOMContentLoaded", function() {
             const toggleBtn = document.getElementById('sidebar-toggle');
             const body = document.body;
-            
-            const overviewVideosMap = {"Task Definition": ["./video/Task Definition/0.mp4", "./video/Task Definition/1.mp4", "./video/Task Definition/2.mp4", "./video/Task Definition/3.mp4", "./video/Task Definition/4.mp4"], "Animating Gear Systems with Commercial Video Models": ["./video/Animating Gear Systems with Commercial Video Models/0.mp4", "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "./video/Animating Gear Systems with Commercial Video Models/3.mp4"], "10-Gear Count": ["./video/10-Gear Count/0.mp4", "./video/10-Gear Count/1.mp4", "./video/10-Gear Count/2.mp4", "./video/10-Gear Count/3.mp4", "./video/10-Gear Count/4.mp4"], "20-Gear Count": ["./video/20-Gear Count/0.mp4", "./video/20-Gear Count/1.mp4", "./video/20-Gear Count/2.mp4", "./video/20-Gear Count/3.mp4", "./video/20-Gear Count/4.mp4", "./video/20-Gear Count/5.mp4"], "30-Gear Count": ["./video/30-Gear Count/0.mp4", "./video/30-Gear Count/1.mp4", "./video/30-Gear Count/2.mp4", "./video/30-Gear Count/3.mp4", "./video/30-Gear Count/4.mp4", "./video/30-Gear Count/5.mp4"], "40-Gear Count": ["./video/40-Gear Count/0.mp4", "./video/40-Gear Count/1.mp4", "./video/40-Gear Count/2.mp4", "./video/40-Gear Count/3.mp4", "./video/40-Gear Count/4.mp4"], "50-Gear Count": ["./video/50-Gear Count/0.mp4", "./video/50-Gear Count/1.mp4", "./video/50-Gear Count/2.mp4", "./video/50-Gear Count/3.mp4", "./video/50-Gear Count/4.mp4"], "100-Gear Count": ["./video/100-Gear Count/0.mp4", "./video/100-Gear Count/1.mp4", "./video/100-Gear Count/2.mp4", "./video/100-Gear Count/3.mp4", "./video/100-Gear Count/4.mp4", "./video/100-Gear Count/5.mp4"], "1.1. PCA Analysis": [], "1.2. MLP Probing": []}; 
-            const datasetToPageMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count", "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", "1.1. PCA Analysis": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", "1.2. MLP Probing": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains"}; 
-            const pageToFirstDatasetMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count", "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": "1.1. PCA Analysis"};
-            const pagesData = {"Task Definition": {"title": "Task Definition", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Task Definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Task Definition/0.mp4", "caption": ""}, {"src": "./video/Task Definition/1.mp4", "caption": ""}, {"src": "./video/Task Definition/2.mp4", "caption": ""}, {"src": "./video/Task Definition/3.mp4", "caption": ""}, {"src": "./video/Task Definition/4.mp4", "caption": ""}]}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}, "10-Gear Count": {"title": "10-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "10-Gear Count", "description": "\n    <div>\n    <p>\n        Herem the mode is trained and tested up to 10-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/10-Gear Count/0.mp4", "caption": ""}, {"src": "./video/10-Gear Count/1.mp4", "caption": ""}, {"src": "./video/10-Gear Count/2.mp4", "caption": ""}, {"src": "./video/10-Gear Count/3.mp4", "caption": ""}, {"src": "./video/10-Gear Count/4.mp4", "caption": ""}]}]}, "20-Gear Count": {"title": "20-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "20-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 20-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/20-Gear Count/0.mp4", "caption": ""}, {"src": "./video/20-Gear Count/1.mp4", "caption": ""}, {"src": "./video/20-Gear Count/2.mp4", "caption": ""}, {"src": "./video/20-Gear Count/3.mp4", "caption": ""}, {"src": "./video/20-Gear Count/4.mp4", "caption": ""}, {"src": "./video/20-Gear Count/5.mp4", "caption": ""}]}]}, "30-Gear Count": {"title": "30-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "30-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 30-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/30-Gear Count/0.mp4", "caption": ""}, {"src": "./video/30-Gear Count/1.mp4", "caption": ""}, {"src": "./video/30-Gear Count/2.mp4", "caption": ""}, {"src": "./video/30-Gear Count/3.mp4", "caption": ""}, {"src": "./video/30-Gear Count/4.mp4", "caption": ""}, {"src": "./video/30-Gear Count/5.mp4", "caption": ""}]}]}, "40-Gear Count": {"title": "40-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "40-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 40-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/40-Gear Count/0.mp4", "caption": ""}, {"src": "./video/40-Gear Count/1.mp4", "caption": ""}, {"src": "./video/40-Gear Count/2.mp4", "caption": ""}, {"src": "./video/40-Gear Count/3.mp4", "caption": ""}, {"src": "./video/40-Gear Count/4.mp4", "caption": ""}]}]}, "50-Gear Count": {"title": "50-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "50-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 50-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/50-Gear Count/0.mp4", "caption": ""}, {"src": "./video/50-Gear Count/1.mp4", "caption": ""}, {"src": "./video/50-Gear Count/2.mp4", "caption": ""}, {"src": "./video/50-Gear Count/3.mp4", "caption": ""}, {"src": "./video/50-Gear Count/4.mp4", "caption": ""}]}]}, "100-Gear Count": {"title": "100-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "100-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 100-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/100-Gear Count/0.mp4", "caption": ""}, {"src": "./video/100-Gear Count/1.mp4", "caption": ""}, {"src": "./video/100-Gear Count/2.mp4", "caption": ""}, {"src": "./video/100-Gear Count/3.mp4", "caption": ""}, {"src": "./video/100-Gear Count/4.mp4", "caption": ""}, {"src": "./video/100-Gear Count/5.mp4", "caption": ""}]}]}, "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": {"title": "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", "description": "\n    We begin by demonstrating the emergence of parallel BFS reasoning by training a video DiT on gear mechanisms with kinematic heights up to 10, which require only short-chain reasoning, and then performing feature probing.\n    Notably, this maximum height is smaller than the number of transformer layers 30.\n    ", "is_group": true, "is_text_only": false, "blocks": [{"id": "1.1. PCA Analysis", "description": "\n    <div class=\"pca-analysis-gallery\">\n        <p class=\"pca-lead\">\n            PCA reveals a principal feature direction that separates gears with opposite rotational parity.\n            This parity signal first appears around the driving gear and then expands to progressively more distant gears across transformer layers, resembling parallel breadth-first search (BFS) over the kinematic tree.\n        </p>\n\n        <div class=\"pca-reading-guide\">\n            <strong>How to read these visualizations.</strong>\n            Within each image, panels progress from earlier to later transformer layers.\n            The animated view sweeps through all video frames while keeping the selected layers fixed; the paper-frame view shows the representative frame selected for the paper.\n            Red contours indicate gears reached by the corresponding ground-truth BFS depth, while cyan contours indicate gears beyond that frontier.\n            Click any visualization to open it at full resolution.\n        </div>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(a) In-distribution chain</span>\n                <h5>General-tree training, 10-gear linear-chain evaluation</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                The model is trained on general kinematic trees with <i>N</i>, <i>h</i> &le; 10 and evaluated on a linear chain with <i>N</i> = <i>h</i> = 10.\n                The parity-aligned PCA direction spreads outward from the driving gear as layer depth increases.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif\" alt=\"Animated layer-wise PCA overlays for a 10-gear linear chain\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png\" alt=\"Selected layer-wise PCA overlays for a 10-gear linear chain\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(b) Unseen topology</span>\n                <h5>Linear-chain training, branching-tree evaluation</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                Although training uses only linear chains with <i>N</i>, <i>h</i> &le; 10, the same layer-wise parity propagation appears on an unseen branching topology.\n                This indicates that the learned parallel update generalizes across branching factors.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/unseen_PCA.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/unseen_PCA.gif\" alt=\"Animated layer-wise PCA overlays on an unseen branching gear topology\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/unseen_PCA.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/unseen_PCA.png\" alt=\"Selected layer-wise PCA overlays on an unseen branching gear topology\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(c) O.O.D. gear count</span>\n                <h5>Training on up to 10 gears, evaluation on 100 gears</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                The model is evaluated on a 100-gear system while the kinematic height remains in-distribution (<i>h</i> &le; 10).\n                The same depth-by-depth progression scales to many more gears, showing that the learned computation depends on kinematic height rather than total gear count.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif\" alt=\"Animated layer-wise PCA overlays for an out-of-distribution 100-gear system\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png\" alt=\"Selected layer-wise PCA overlays for an out-of-distribution 100-gear system\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure; open full size to inspect individual gears.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <p class=\"pca-takeaway\">\n            <strong>Takeaway:</strong> across in-distribution chains, unseen branching structures, and much larger gear systems, the parity-separated feature direction advances outward with transformer depth in a parallel-BFS-like pattern.\n        </p>\n    </div>\n    ", "videos": []}, {"id": "1.2. MLP Probing", "description": "\n    To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. \n    As shown below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.\n\n    <div class=\"mlp-probing-figures\">\n        <figure>\n            <a href=\"1.2 MLP Probing/train_10_eval_10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"1.2 MLP Probing/train_10_eval_10.png\" alt=\"MLP probing results for training and evaluation on kinematic height 10\" loading=\"lazy\">\n            </a>\n            <figcaption>Training height 10; evaluation height 10.</figcaption>\n        </figure>\n        <figure>\n            <a href=\"1.2 MLP Probing/train_5_eval_5.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"1.2 MLP Probing/train_5_eval_5.png\" alt=\"MLP probing results for training and evaluation on kinematic height 5\" loading=\"lazy\">\n            </a>\n            <figcaption>Training height 5; evaluation height 5.</figcaption>\n        </figure>\n    </div>\n    ", "videos": []}]}};
+
+            const overviewVideosMap = {"Task Definition": ["./video/Task Definition/0.mp4", "./video/Task Definition/1.mp4", "./video/Task Definition/2.mp4", "./video/Task Definition/3.mp4", "./video/Task Definition/4.mp4"], "Animating Gear Systems with Commercial Video Models": ["./video/Animating Gear Systems with Commercial Video Models/0.mp4", "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "./video/Animating Gear Systems with Commercial Video Models/3.mp4"], "10-Gear Count": ["./video/10-Gear Count/0.mp4", "./video/10-Gear Count/1.mp4", "./video/10-Gear Count/2.mp4", "./video/10-Gear Count/3.mp4", "./video/10-Gear Count/4.mp4"], "20-Gear Count": ["./video/20-Gear Count/0.mp4", "./video/20-Gear Count/1.mp4", "./video/20-Gear Count/2.mp4", "./video/20-Gear Count/3.mp4", "./video/20-Gear Count/4.mp4", "./video/20-Gear Count/5.mp4"], "30-Gear Count": ["./video/30-Gear Count/0.mp4", "./video/30-Gear Count/1.mp4", "./video/30-Gear Count/2.mp4", "./video/30-Gear Count/3.mp4", "./video/30-Gear Count/4.mp4", "./video/30-Gear Count/5.mp4"], "40-Gear Count": ["./video/40-Gear Count/0.mp4", "./video/40-Gear Count/1.mp4", "./video/40-Gear Count/2.mp4", "./video/40-Gear Count/3.mp4", "./video/40-Gear Count/4.mp4"], "50-Gear Count": ["./video/50-Gear Count/0.mp4", "./video/50-Gear Count/1.mp4", "./video/50-Gear Count/2.mp4", "./video/50-Gear Count/3.mp4", "./video/50-Gear Count/4.mp4"], "100-Gear Count": ["./video/100-Gear Count/0.mp4", "./video/100-Gear Count/1.mp4", "./video/100-Gear Count/2.mp4", "./video/100-Gear Count/3.mp4", "./video/100-Gear Count/4.mp4", "./video/100-Gear Count/5.mp4"], "1.1. PCA Analysis": [], "1.2. MLP Probing": [], "1.3. O.O.D. Kinematic Height": [], "1.4. I.D. Kinematic Height": [], "2.1. PCA Analysis": [], "2.2. MLP Probing": [], "2.3. Generalizability": []};
+            const datasetToPageMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count", "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains": "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains", "1.1. PCA Analysis": "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains", "1.2. MLP Probing": "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains", "1.3. O.O.D. Kinematic Height": "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains", "1.4. I.D. Kinematic Height": "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains", "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", "2.1. PCA Analysis": "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", "2.2. MLP Probing": "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", "2.3. Generalizability": "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains"};
+            const pageToFirstDatasetMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count", "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains": "1.1. PCA Analysis", "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": "2.1. PCA Analysis"};
+            const pagesData = {"Task Definition": {"title": "Task Definition", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Task Definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Task Definition/0.mp4", "caption": ""}, {"src": "./video/Task Definition/1.mp4", "caption": ""}, {"src": "./video/Task Definition/2.mp4", "caption": ""}, {"src": "./video/Task Definition/3.mp4", "caption": ""}, {"src": "./video/Task Definition/4.mp4", "caption": ""}]}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}, "10-Gear Count": {"title": "10-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "10-Gear Count", "description": "\n    <div>\n    <p>\n        Herem the mode is trained and tested up to 10-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/10-Gear Count/0.mp4", "caption": ""}, {"src": "./video/10-Gear Count/1.mp4", "caption": ""}, {"src": "./video/10-Gear Count/2.mp4", "caption": ""}, {"src": "./video/10-Gear Count/3.mp4", "caption": ""}, {"src": "./video/10-Gear Count/4.mp4", "caption": ""}]}]}, "20-Gear Count": {"title": "20-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "20-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 20-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/20-Gear Count/0.mp4", "caption": ""}, {"src": "./video/20-Gear Count/1.mp4", "caption": ""}, {"src": "./video/20-Gear Count/2.mp4", "caption": ""}, {"src": "./video/20-Gear Count/3.mp4", "caption": ""}, {"src": "./video/20-Gear Count/4.mp4", "caption": ""}, {"src": "./video/20-Gear Count/5.mp4", "caption": ""}]}]}, "30-Gear Count": {"title": "30-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "30-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 30-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/30-Gear Count/0.mp4", "caption": ""}, {"src": "./video/30-Gear Count/1.mp4", "caption": ""}, {"src": "./video/30-Gear Count/2.mp4", "caption": ""}, {"src": "./video/30-Gear Count/3.mp4", "caption": ""}, {"src": "./video/30-Gear Count/4.mp4", "caption": ""}, {"src": "./video/30-Gear Count/5.mp4", "caption": ""}]}]}, "40-Gear Count": {"title": "40-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "40-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 40-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/40-Gear Count/0.mp4", "caption": ""}, {"src": "./video/40-Gear Count/1.mp4", "caption": ""}, {"src": "./video/40-Gear Count/2.mp4", "caption": ""}, {"src": "./video/40-Gear Count/3.mp4", "caption": ""}, {"src": "./video/40-Gear Count/4.mp4", "caption": ""}]}]}, "50-Gear Count": {"title": "50-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "50-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 50-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/50-Gear Count/0.mp4", "caption": ""}, {"src": "./video/50-Gear Count/1.mp4", "caption": ""}, {"src": "./video/50-Gear Count/2.mp4", "caption": ""}, {"src": "./video/50-Gear Count/3.mp4", "caption": ""}, {"src": "./video/50-Gear Count/4.mp4", "caption": ""}]}]}, "100-Gear Count": {"title": "100-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "100-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 100-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/100-Gear Count/0.mp4", "caption": ""}, {"src": "./video/100-Gear Count/1.mp4", "caption": ""}, {"src": "./video/100-Gear Count/2.mp4", "caption": ""}, {"src": "./video/100-Gear Count/3.mp4", "caption": ""}, {"src": "./video/100-Gear Count/4.mp4", "caption": ""}, {"src": "./video/100-Gear Count/5.mp4", "caption": ""}]}]}, "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains": {"title": "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains", "description": "\n    <p>\n        We first study models trained on mechanisms with at most 10 gears and kinematic height <i>h</i> &le; 10.\n        Because this reasoning depth is smaller than the model&apos;s 30 transformer layers, the network can implement a direct layer-by-layer propagation strategy.\n    </p>\n    <p>\n        PCA and MLP probing reveal a parallel-BFS-like mechanism; the quantitative evaluations then separate what it generalizes to\u2014new gear counts and branching factors\u2014from what it does not\u2014kinematic heights beyond the training range.\n    </p>\n    ", "is_group": true, "is_text_only": false, "blocks": [{"id": "1.1. PCA Analysis", "description": "\n    <div class=\"pca-analysis-gallery\">\n        <p class=\"pca-lead\">\n            PCA reveals a principal feature direction that separates gears with opposite rotational parity.\n            This parity signal first appears around the driving gear and then expands to progressively more distant gears across transformer layers, resembling parallel breadth-first search (BFS) over the kinematic tree.\n        </p>\n\n        <div class=\"pca-reading-guide\">\n            <strong>How to read these visualizations.</strong>\n            Within each image, panels progress from earlier to later transformer layers.\n            The animated view sweeps through all video frames while keeping the selected layers fixed; the paper-frame view shows the representative frame selected for the paper.\n            Red contours indicate gears reached by the corresponding ground-truth BFS depth, while cyan contours indicate gears beyond that frontier.\n            Click any visualization to open it at full resolution.\n        </div>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(a) In-distribution chain</span>\n                <h5>General-tree training, 10-gear linear-chain evaluation</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                The model is trained on general kinematic trees with <i>N</i>, <i>h</i> &le; 10 and evaluated on a linear chain with <i>N</i> = <i>h</i> = 10.\n                The parity-aligned PCA direction spreads outward from the driving gear as layer depth increases.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif\" alt=\"Animated layer-wise PCA overlays for a 10-gear linear chain\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png\" alt=\"Selected layer-wise PCA overlays for a 10-gear linear chain\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(b) Unseen topology</span>\n                <h5>Linear-chain training, branching-tree evaluation</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                Although training uses only linear chains with <i>N</i>, <i>h</i> &le; 10, the same layer-wise parity propagation appears on an unseen branching topology.\n                This indicates that the learned parallel update generalizes across branching factors.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/unseen_PCA.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/unseen_PCA.gif\" alt=\"Animated layer-wise PCA overlays on an unseen branching gear topology\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/unseen_PCA.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/unseen_PCA.png\" alt=\"Selected layer-wise PCA overlays on an unseen branching gear topology\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <article class=\"pca-case\">\n            <div class=\"pca-case-header\">\n                <span class=\"pca-case-label\">(c) O.O.D. gear count</span>\n                <h5>Training on up to 10 gears, evaluation on 100 gears</h5>\n            </div>\n            <p class=\"pca-case-summary\">\n                The model is evaluated on a 100-gear system while the kinematic height remains in-distribution (<i>h</i> &le; 10).\n                The same depth-by-depth progression scales to many more gears, showing that the learned computation depends on kinematic height rather than total gear count.\n            </p>\n            <div class=\"pca-media-pair\">\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">All video frames</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif\" alt=\"Animated layer-wise PCA overlays for an out-of-distribution 100-gear system\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>\n                </figure>\n                <figure class=\"pca-media-panel\">\n                    <div class=\"pca-media-heading\">Selected paper frame</div>\n                    <a class=\"pca-media-link\" href=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                        <img src=\"data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png\" alt=\"Selected layer-wise PCA overlays for an out-of-distribution 100-gear system\" loading=\"lazy\" decoding=\"async\">\n                    </a>\n                    <figcaption>Representative frames used in the paper figure; open full size to inspect individual gears.</figcaption>\n                </figure>\n            </div>\n        </article>\n\n        <p class=\"pca-takeaway\">\n            <strong>Takeaway:</strong> across in-distribution chains, unseen branching structures, and much larger gear systems, the parity-separated feature direction advances outward with transformer depth in a parallel-BFS-like pattern.\n        </p>\n    </div>\n    ", "videos": []}, {"id": "1.2. MLP Probing", "description": "\n    <p>\n        We train lightweight MLP probes to predict whether pairs of gear features have the same rotational parity.\n        Each heatmap reports probing accuracy by transformer block (vertical axis) and gear depth from the driving gear (horizontal axis).\n    </p>\n    <div class=\"mlp-probing-figures\">\n        <figure>\n            <a href=\"data/1.2%20MLP%20Probing/train_5_eval_5.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"data/1.2%20MLP%20Probing/train_5_eval_5.png\" alt=\"MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 5\" loading=\"lazy\" decoding=\"async\">\n            </a>\n            <figcaption><b>Train and evaluate at <i>h</i> &le; 5.</b> Accurate parity information reaches progressively deeper gears in later blocks.</figcaption>\n        </figure>\n        <figure>\n            <a href=\"data/1.2%20MLP%20Probing/train_10_eval_10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                <img src=\"data/1.2%20MLP%20Probing/train_10_eval_10.png\" alt=\"MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 10\" loading=\"lazy\" decoding=\"async\">\n            </a>\n            <figcaption><b>Train and evaluate at <i>h</i> &le; 10.</b> The same moving accuracy frontier extends across the longer chain.</figcaption>\n        </figure>\n    </div>\n    <p>\n        <strong>Result:</strong> the high-accuracy region advances approximately one graph depth at a time as transformer depth increases, quantitatively supporting the parallel-BFS interpretation suggested by PCA.\n    </p>\n    ", "videos": []}, {"id": "1.3. O.O.D. Kinematic Height", "description": "\n    <div>\n        <p>\n            Parallel-BFS reasoning extrapolates to many more gears, but it is brittle to a larger <em>kinematic height</em>.\n            The success-rate matrices and feature probes below show that the learned propagation process stops near the maximum depth encountered during training.\n        </p>\n\n        <!-- Table 1 -->\n        <div class=\"table-wrap\" style=\"margin: 24px 0 10px;\">\n            <table class=\"latex-table\" style=\"min-width: 940px;\" aria-label=\"Table 1 simulation success rates for a model trained on up to 10 gears and height 10\">\n                <caption style=\"caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;\">\n                    <strong>Table 1. Simulation success rates (%) across varying gear counts and kinematic heights.</strong>\n                    The model is trained with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10.\n                    The red-outlined cell is in-distribution; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.\n                </caption>\n                <thead>\n                    <tr><th rowspan=\"2\" scope=\"col\">Gears (<i>N</i>)</th><th colspan=\"10\" scope=\"colgroup\">Kinematic height (<i>h</i>)</th></tr>\n                    <tr>\n                        <th scope=\"col\">10</th><th scope=\"col\">20</th><th scope=\"col\">30</th><th scope=\"col\">40</th><th scope=\"col\">50</th>\n                        <th scope=\"col\">60</th><th scope=\"col\">70</th><th scope=\"col\">80</th><th scope=\"col\">90</th><th scope=\"col\">100</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr><th scope=\"row\">10</th><td style=\"background:#dff1e1; border:2px solid #d62728;\">100%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">20</th><td style=\"background:#dff1e1;\">100%</td><td style=\"background:#f8e1e1;\">1%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">30</th><td style=\"background:#e1f0e2;\">97%</td><td style=\"background:#f8e1e1;\">1%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">40</th><td style=\"background:#dff1e1;\">100%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">50</th><td style=\"background:#e3eee2;\">94%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">60</th><td style=\"background:#e6ece1;\">90%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">70</th><td style=\"background:#dff1e1;\">100%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">80</th><td style=\"background:#e0f0e1;\">99%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">90</th><td style=\"background:#e7ebe0;\">89%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">100</th><td style=\"background:#ebeadf;\">82%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td></tr>\n                </tbody>\n            </table>\n        </div>\n        <p class=\"table-note\">\n            At the in-distribution height <i>h</i> = 10, success remains 82\u2013100% even as the gear count grows to 100.\n            Once height increases to 20 or more, success collapses to 0\u20131%.\n        </p>\n\n        <!-- Table 6 -->\n        <div class=\"table-wrap\" style=\"margin: 30px 0 10px;\">\n            <table class=\"latex-table\" style=\"min-width: 580px;\" aria-label=\"Table 6 simulation success rates for a model trained on up to 5 gears and height 5\">\n                <caption style=\"caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;\">\n                    <strong>Table 6. Simulation success rates (%) for models trained on up to 5 gears.</strong>\n                    Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5; the same height-limited generalization pattern appears at a smaller scale.\n                </caption>\n                <thead>\n                    <tr><th rowspan=\"2\" scope=\"col\">Gears (<i>N</i>)</th><th colspan=\"5\" scope=\"colgroup\">Kinematic height (<i>h</i>)</th></tr>\n                    <tr><th scope=\"col\">5</th><th scope=\"col\">10</th><th scope=\"col\">20</th><th scope=\"col\">30</th><th scope=\"col\">40</th></tr>\n                </thead>\n                <tbody>\n                    <tr><th scope=\"row\">5</th><td style=\"background:#dff1e1; border:2px solid #d62728;\">100%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">10</th><td style=\"background:#dff1e1;\">100%</td><td style=\"background:#f7e4e2;\">3%</td><td>\u2014</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">20</th><td style=\"background:#e3eee2;\">94%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">30</th><td style=\"background:#e2efe2;\">96%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td>\u2014</td></tr>\n                    <tr><th scope=\"row\">40</th><td style=\"background:#e8ebe0;\">88%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td><td style=\"background:#f8dfdf;\">0%</td></tr>\n                </tbody>\n            </table>\n        </div>\n        <p class=\"table-note\">\n            The model extrapolates from 5 to 40 gears at <i>h</i> = 5 (88\u2013100% success), but nearly always fails as soon as the required propagation depth exceeds its training range.\n        </p>\n\n        <!-- Figure 4 -->\n        <h5 style=\"margin: 34px 0 8px; font-size: 1.05rem; color: #333;\">Figure 4. Feature probing on out-of-distribution kinematic heights</h5>\n        <p>\n            The probes expose the same failure internally: parity information propagates through transformer blocks only as far as the training distribution requires.\n        </p>\n        <div class=\"mlp-probing-figures\">\n            <figure>\n                <a href=\"data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                    <img src=\"data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png\" alt=\"Feature probing for height-5 training evaluated on a height-10 linear chain\" loading=\"lazy\" decoding=\"async\">\n                </a>\n                <figcaption><b>Train: <i>h</i> &le; 5; evaluate: <i>N</i> = <i>h</i> = 10.</b> The accuracy frontier reaches the trained depth and then stalls.</figcaption>\n            </figure>\n            <figure>\n                <a href=\"data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png\" target=\"_blank\" rel=\"noopener noreferrer\">\n                    <img src=\"data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png\" alt=\"Feature probing for height-10 training evaluated on a height-20 linear chain\" loading=\"lazy\" decoding=\"async\">\n                </a>\n                <figcaption><b>Train: <i>h</i> &le; 10; evaluate: <i>N</i> = <i>h</i> = 20.</b> Propagation similarly stops beyond the in-distribution height.</figcaption>\n            </figure>\n        </div>\n        <p>\n            <strong>Summary:</strong> the model learns to activate enough transformer blocks to cover the heights seen during training, rather than learning an indefinitely repeatable BFS procedure.\n            This explains why gear-count extrapolation succeeds at fixed height while height extrapolation fails.\n        </p>\n    </div>\n    ", "videos": []}, {"id": "1.4. I.D. Kinematic Height", "description": "\n    <div>\n        <p>\n            When kinematic height remains within the training range, parallel self-attention can update all neighbors at a given BFS depth simultaneously.\n            The resulting computation is therefore robust to new branching factors and tree layouts.\n        </p>\n        <div class=\"table-wrap\" style=\"margin: 24px 0 10px;\">\n            <table class=\"latex-table\" style=\"min-width: 650px;\" aria-label=\"Table 2 generalization from linear chains to unseen general tree topologies\">\n                <caption style=\"caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;\">\n                    <strong>Table 2. Generalization to unseen tree topologies.</strong>\n                    Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for models trained exclusively on linear chains and evaluated on linear chains versus general trees.\n                </caption>\n                <thead>\n                    <tr>\n                        <th rowspan=\"2\" scope=\"col\">Training bound</th>\n                        <th colspan=\"2\" scope=\"colgroup\">Linear chain (I.D.)</th>\n                        <th colspan=\"2\" scope=\"colgroup\" style=\"color:#b42318;\">General tree (O.O.D.)</th>\n                    </tr>\n                    <tr>\n                        <th scope=\"col\">SSR \u2191</th><th scope=\"col\"><i>E</i><sub>rmd</sub> \u2193</th>\n                        <th scope=\"col\">SSR \u2191</th><th scope=\"col\"><i>E</i><sub>rmd</sub> \u2193</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr>\n                        <th scope=\"row\"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th>\n                        <td style=\"background:#dff1e1;\">100%</td><td style=\"background:#dff1e1;\">0.058</td>\n                        <td style=\"background:#dff1e1;\">100%</td><td style=\"background:#dff1e1;\">0.058</td>\n                    </tr>\n                    <tr>\n                        <th scope=\"row\"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10</th>\n                        <td style=\"background:#e1f0e2;\">97%</td><td style=\"background:#e1f0e2;\">0.046</td>\n                        <td style=\"background:#e0f0e1;\">99%</td><td style=\"background:#e0f0e1;\">0.040</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <p>\n            Performance does not degrade on unseen branching structures: the 5-gear model retains 100% SSR, while the 10-gear model changes from 97% on linear chains to 99% on general trees.\n            Motion disparity is unchanged or slightly lower.\n        </p>\n        <p>\n            <strong>Summary:</strong> parallel BFS is sensitive to unseen sequential depth, but not to the number of neighbors processed in parallel.\n            Consequently, the model can generalize to unseen gear counts and branching factors as long as the maximum kinematic height remains in-distribution.\n        </p>\n    </div>\n    ", "videos": []}]}, "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": {"title": "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", "description": "\n    <p>\n        We next train on mechanisms with up to 50 gears and kinematic height 50.\n        Because the video DiT has only 30 transformer layers, a literal one-layer-per-depth BFS strategy cannot cover these chains.\n    </p>\n    <p>\n        PCA and probing instead indicate a divide-and-conquer-like computation: the model first resolves parity inside several local neighborhoods in parallel, then progressively merges those local solutions into one globally consistent assignment.\n    </p>\n    ", "is_group": true, "is_text_only": false, "blocks": [{"id": "2.1. PCA Analysis", "description": "\n    <p>\n        Early transformer layers still show propagation near the driving gear, but later layers depart from a single BFS frontier.\n        Parity signals emerge simultaneously in gears that have not yet been reached from the root.\n    </p>\n    <p>\n        These signals are initially consistent only within local neighborhoods.\n        Across subsequent layers, the local parity regions become mutually aligned, suggesting that the model constructs several partial solutions before combining them globally.\n    </p>\n    ", "videos": []}, {"id": "2.2. MLP Probing", "description": "\n    <p>\n        For long chains, root-relative parity probing improves gradually in shallow layers and then rises rapidly in later layers.\n        Pairwise probing reveals why: intermediate representations form clusters with accurate parity relationships inside each cluster but inconsistent relationships between clusters.\n    </p>\n    <p>\n        In the final layers, those clusters merge into a globally consistent representation.\n        This local-to-global transition is the quantitative signature of the divide-and-conquer-like strategy.\n    </p>\n    ", "videos": []}, {"id": "2.3. Generalizability", "description": "\n    <p>\n        Divide-and-conquer-like reasoning enables chains deeper than the transformer stack, but it generalizes less reliably than parallel BFS.\n        Even when test height remains within the training range, performance can decline as unseen gear counts introduce new tree structures.\n    </p>\n    <p>\n        The exception is shallow height (roughly <i>h</i> &le; 10), where the model can still rely on the simpler parallel-BFS mechanism.\n        A likely explanation is that decomposition and merging admit many topology-dependent strategies, so the particular shortcut learned during training may not transfer to novel structures.\n    </p>\n    ", "videos": []}]}};
 
             const carouselIndices = {};
 
@@ -603,16 +603,16 @@
                 toggleBtn.innerHTML = body.classList.contains('sidebar-collapsed') ? "&#9776;" : "&laquo;";
             });
 
-            let activePage = "Overview"; 
-            let activeDatasetName = null; 
+            let activePage = "Overview";
+            let activeDatasetName = null;
             const overviewContainer = document.getElementById('overview-container');
-            const cardsContainer = document.getElementById('cards-container'); 
+            const cardsContainer = document.getElementById('cards-container');
             const backBtn = document.getElementById('back-to-overview');
 
             let observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     let video = entry.target;
-                    
+
                     if (entry.isIntersecting) {
                         if (video.dataset.src) {
                             video.src = video.dataset.src;
@@ -632,7 +632,7 @@
             function handleScrollSpy() {
                 if (activePage === "Overview") return;
                 const blocks = cardsContainer.querySelectorAll('.content-block');
-                
+
                 blocks.forEach(block => {
                     const rect = block.getBoundingClientRect();
                     if (rect.top >= -50 && rect.top < 300) {
@@ -738,14 +738,14 @@
             function setRoute(pageId, datasetName) {
                 activePage = pageId;
                 activeDatasetName = datasetName;
-                
+
                 const hashValue = datasetName ? datasetName : pageId;
                 if (window.location.hash !== '#' + encodeURIComponent(hashValue)) {
                     window.history.pushState(null, null, '#' + encodeURIComponent(hashValue));
                 }
-                
+
                 updateView();
-                
+
                 if (datasetName) {
                     setTimeout(() => {
                         const targetCard = document.getElementById('dataset-block-' + datasetName);
@@ -815,7 +815,7 @@
                 const datasetBtns = document.querySelectorAll('.dataset-btn');
                 datasetBtns.forEach(btn => {
                     const targetPage = btn.dataset.target;
-                    const targetDataset = btn.dataset.dataset; 
+                    const targetDataset = btn.dataset.dataset;
 
                     btn.classList.remove('active');
 
@@ -823,12 +823,12 @@
                          if (targetPage === "Overview" || btn.dataset.section === activeDatasetName) {
                              btn.classList.add('active');
                          }
-                    } 
+                    }
                     else if (btn.classList.contains('level-2')) {
                         if (targetPage === activePage) {
                             btn.classList.add('active');
                         }
-                    } 
+                    }
                     else if (btn.classList.contains('level-3')) {
                         if (targetDataset === activeDatasetName) {
                             btn.classList.add('active');
@@ -839,7 +839,7 @@
 
             function renderPage(pageId) {
                 cardsContainer.innerHTML = ""; // Clear memory!
-                
+
                 const data = pagesData[pageId];
                 if (!data) return;
 
@@ -882,7 +882,7 @@
                     block.videos.forEach(vid => {
                         const cardDiv = document.createElement('div');
                         cardDiv.className = "card";
-                        
+
                         const videoTag = document.createElement('video');
                         videoTag.className = "lazy";
                         videoTag.setAttribute('data-src', vid.src);
@@ -892,12 +892,12 @@
                         videoTag.loop = true;
                         videoTag.muted = true;
                         videoTag.playsInline = true;
-                        
+
                         cardDiv.appendChild(videoTag);
 
                         if (vid.caption) {
                             const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = vid.caption; 
+                            tempDiv.innerHTML = vid.caption;
                             while (tempDiv.firstChild) {
                                 cardDiv.appendChild(tempDiv.firstChild);
                             }
@@ -918,18 +918,18 @@
 
                 if (activePage === "Overview") {
                     cardsContainer.style.display = "none";
-                    cardsContainer.innerHTML = ""; 
-                    
+                    cardsContainer.innerHTML = "";
+
                     overviewContainer.style.display = "block";
-                    backBtn.style.display = "none"; 
-                    
+                    backBtn.style.display = "none";
+
                     const overviewVideos = overviewContainer.querySelectorAll('video.lazy');
                     overviewVideos.forEach(v => observer.observe(v));
 
                 } else {
                     overviewContainer.style.display = "none";
-                    backBtn.style.display = "flex"; 
-                    cardsContainer.style.display = "flex"; 
+                    backBtn.style.display = "flex";
+                    cardsContainer.style.display = "flex";
 
                     renderPage(activePage);
                 }
@@ -939,9 +939,9 @@
 
             // --- HANDLE INITIAL LOAD VIA URL ---
             function loadStateFromHash() {
-                const hash = window.location.hash.substring(1); 
+                const hash = window.location.hash.substring(1);
                 const decodedHash = decodeURIComponent(hash);
-                
+
                 if (!decodedHash || decodedHash === "Overview") {
                     activePage = "Overview";
                     activeDatasetName = null;
@@ -961,7 +961,7 @@
                         activeDatasetName = null;
                     }
                 }
-                
+
                 updateView();
 
                 if (activePage === "Overview" && activeDatasetName) {
@@ -1012,17 +1012,23 @@
 <button class="dataset-btn level-3" data-target="Qualitative Results" data-dataset="40-Gear Count" data-section="40-Gear Count" onclick="navigateToSection('40-Gear Count')">40-Gear Count</button>
 <button class="dataset-btn level-3" data-target="Qualitative Results" data-dataset="50-Gear Count" data-section="50-Gear Count" onclick="navigateToSection('50-Gear Count')">50-Gear Count</button>
 <button class="dataset-btn level-3" data-target="Qualitative Results" data-dataset="100-Gear Count" data-section="100-Gear Count" onclick="navigateToSection('100-Gear Count')">100-Gear Count</button>
-<button class="dataset-btn level-2" data-target="Analysis: How does Video Diffusion Transformers simulate gear systems?" data-section="Analysis: How does Video Diffusion Transformers simulate gear systems?" onclick="navigateToSection('Analysis: How does Video Diffusion Transformers simulate gear systems?')">Analysis: How does Video Diffusion Transformers simulate gear systems?</button>
-<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains" data-section="Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains" onclick="navigateToSection('Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains')">Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains</button>
-<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains" data-dataset="1.1. PCA Analysis" data-section="1.1. PCA Analysis" onclick="navigateToSection('1.1. PCA Analysis')">1.1. PCA Analysis</button>
-<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains" data-dataset="1.2. MLP Probing" data-section="1.2. MLP Probing" onclick="navigateToSection('1.2. MLP Probing')">1.2. MLP Probing</button>
+<button class="dataset-btn level-2" data-target="Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?" data-section="Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?" onclick="navigateToSection('Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?')">Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?</button>
+<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains" data-section="Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains" onclick="navigateToSection('Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains')">Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains</button>
+<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains" data-dataset="1.1. PCA Analysis" data-section="1.1. PCA Analysis" onclick="navigateToSection('1.1. PCA Analysis')">1.1. PCA Analysis</button>
+<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains" data-dataset="1.2. MLP Probing" data-section="1.2. MLP Probing" onclick="navigateToSection('1.2. MLP Probing')">1.2. MLP Probing</button>
+<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains" data-dataset="1.3. O.O.D. Kinematic Height" data-section="1.3. O.O.D. Kinematic Height" onclick="navigateToSection('1.3. O.O.D. Kinematic Height')">1.3. O.O.D. Kinematic Height</button>
+<button class="dataset-btn level-3" data-target="Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains" data-dataset="1.4. I.D. Kinematic Height" data-section="1.4. I.D. Kinematic Height" onclick="navigateToSection('1.4. I.D. Kinematic Height')">1.4. I.D. Kinematic Height</button>
+<button class="dataset-btn level-3" data-target="Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains" data-section="Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains" onclick="navigateToSection('Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains')">Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains</button>
+<button class="dataset-btn level-3" data-target="Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains" data-dataset="2.1. PCA Analysis" data-section="2.1. PCA Analysis" onclick="navigateToSection('2.1. PCA Analysis')">2.1. PCA Analysis</button>
+<button class="dataset-btn level-3" data-target="Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains" data-dataset="2.2. MLP Probing" data-section="2.2. MLP Probing" onclick="navigateToSection('2.2. MLP Probing')">2.2. MLP Probing</button>
+<button class="dataset-btn level-3" data-target="Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains" data-dataset="2.3. Generalizability" data-section="2.3. Generalizability" onclick="navigateToSection('2.3. Generalizability')">2.3. Generalizability</button>
 
     </div>
 
     <div class="main-content">
         <header class="paper-header">
             <h1 class="paper-title">When Video Diffusion Transformers Meet Long-Chain Kinematic Reasoning: A Study of 2D Gear Systems</h1>
-            
+
             <div class="paper-meta">
                 <div class="paper-authors"><span class="author-span"><a class="author-link" href="https://Cog-DiT.github.io/" target="_blank" rel="noopener">Anonymous Authors</a><sup>1</sup></span></div>
                 <div class="paper-institutions"><span class="institution-span"><sup>1</sup>Anonymous Institutions</span></div>
@@ -1039,7 +1045,7 @@
             <div class="abstract-section">
                 <div class="abstract-title">Abstract</div>
                 <div class="abstract-content">
-                    
+
 
 <p>
 Video diffusion transformers (DiTs) are increasingly viewed as promising models for learning physical dynamics directly from video.
@@ -1057,7 +1063,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
 
                 </div>
             </div>
-            
+
         <div class="hierarchy-bar level-1-header" id="section-Task Definition">
             Task Definition
         </div>
@@ -1065,29 +1071,29 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     <div>
     <p>
         In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.
-        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. 
-        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. 
-        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. 
+        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video.
+        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints.
+        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data.
     </p>
     </div>
     </div>
             <div class="hierarchy-bar level-2-header">
                 Task Definition
             </div>
-            
+
                 <div class="overview-section" id="section-Task Definition">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
         In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.
-        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. 
-        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. 
-        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. 
+        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video.
+        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints.
+        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data.
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-Task Definition">
                         <button class="carousel-btn left" onclick="moveCarousel('Task Definition', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/Task Definition/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1098,27 +1104,27 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-Task Definition">
                         <button class="carousel-dot active" onclick="setCarouselIndex('Task Definition', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 4)" aria-label="Slide 5"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('Task Definition')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
+
         <div class="hierarchy-bar level-1-header" id="section-Motivation: Why study gear simulation? ">
-            Motivation: Why study gear simulation? 
+            Motivation: Why study gear simulation?
         </div>
         <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
-    Gear systems are governed by a simple local rule: meshed gears rotate in opposite directions, with absolute angular velocities inversely proportional to their diameters. 
-    Despite this simple rule, simulating a gear train provides a challenging testbed for long-chain kinematic reasoning. 
-    In particular, determining the rotational direction of each gear requires computing its rotational <b>parity</b>, which is determined by the number of meshing interactions along the kinematic path from the driving gear. 
-    Thus, simulating a gear system requires propagating kinematic information across potentially long chains of gears. Notably, once the rotational parity is determined, the angular velocity magnitude follows directly from the gear diameters, independent of the kinematic graph topologies. 
+    Gear systems are governed by a simple local rule: meshed gears rotate in opposite directions, with absolute angular velocities inversely proportional to their diameters.
+    Despite this simple rule, simulating a gear train provides a challenging testbed for long-chain kinematic reasoning.
+    In particular, determining the rotational direction of each gear requires computing its rotational <b>parity</b>, which is determined by the number of meshing interactions along the kinematic path from the driving gear.
+    Thus, simulating a gear system requires propagating kinematic information across potentially long chains of gears. Notably, once the rotational parity is determined, the angular velocity magnitude follows directly from the gear diameters, independent of the kinematic graph topologies.
     </div>
             <div class="hierarchy-bar level-2-header">
                 Animating Gear Systems with Commercial Video Models
             </div>
-            
+
                 <div class="overview-section" id="section-Animating Gear Systems with Commercial Video Models">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
@@ -1130,7 +1136,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-Animating Gear Systems with Commercial Video Models">
                         <button class="carousel-btn left" onclick="moveCarousel('Animating Gear Systems with Commercial Video Models', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/Animating Gear Systems with Commercial Video Models/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1141,29 +1147,29 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-Animating Gear Systems with Commercial Video Models">
                         <button class="carousel-dot active" onclick="setCarouselIndex('Animating Gear Systems with Commercial Video Models', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('Animating Gear Systems with Commercial Video Models', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('Animating Gear Systems with Commercial Video Models', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('Animating Gear Systems with Commercial Video Models', 3)" aria-label="Slide 4"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('Animating Gear Systems with Commercial Video Models')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
+
         <div class="hierarchy-bar level-1-header" id="section-Qualitative Results">
             Qualitative Results
         </div>
         <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
     <div>
     <p>
-        Depsite above failures of commer video diffusion models, our initial finding is that if we finetune video diffusion transformers, they can successfully generate video of gear systems where kinematic constraints are satisfied, no matter how many the gear counts are large. 
-        Below demonstrate the some generated examples. 
+        Depsite above failures of commer video diffusion models, our initial finding is that if we finetune video diffusion transformers, they can successfully generate video of gear systems where kinematic constraints are satisfied, no matter how many the gear counts are large.
+        Below demonstrate the some generated examples.
     </p>
     </div>
     </div>
             <div class="hierarchy-bar level-2-header">
                 10-Gear Count
             </div>
-            
+
                 <div class="overview-section" id="section-10-Gear Count">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
@@ -1171,7 +1177,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-10-Gear Count">
                         <button class="carousel-btn left" onclick="moveCarousel('10-Gear Count', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/10-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1182,18 +1188,18 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-10-Gear Count">
                         <button class="carousel-dot active" onclick="setCarouselIndex('10-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('10-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('10-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('10-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('10-Gear Count', 4)" aria-label="Slide 5"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('10-Gear Count')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
+
             <div class="hierarchy-bar level-2-header">
                 20-Gear Count
             </div>
-            
+
                 <div class="overview-section" id="section-20-Gear Count">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
@@ -1201,7 +1207,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-20-Gear Count">
                         <button class="carousel-btn left" onclick="moveCarousel('20-Gear Count', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/20-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1212,18 +1218,18 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-20-Gear Count">
                         <button class="carousel-dot active" onclick="setCarouselIndex('20-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 4)" aria-label="Slide 5"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 5)" aria-label="Slide 6"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('20-Gear Count')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
+
             <div class="hierarchy-bar level-2-header">
                 30-Gear Count
             </div>
-            
+
                 <div class="overview-section" id="section-30-Gear Count">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
@@ -1231,7 +1237,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-30-Gear Count">
                         <button class="carousel-btn left" onclick="moveCarousel('30-Gear Count', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/30-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1242,18 +1248,18 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-30-Gear Count">
                         <button class="carousel-dot active" onclick="setCarouselIndex('30-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 4)" aria-label="Slide 5"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 5)" aria-label="Slide 6"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('30-Gear Count')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
+
             <div class="hierarchy-bar level-2-header">
                 40-Gear Count
             </div>
-            
+
                 <div class="overview-section" id="section-40-Gear Count">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
@@ -1261,7 +1267,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-40-Gear Count">
                         <button class="carousel-btn left" onclick="moveCarousel('40-Gear Count', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/40-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1272,18 +1278,18 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-40-Gear Count">
                         <button class="carousel-dot active" onclick="setCarouselIndex('40-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 4)" aria-label="Slide 5"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('40-Gear Count')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
+
             <div class="hierarchy-bar level-2-header">
                 50-Gear Count
             </div>
-            
+
                 <div class="overview-section" id="section-50-Gear Count">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
@@ -1291,7 +1297,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-50-Gear Count">
                         <button class="carousel-btn left" onclick="moveCarousel('50-Gear Count', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/50-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1302,18 +1308,18 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-50-Gear Count">
                         <button class="carousel-dot active" onclick="setCarouselIndex('50-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 4)" aria-label="Slide 5"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('50-Gear Count')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
+
             <div class="hierarchy-bar level-2-header">
                 100-Gear Count
             </div>
-            
+
                 <div class="overview-section" id="section-100-Gear Count">
-                    
+
                     <div class="overview-desc">
     <div>
     <p>
@@ -1321,7 +1327,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
-                    
+
                     <div class="carousel-wrapper" id="carousel-100-Gear Count">
                         <button class="carousel-btn left" onclick="moveCarousel('100-Gear Count', -1)">&#10094;</button>
                         <video class="lazy" data-src="./video/100-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
@@ -1332,35 +1338,49 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     <div class="carousel-dots" id="carousel-dots-100-Gear Count">
                         <button class="carousel-dot active" onclick="setCarouselIndex('100-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 4)" aria-label="Slide 5"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 5)" aria-label="Slide 6"></button>
                     </div>
-                    
+
                     <div class="overview-action">
                         <button class="btn-view-all" onclick="navigateToDataset('100-Gear Count')">View Full Examples &rarr;</button>
                     </div>
                 </div>
-                
-        <div class="hierarchy-bar level-1-header" id="section-Analysis: How does Video Diffusion Transformers simulate gear systems?">
-            Analysis: How does Video Diffusion Transformers simulate gear systems?
+
+        <div class="hierarchy-bar level-1-header" id="section-Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?">
+            Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?
         </div>
         <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
-    Given the successful performance on gear simulations, the question arises: how do video diffusion transformers simulate gear mechanisms, given this requires resolving long-chain kinematic dependencies?
-    In this section, we present two distinct reasoning mechanisms that emerge depending on the <b>kinematic height</b> $h$ (i.e., the maximum depth from the driving gear) observed during training.
-    When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. 
-    In contrast, when the model is exposed to larger kinematic heights, for which a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.  
-    The following two sections demonstrate these two reasoning mechanisms, respectively.
+    <div>
+        <p>
+            Fine-tuned video diffusion transformers can generate kinematically consistent gear motion, but doing so requires resolving rotational parity across the entire mechanism.
+            We therefore inspect their internal features to ask which algorithmic strategy emerges from video-only training.
+        </p>
+        <p>
+            The answer depends on the largest <b>kinematic height</b> <i>h</i>—the maximum graph distance from the driving gear—seen during training:
+        </p>
+        <ul>
+            <li><b>Short chains:</b> successive transformer layers behave like parallel breadth-first-search steps, propagating parity one graph depth at a time.</li>
+            <li><b>Long chains:</b> when the required number of BFS steps exceeds the 30-layer network depth, the model forms locally consistent parity regions and later merges them in a divide-and-conquer-like process.</li>
+        </ul>
+        <p>The sections below summarize the PCA, MLP-probing, and generalization evidence for both mechanisms.</p>
     </div>
-            <div class="hierarchy-bar level-2-header" id="section-Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains">
-                Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains
+    </div>
+            <div class="hierarchy-bar level-2-header" id="section-Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains">
+                Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains
             </div>
             <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
-    We begin by demonstrating the emergence of parallel BFS reasoning by training a video DiT on gear mechanisms with kinematic heights up to 10, which require only short-chain reasoning, and then performing feature probing.
-    Notably, this maximum height is smaller than the number of transformer layers 30.
+    <p>
+        We first study models trained on mechanisms with at most 10 gears and kinematic height <i>h</i> &le; 10.
+        Because this reasoning depth is smaller than the model&apos;s 30 transformer layers, the network can implement a direct layer-by-layer propagation strategy.
+    </p>
+    <p>
+        PCA and MLP probing reveal a parallel-BFS-like mechanism; the quantitative evaluations then separate what it generalizes to—new gear counts and branching factors—from what it does not—kinematic heights beyond the training range.
+    </p>
     </div>
                     <div class="overview-section" id="section-1.1. PCA Analysis">
-                        
+
                         <div class="overview-section-header">
                             <h4 class="level-3-header">1.1. PCA Analysis</h4>
                         </div>
-                        
+
                         <div class="overview-desc">
     <div class="pca-analysis-gallery">
         <p class="pca-lead">
@@ -1463,34 +1483,257 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </div>
     </div>
                     </div>
-                    
+
                     <div class="overview-section" id="section-1.2. MLP Probing">
-                        
+
                         <div class="overview-section-header">
                             <h4 class="level-3-header">1.2. MLP Probing</h4>
                         </div>
-                        
-                        <div class="overview-desc">
-    To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. 
-    As shown below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.
 
+                        <div class="overview-desc">
+    <p>
+        We train lightweight MLP probes to predict whether pairs of gear features have the same rotational parity.
+        Each heatmap reports probing accuracy by transformer block (vertical axis) and gear depth from the driving gear (horizontal axis).
+    </p>
     <div class="mlp-probing-figures">
         <figure>
-            <a href="1.2 MLP Probing/train_10_eval_10.png" target="_blank" rel="noopener noreferrer">
-                <img src="1.2 MLP Probing/train_10_eval_10.png" alt="MLP probing results for training and evaluation on kinematic height 10" loading="lazy">
+            <a href="data/1.2%20MLP%20Probing/train_5_eval_5.png" target="_blank" rel="noopener noreferrer">
+                <img src="data/1.2%20MLP%20Probing/train_5_eval_5.png" alt="MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 5" loading="lazy" decoding="async">
             </a>
-            <figcaption>Training height 10; evaluation height 10.</figcaption>
+            <figcaption><b>Train and evaluate at <i>h</i> &le; 5.</b> Accurate parity information reaches progressively deeper gears in later blocks.</figcaption>
         </figure>
         <figure>
-            <a href="1.2 MLP Probing/train_5_eval_5.png" target="_blank" rel="noopener noreferrer">
-                <img src="1.2 MLP Probing/train_5_eval_5.png" alt="MLP probing results for training and evaluation on kinematic height 5" loading="lazy">
+            <a href="data/1.2%20MLP%20Probing/train_10_eval_10.png" target="_blank" rel="noopener noreferrer">
+                <img src="data/1.2%20MLP%20Probing/train_10_eval_10.png" alt="MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 10" loading="lazy" decoding="async">
             </a>
-            <figcaption>Training height 5; evaluation height 5.</figcaption>
+            <figcaption><b>Train and evaluate at <i>h</i> &le; 10.</b> The same moving accuracy frontier extends across the longer chain.</figcaption>
         </figure>
+    </div>
+    <p>
+        <strong>Result:</strong> the high-accuracy region advances approximately one graph depth at a time as transformer depth increases, quantitatively supporting the parallel-BFS interpretation suggested by PCA.
+    </p>
+    </div>
+                    </div>
+
+                    <div class="overview-section" id="section-1.3. O.O.D. Kinematic Height">
+
+                        <div class="overview-section-header">
+                            <h4 class="level-3-header">1.3. O.O.D. Kinematic Height</h4>
+                        </div>
+
+                        <div class="overview-desc">
+    <div>
+        <p>
+            Parallel-BFS reasoning extrapolates to many more gears, but it is brittle to a larger <em>kinematic height</em>.
+            The success-rate matrices and feature probes below show that the learned propagation process stops near the maximum depth encountered during training.
+        </p>
+
+        <!-- Table 1 -->
+        <div class="table-wrap" style="margin: 24px 0 10px;">
+            <table class="latex-table" style="min-width: 940px;" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
+                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                    <strong>Table 1. Simulation success rates (%) across varying gear counts and kinematic heights.</strong>
+                    The model is trained with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10.
+                    The red-outlined cell is in-distribution; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
+                </caption>
+                <thead>
+                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                    <tr>
+                        <th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th><th scope="col">50</th>
+                        <th scope="col">60</th><th scope="col">70</th><th scope="col">80</th><th scope="col">90</th><th scope="col">100</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">10</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                    <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="table-note">
+            At the in-distribution height <i>h</i> = 10, success remains 82–100% even as the gear count grows to 100.
+            Once height increases to 20 or more, success collapses to 0–1%.
+        </p>
+
+        <!-- Table 6 -->
+        <div class="table-wrap" style="margin: 30px 0 10px;">
+            <table class="latex-table" style="min-width: 580px;" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
+                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                    <strong>Table 6. Simulation success rates (%) for models trained on up to 5 gears.</strong>
+                    Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5; the same height-limited generalization pattern appears at a smaller scale.
+                </caption>
+                <thead>
+                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                    <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">5</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td style="background:#f7e4e2;">3%</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">20</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">30</th><td style="background:#e2efe2;">96%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                    <tr><th scope="row">40</th><td style="background:#e8ebe0;">88%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="table-note">
+            The model extrapolates from 5 to 40 gears at <i>h</i> = 5 (88–100% success), but nearly always fails as soon as the required propagation depth exceeds its training range.
+        </p>
+
+        <!-- Figure 4 -->
+        <h5 style="margin: 34px 0 8px; font-size: 1.05rem; color: #333;">Figure 4. Feature probing on out-of-distribution kinematic heights</h5>
+        <p>
+            The probes expose the same failure internally: parity information propagates through transformer blocks only as far as the training distribution requires.
+        </p>
+        <div class="mlp-probing-figures">
+            <figure>
+                <a href="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" target="_blank" rel="noopener noreferrer">
+                    <img src="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" alt="Feature probing for height-5 training evaluated on a height-10 linear chain" loading="lazy" decoding="async">
+                </a>
+                <figcaption><b>Train: <i>h</i> &le; 5; evaluate: <i>N</i> = <i>h</i> = 10.</b> The accuracy frontier reaches the trained depth and then stalls.</figcaption>
+            </figure>
+            <figure>
+                <a href="data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png" target="_blank" rel="noopener noreferrer">
+                    <img src="data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png" alt="Feature probing for height-10 training evaluated on a height-20 linear chain" loading="lazy" decoding="async">
+                </a>
+                <figcaption><b>Train: <i>h</i> &le; 10; evaluate: <i>N</i> = <i>h</i> = 20.</b> Propagation similarly stops beyond the in-distribution height.</figcaption>
+            </figure>
+        </div>
+        <p>
+            <strong>Summary:</strong> the model learns to activate enough transformer blocks to cover the heights seen during training, rather than learning an indefinitely repeatable BFS procedure.
+            This explains why gear-count extrapolation succeeds at fixed height while height extrapolation fails.
+        </p>
     </div>
     </div>
                     </div>
-                    
+
+                    <div class="overview-section" id="section-1.4. I.D. Kinematic Height">
+
+                        <div class="overview-section-header">
+                            <h4 class="level-3-header">1.4. I.D. Kinematic Height</h4>
+                        </div>
+
+                        <div class="overview-desc">
+    <div>
+        <p>
+            When kinematic height remains within the training range, parallel self-attention can update all neighbors at a given BFS depth simultaneously.
+            The resulting computation is therefore robust to new branching factors and tree layouts.
+        </p>
+        <div class="table-wrap" style="margin: 24px 0 10px;">
+            <table class="latex-table" style="min-width: 650px;" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
+                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                    <strong>Table 2. Generalization to unseen tree topologies.</strong>
+                    Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for models trained exclusively on linear chains and evaluated on linear chains versus general trees.
+                </caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2" scope="col">Training bound</th>
+                        <th colspan="2" scope="colgroup">Linear chain (I.D.)</th>
+                        <th colspan="2" scope="colgroup" style="color:#b42318;">General tree (O.O.D.)</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">SSR ↑</th><th scope="col"><i>E</i><sub>rmd</sub> ↓</th>
+                        <th scope="col">SSR ↑</th><th scope="col"><i>E</i><sub>rmd</sub> ↓</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th>
+                        <td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td>
+                        <td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10</th>
+                        <td style="background:#e1f0e2;">97%</td><td style="background:#e1f0e2;">0.046</td>
+                        <td style="background:#e0f0e1;">99%</td><td style="background:#e0f0e1;">0.040</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            Performance does not degrade on unseen branching structures: the 5-gear model retains 100% SSR, while the 10-gear model changes from 97% on linear chains to 99% on general trees.
+            Motion disparity is unchanged or slightly lower.
+        </p>
+        <p>
+            <strong>Summary:</strong> parallel BFS is sensitive to unseen sequential depth, but not to the number of neighbors processed in parallel.
+            Consequently, the model can generalize to unseen gear counts and branching factors as long as the maximum kinematic height remains in-distribution.
+        </p>
+    </div>
+    </div>
+                    </div>
+
+            <div class="hierarchy-bar level-2-header" id="section-Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains">
+                Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains
+            </div>
+            <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
+    <p>
+        We next train on mechanisms with up to 50 gears and kinematic height 50.
+        Because the video DiT has only 30 transformer layers, a literal one-layer-per-depth BFS strategy cannot cover these chains.
+    </p>
+    <p>
+        PCA and probing instead indicate a divide-and-conquer-like computation: the model first resolves parity inside several local neighborhoods in parallel, then progressively merges those local solutions into one globally consistent assignment.
+    </p>
+    </div>
+                    <div class="overview-section" id="section-2.1. PCA Analysis">
+
+                        <div class="overview-section-header">
+                            <h4 class="level-3-header">2.1. PCA Analysis</h4>
+                        </div>
+
+                        <div class="overview-desc">
+    <p>
+        Early transformer layers still show propagation near the driving gear, but later layers depart from a single BFS frontier.
+        Parity signals emerge simultaneously in gears that have not yet been reached from the root.
+    </p>
+    <p>
+        These signals are initially consistent only within local neighborhoods.
+        Across subsequent layers, the local parity regions become mutually aligned, suggesting that the model constructs several partial solutions before combining them globally.
+    </p>
+    </div>
+                    </div>
+
+                    <div class="overview-section" id="section-2.2. MLP Probing">
+
+                        <div class="overview-section-header">
+                            <h4 class="level-3-header">2.2. MLP Probing</h4>
+                        </div>
+
+                        <div class="overview-desc">
+    <p>
+        For long chains, root-relative parity probing improves gradually in shallow layers and then rises rapidly in later layers.
+        Pairwise probing reveals why: intermediate representations form clusters with accurate parity relationships inside each cluster but inconsistent relationships between clusters.
+    </p>
+    <p>
+        In the final layers, those clusters merge into a globally consistent representation.
+        This local-to-global transition is the quantitative signature of the divide-and-conquer-like strategy.
+    </p>
+    </div>
+                    </div>
+
+                    <div class="overview-section" id="section-2.3. Generalizability">
+
+                        <div class="overview-section-header">
+                            <h4 class="level-3-header">2.3. Generalizability</h4>
+                        </div>
+
+                        <div class="overview-desc">
+    <p>
+        Divide-and-conquer-like reasoning enables chains deeper than the transformer stack, but it generalizes less reliably than parallel BFS.
+        Even when test height remains within the training range, performance can decline as unseen gear counts introduce new tree structures.
+    </p>
+    <p>
+        The exception is shallow height (roughly <i>h</i> &le; 10), where the model can still rely on the simpler parallel-BFS mechanism.
+        A likely explanation is that decomposition and merging admit many topology-dependent strategies, so the particular shortcut learned during training may not transfer to novel structures.
+    </p>
+    </div>
+                    </div>
+
         </div>
 
         <div id="cards-container" class="container"></div>
@@ -1507,7 +1750,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
             </div>
         </div>
     </div>
-    
+
     <div id="clustrmaps-widget-container">
         <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=EakYmNC57ROvcmK4DT-NyOywRN9Y4G9Bh0BWI7qmXJ8&cl=ffffff&w=a"></script>
     </div>

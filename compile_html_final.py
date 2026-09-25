@@ -68,8 +68,8 @@ SIDEBAR_CONFIG = [
             "50-Gear Count",
             "100-Gear Count"
     ]),
-    ("Analysis: How does Video Diffusion Transformers simulate gear systems?", [
-                    ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", [
+    ("Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?", [
+                    ("Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains", [
                         "1.1. PCA Analysis",
                         "1.2. MLP Probing",
                         "1.3. O.O.D. Kinematic Height",
@@ -163,16 +163,30 @@ DATASET_DESCRIPTIONS = {
     </p>
     </div>
     """,
-    "Analysis: How does Video Diffusion Transformers simulate gear systems?": """
-    Given the successful performance on gear simulations, the question arises: how do video diffusion transformers simulate gear mechanisms, given this requires resolving long-chain kinematic dependencies?
-    In this section, we present two distinct reasoning mechanisms that emerge depending on the <b>kinematic height</b> $h$ (i.e., the maximum depth from the driving gear) observed during training.
-    When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. 
-    In contrast, when the model is exposed to larger kinematic heights, for which a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.  
-    The following two sections demonstrate these two reasoning mechanisms, respectively.
+    "Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?": """
+    <div>
+        <p>
+            Fine-tuned video diffusion transformers can generate kinematically consistent gear motion, but doing so requires resolving rotational parity across the entire mechanism.
+            We therefore inspect their internal features to ask which algorithmic strategy emerges from video-only training.
+        </p>
+        <p>
+            The answer depends on the largest <b>kinematic height</b> <i>h</i>—the maximum graph distance from the driving gear—seen during training:
+        </p>
+        <ul>
+            <li><b>Short chains:</b> successive transformer layers behave like parallel breadth-first-search steps, propagating parity one graph depth at a time.</li>
+            <li><b>Long chains:</b> when the required number of BFS steps exceeds the 30-layer network depth, the model forms locally consistent parity regions and later merges them in a divide-and-conquer-like process.</li>
+        </ul>
+        <p>The sections below summarize the PCA, MLP-probing, and generalization evidence for both mechanisms.</p>
+    </div>
     """,
-    "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": """
-    We begin by demonstrating the emergence of parallel BFS reasoning by training a video DiT on gear mechanisms with kinematic heights up to 10, which require only short-chain reasoning, and then performing feature probing.
-    Notably, this maximum height is smaller than the number of transformer layers 30.
+    "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains": """
+    <p>
+        We first study models trained on mechanisms with at most 10 gears and kinematic height <i>h</i> &le; 10.
+        Because this reasoning depth is smaller than the model&apos;s 30 transformer layers, the network can implement a direct layer-by-layer propagation strategy.
+    </p>
+    <p>
+        PCA and MLP probing reveal a parallel-BFS-like mechanism; the quantitative evaluations then separate what it generalizes to—new gear counts and branching factors—from what it does not—kinematic heights beyond the training range.
+    </p>
     """,
     "1.1. PCA Analysis": """
     <div class="pca-analysis-gallery">
@@ -276,26 +290,203 @@ DATASET_DESCRIPTIONS = {
     </div>
     """,
     "1.2. MLP Probing": """
-    To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. 
-    As shown below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.
-
+    <p>
+        We train lightweight MLP probes to predict whether pairs of gear features have the same rotational parity.
+        Each heatmap reports probing accuracy by transformer block (vertical axis) and gear depth from the driving gear (horizontal axis).
+    </p>
     <div class="mlp-probing-figures">
         <figure>
-            <a href="1.2 MLP Probing/train_10_eval_10.png" target="_blank" rel="noopener noreferrer">
-                <img src="1.2 MLP Probing/train_10_eval_10.png" alt="MLP probing results for training and evaluation on kinematic height 10" loading="lazy">
+            <a href="data/1.2%20MLP%20Probing/train_5_eval_5.png" target="_blank" rel="noopener noreferrer">
+                <img src="data/1.2%20MLP%20Probing/train_5_eval_5.png" alt="MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 5" loading="lazy" decoding="async">
             </a>
-            <figcaption>Training height 10; evaluation height 10.</figcaption>
+            <figcaption><b>Train and evaluate at <i>h</i> &le; 5.</b> Accurate parity information reaches progressively deeper gears in later blocks.</figcaption>
         </figure>
         <figure>
-            <a href="1.2 MLP Probing/train_5_eval_5.png" target="_blank" rel="noopener noreferrer">
-                <img src="1.2 MLP Probing/train_5_eval_5.png" alt="MLP probing results for training and evaluation on kinematic height 5" loading="lazy">
+            <a href="data/1.2%20MLP%20Probing/train_10_eval_10.png" target="_blank" rel="noopener noreferrer">
+                <img src="data/1.2%20MLP%20Probing/train_10_eval_10.png" alt="MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 10" loading="lazy" decoding="async">
             </a>
-            <figcaption>Training height 5; evaluation height 5.</figcaption>
+            <figcaption><b>Train and evaluate at <i>h</i> &le; 10.</b> The same moving accuracy frontier extends across the longer chain.</figcaption>
         </figure>
+    </div>
+    <p>
+        <strong>Result:</strong> the high-accuracy region advances approximately one graph depth at a time as transformer depth increases, quantitatively supporting the parallel-BFS interpretation suggested by PCA.
+    </p>
+    """,
+    "1.3. O.O.D. Kinematic Height": """
+    <div>
+        <p>
+            Parallel-BFS reasoning extrapolates to many more gears, but it is brittle to a larger <em>kinematic height</em>.
+            The success-rate matrices and feature probes below show that the learned propagation process stops near the maximum depth encountered during training.
+        </p>
+
+        <!-- Table 1 -->
+        <div class="table-wrap" style="margin: 24px 0 10px;">
+            <table class="latex-table" style="min-width: 940px;" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
+                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                    <strong>Table 1. Simulation success rates (%) across varying gear counts and kinematic heights.</strong>
+                    The model is trained with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10.
+                    The red-outlined cell is in-distribution; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
+                </caption>
+                <thead>
+                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                    <tr>
+                        <th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th><th scope="col">50</th>
+                        <th scope="col">60</th><th scope="col">70</th><th scope="col">80</th><th scope="col">90</th><th scope="col">100</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">10</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                    <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="table-note">
+            At the in-distribution height <i>h</i> = 10, success remains 82–100% even as the gear count grows to 100.
+            Once height increases to 20 or more, success collapses to 0–1%.
+        </p>
+
+        <!-- Table 6 -->
+        <div class="table-wrap" style="margin: 30px 0 10px;">
+            <table class="latex-table" style="min-width: 580px;" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
+                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                    <strong>Table 6. Simulation success rates (%) for models trained on up to 5 gears.</strong>
+                    Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5; the same height-limited generalization pattern appears at a smaller scale.
+                </caption>
+                <thead>
+                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                    <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">5</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td style="background:#f7e4e2;">3%</td><td>—</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">20</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                    <tr><th scope="row">30</th><td style="background:#e2efe2;">96%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                    <tr><th scope="row">40</th><td style="background:#e8ebe0;">88%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="table-note">
+            The model extrapolates from 5 to 40 gears at <i>h</i> = 5 (88–100% success), but nearly always fails as soon as the required propagation depth exceeds its training range.
+        </p>
+
+        <!-- Figure 4 -->
+        <h5 style="margin: 34px 0 8px; font-size: 1.05rem; color: #333;">Figure 4. Feature probing on out-of-distribution kinematic heights</h5>
+        <p>
+            The probes expose the same failure internally: parity information propagates through transformer blocks only as far as the training distribution requires.
+        </p>
+        <div class="mlp-probing-figures">
+            <figure>
+                <a href="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" target="_blank" rel="noopener noreferrer">
+                    <img src="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" alt="Feature probing for height-5 training evaluated on a height-10 linear chain" loading="lazy" decoding="async">
+                </a>
+                <figcaption><b>Train: <i>h</i> &le; 5; evaluate: <i>N</i> = <i>h</i> = 10.</b> The accuracy frontier reaches the trained depth and then stalls.</figcaption>
+            </figure>
+            <figure>
+                <a href="data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png" target="_blank" rel="noopener noreferrer">
+                    <img src="data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png" alt="Feature probing for height-10 training evaluated on a height-20 linear chain" loading="lazy" decoding="async">
+                </a>
+                <figcaption><b>Train: <i>h</i> &le; 10; evaluate: <i>N</i> = <i>h</i> = 20.</b> Propagation similarly stops beyond the in-distribution height.</figcaption>
+            </figure>
+        </div>
+        <p>
+            <strong>Summary:</strong> the model learns to activate enough transformer blocks to cover the heights seen during training, rather than learning an indefinitely repeatable BFS procedure.
+            This explains why gear-count extrapolation succeeds at fixed height while height extrapolation fails.
+        </p>
+    </div>
+    """,
+    "1.4. I.D. Kinematic Height": """
+    <div>
+        <p>
+            When kinematic height remains within the training range, parallel self-attention can update all neighbors at a given BFS depth simultaneously.
+            The resulting computation is therefore robust to new branching factors and tree layouts.
+        </p>
+        <div class="table-wrap" style="margin: 24px 0 10px;">
+            <table class="latex-table" style="min-width: 650px;" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
+                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                    <strong>Table 2. Generalization to unseen tree topologies.</strong>
+                    Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for models trained exclusively on linear chains and evaluated on linear chains versus general trees.
+                </caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2" scope="col">Training bound</th>
+                        <th colspan="2" scope="colgroup">Linear chain (I.D.)</th>
+                        <th colspan="2" scope="colgroup" style="color:#b42318;">General tree (O.O.D.)</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">SSR ↑</th><th scope="col"><i>E</i><sub>rmd</sub> ↓</th>
+                        <th scope="col">SSR ↑</th><th scope="col"><i>E</i><sub>rmd</sub> ↓</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th>
+                        <td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td>
+                        <td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10</th>
+                        <td style="background:#e1f0e2;">97%</td><td style="background:#e1f0e2;">0.046</td>
+                        <td style="background:#e0f0e1;">99%</td><td style="background:#e0f0e1;">0.040</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            Performance does not degrade on unseen branching structures: the 5-gear model retains 100% SSR, while the 10-gear model changes from 97% on linear chains to 99% on general trees.
+            Motion disparity is unchanged or slightly lower.
+        </p>
+        <p>
+            <strong>Summary:</strong> parallel BFS is sensitive to unseen sequential depth, but not to the number of neighbors processed in parallel.
+            Consequently, the model can generalize to unseen gear counts and branching factors as long as the maximum kinematic height remains in-distribution.
+        </p>
     </div>
     """,
     "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": """
-    a
+    <p>
+        We next train on mechanisms with up to 50 gears and kinematic height 50.
+        Because the video DiT has only 30 transformer layers, a literal one-layer-per-depth BFS strategy cannot cover these chains.
+    </p>
+    <p>
+        PCA and probing instead indicate a divide-and-conquer-like computation: the model first resolves parity inside several local neighborhoods in parallel, then progressively merges those local solutions into one globally consistent assignment.
+    </p>
+    """,
+    "2.1. PCA Analysis": """
+    <p>
+        Early transformer layers still show propagation near the driving gear, but later layers depart from a single BFS frontier.
+        Parity signals emerge simultaneously in gears that have not yet been reached from the root.
+    </p>
+    <p>
+        These signals are initially consistent only within local neighborhoods.
+        Across subsequent layers, the local parity regions become mutually aligned, suggesting that the model constructs several partial solutions before combining them globally.
+    </p>
+    """,
+    "2.2. MLP Probing": """
+    <p>
+        For long chains, root-relative parity probing improves gradually in shallow layers and then rises rapidly in later layers.
+        Pairwise probing reveals why: intermediate representations form clusters with accurate parity relationships inside each cluster but inconsistent relationships between clusters.
+    </p>
+    <p>
+        In the final layers, those clusters merge into a globally consistent representation.
+        This local-to-global transition is the quantitative signature of the divide-and-conquer-like strategy.
+    </p>
+    """,
+    "2.3. Generalizability": """
+    <p>
+        Divide-and-conquer-like reasoning enables chains deeper than the transformer stack, but it generalizes less reliably than parallel BFS.
+        Even when test height remains within the training range, performance can decline as unseen gear counts introduce new tree structures.
+    </p>
+    <p>
+        The exception is shallow height (roughly <i>h</i> &le; 10), where the model can still rely on the simpler parallel-BFS mechanism.
+        A likely explanation is that decomposition and merging admit many topology-dependent strategies, so the particular shortcut learned during training may not transfer to novel structures.
+    </p>
     """,
 }
 
