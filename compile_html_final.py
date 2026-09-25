@@ -181,7 +181,21 @@ DATASET_DESCRIPTIONS = {
     "1.2. MLP Probing": """
     To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. 
     As shown below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.
-    
+
+    <div class="mlp-probing-figures">
+        <figure>
+            <a href="1.2 MLP Probing/train_10_eval_10.png" target="_blank" rel="noopener noreferrer">
+                <img src="1.2 MLP Probing/train_10_eval_10.png" alt="MLP probing results for training and evaluation on kinematic height 10" loading="lazy">
+            </a>
+            <figcaption>Training height 10; evaluation height 10.</figcaption>
+        </figure>
+        <figure>
+            <a href="1.2 MLP Probing/train_5_eval_5.png" target="_blank" rel="noopener noreferrer">
+                <img src="1.2 MLP Probing/train_5_eval_5.png" alt="MLP probing results for training and evaluation on kinematic height 5" loading="lazy">
+            </a>
+            <figcaption>Training height 5; evaluation height 5.</figcaption>
+        </figure>
+    </div>
     """,
     "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": """
     a
@@ -458,6 +472,31 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         h2.dataset-title {{ font-family: var(--font-stack); font-size: 1.6rem; font-weight: 400; color: var(--text-title); margin-bottom: 15px; border-bottom: 3px solid var(--primary-color); padding-bottom: 8px; display: inline-block; }}
         h3.content-subtitle {{ font-size: 1.4rem; color: #444; margin-top: 0; margin-bottom: 10px; font-weight: 600; }}
         .dataset-description {{ font-size: 1.05rem; color: var(--text-secondary); max-width: 800px; text-align: left; line-height: 1.7; margin: 0 auto 30px auto; padding: 0 20px; }}
+        .mlp-probing-figures {{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }}
+        .mlp-probing-figures figure {{
+            margin: 0;
+            min-width: 0;
+            text-align: center;
+        }}
+        .mlp-probing-figures img {{
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }}
+        .mlp-probing-figures figcaption {{
+            margin-top: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }}
         .table-wrap {{ overflow-x: auto; }}
         .table-note {{ font-size: 12px; color: #666; margin-top: 6px; }}
         .latex-table {{
@@ -627,6 +666,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         body.sidebar-collapsed .main-content {{ margin-left: 50px; width: calc(100% - 50px); }}
         body.sidebar-collapsed .dataset-btn, body.sidebar-collapsed .nav-subcategory {{ opacity: 0; pointer-events: none; white-space: nowrap; }}
         body.sidebar-collapsed #sidebar-toggle {{ background-color: #e6e6e6; }}
+
+        @media (max-width: 800px) {{
+            .mlp-probing-figures {{ grid-template-columns: 1fr; }}
+        }}
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {{
