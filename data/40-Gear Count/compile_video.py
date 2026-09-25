@@ -18,11 +18,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 import stack_videos
 #################### Good examples, Do NOT change the examples ##############################
-good_examples = ["/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_10_LineDepth10_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed110GeneralGraph_Depth110_37000_SKIPLOW_MotionHighFixed110eralGraphDepth110_37000_shift1_1.0_steps1_step32b/results/8_loop_0_modality_0.gif",
-"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_10_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed110LineGraph_Depth110_12000_SKIPLOW_MotionHighFixed110LineGraphDepth110_12000_shift1_1.0_steps1_step32b/results/0_loop_0_modality_0.gif",
-"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_10_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed110LineGraph_Depth110_12000_SKIPLOW_MotionHighFixed110LineGraphDepth110_12000_shift1_1.0_steps1_step32b/results/2_loop_0_modality_0.gif",
-"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_10_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed110LineGraph_Depth110_12000_SKIPLOW_MotionHighFixed110LineGraphDepth110_12000_shift1_1.0_steps1_step32b/results/3_loop_0_modality_0.gif",
-"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_10_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed110LineGraph_Depth110_12000_SKIPLOW_MotionHighFixed110LineGraphDepth110_12000_shift1_1.0_steps1_step32b/results/4_loop_0_modality_0.gif"]
+good_examples = []
 #################################################################
 
 

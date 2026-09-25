@@ -68,7 +68,7 @@ SIDEBAR_CONFIG = [
             "50-Gear Count",
             "100-Gear Count"
     ]),
-    ("Analysis Intro", []),
+    ("Analysis Introduction", []),
     ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", []),
     ("Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", []),
 ]
@@ -110,6 +110,48 @@ DATASET_DESCRIPTIONS = {
     </p>
     </div>
     """,
+    "10-Gear Count": """
+    <div>
+    <p>
+        Herem the mode is trained and tested up to 10-gear system.
+    </p>
+    </div>
+    """,
+    "20-Gear Count": """
+    <div>
+    <p>
+        Here the model is trained and tested up to 20-gear system.
+    </p>
+    </div>
+    """,
+    "30-Gear Count": """
+    <div>
+    <p>
+        Here the model is trained and tested up to 30-gear system.
+    </p>
+    </div>
+    """,
+    "40-Gear Count": """
+    <div>
+    <p>
+        Here the model is trained and tested up to 40-gear system.
+    </p>
+    </div>
+    """,
+    "50-Gear Count": """
+    <div>
+    <p>
+        Here the model is trained and tested up to 50-gear system.
+    </p>
+    </div>
+    """,
+    "100-Gear Count": """
+    <div>
+    <p>
+        Here the model is trained and tested up to 100-gear system.
+    </p>
+    </div>
+    """
 }
 
 # --- HTML Template ---
