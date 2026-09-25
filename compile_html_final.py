@@ -61,12 +61,12 @@ SIDEBAR_CONFIG = [
         "Animating Gear Systems with Commercial Video Models",
     ]),
     ("Qualitative Results",[
-            "10 Gear Count",
-            "20 Gear Count",
-            "30 Gear Count",
-            "40 Gear Count",
-            "50 Gear Count",
-            "100 Gear Count"
+            "10-Gear Count",
+            "20-Gear Count",
+            "30-Gear Count",
+            "40-Gear Count",
+            "50-Gear Count",
+            "100-Gear Count"
     ]),
     ("Analysis Intro", []),
     ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", []),
