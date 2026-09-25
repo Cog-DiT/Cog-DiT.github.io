@@ -453,11 +453,15 @@ DATASET_DESCRIPTIONS = {
             <strong>Summary:</strong> parallel BFS is sensitive to unseen sequential depth, but not to the number of neighbors processed in parallel.
             Consequently, the model can generalize to unseen gear counts and branching factors as long as the maximum kinematic height remains in-distribution.
         </p>
-        <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">Concrete in-distribution-height successes from Table 1</h5>
+        <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">Concrete successes from Tables 1 and 2</h5>
         <p>
-            The five videos below are the lowest-error successful samples from the <i>N</i> = 100, <i>h</i> = 10 cell, which has an 82% success rate despite containing ten times more gears than seen during training.
+            <b>Examples 1&ndash;5 (Table 1)</b> are the lowest-error successful samples from the <i>N</i> = 100, <i>h</i> = 10 cell, which has an 82% success rate despite containing ten times more gears than seen during training.
             All 100 gears in each selected sample remain below the 0.25 relative-motion threshold.
-            The panels show the initial-frame condition, driving-gear condition, ground truth, and generated video.
+        </p>
+        <p>
+            <b>Examples 6&ndash;10 (Table 2)</b> isolate topology generalization: the checkpoint was trained exclusively on linear chains with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10, then evaluated on the 10-gear <code>Motion_10_MinRad20</code> general-tree split corresponding to the O.O.D. cell (99% SSR; aggregate <i>E</i><sub>rmd</sub> = 0.040 in the table).
+            The displayed samples are the five lowest-error successful mechanisms in that run, and their parent relations were checked to confirm that every example branches and is therefore non-linear.
+            Each comparison shows the initial-frame condition, driving-gear condition, ground truth, and generated video.
         </p>
     </div>
     """,
@@ -1096,7 +1100,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             const toggleBtn = document.getElementById('sidebar-toggle');
             const body = document.body;
             
-            const overviewVideosMap = {overview_videos_map_json}; 
+            const overviewVideosMap = {overview_videos_map_json};
             const datasetToPageMap = {dataset_to_page_map_json}; 
             const pageToFirstDatasetMap = {page_to_first_dataset_map_json};
             const pagesData = {pages_data_json};

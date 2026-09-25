@@ -1,0 +1,18 @@
+[
+  {
+    "text": "Table 2 O.O.D. cell: linear-chain training → 10-gear general-tree evaluation (99% SSR)",
+    "color": [45, 45, 45]
+  },
+  {
+    "text": "Sample 1: SUCCESS at the all-gears threshold τ = 0.25; verified non-linear tree",
+    "color": [24, 128, 56]
+  },
+  {
+    "text": "Relative motion disparity E_rmd = 0.024; maximum children per gear = 3",
+    "color": [65, 65, 65]
+  },
+  {
+    "text": "Panels: initial-frame condition | driving-gear condition | ground truth | generated video",
+    "color": [90, 90, 90]
+  }
+]
