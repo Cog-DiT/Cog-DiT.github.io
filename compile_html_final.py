@@ -56,15 +56,26 @@ Overall, this work demonstrates that video diffusion transformers are capable of
 # --- 3-LEVEL HIERARCHY CONFIG ---
 # The script automatically detects if an item is a "Group" (tuple with list) or "Single" (string)
 SIDEBAR_CONFIG = [
-    ("Task definition",[]),
+    ("Task Definition",[]),
     ("Motivation: Why study gear simulation? ", [
         "Animating Gear Systems with Commercial Video Models",
     ]),
+    ("Qualitative Results",[
+            "10 Gear Count",
+            "20 Gear Count",
+            "30 Gear Count",
+            "40 Gear Count",
+            "50 Gear Count",
+            "100 Gear Count"
+    ]),
+    ("Analysis Intro", []),
+    ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", []),
+    ("Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", []),
 ]
 
 
 DATASET_DESCRIPTIONS = {
-    "Task definition": """
+    "Task Definition": """
     <div>
     <p>
         In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.
@@ -91,7 +102,14 @@ DATASET_DESCRIPTIONS = {
     </p>
     </div>
     """,
-   
+   "Qualitative Results": """
+    <div>
+    <p>
+        Depsite above failures of commer video diffusion models, our initial finding is that if we finetune video diffusion transformers, they can successfully generate video of gear systems where kinematic constraints are satisfied, no matter how many the gear counts are large. 
+        Below demonstrate the some generated examples. 
+    </p>
+    </div>
+    """,
 }
 
 # --- HTML Template ---
@@ -1067,25 +1085,51 @@ def generate_single_index(input_folder):
     for category_name, items in SIDEBAR_CONFIG:
         # Every configured category is a clickable level-2 sidebar title.
         # Its children, when present, are level-3 titles.
-        if not items and category_name not in DATASET_DESCRIPTIONS:
+        if not items and category_name not in DATASET_DESCRIPTIONS and category_name not in found_datasets:
             continue
 
         dataset_nav_html += f'<button class="dataset-btn level-2" data-target="{category_name}" data-section="{category_name}" onclick="navigateToSection(\'{category_name}\')">{category_name}</button>\n'
         cat_subitems = []
 
         if not items:
+            category_video_files = sorted(
+                glob.glob(os.path.join(input_folder, category_name, "*.mp4")),
+                key=sort_key,
+            )
+            has_category_videos = bool(category_video_files)
             pages.append({
                 "id": category_name,
                 "title": category_name,
                 "datasets": [category_name],
                 "is_group": False,
-                "is_text_only": True
+                "is_text_only": not has_category_videos
             })
             page_to_first_dataset_map[category_name] = category_name
             used_datasets.add(category_name)
             dataset_to_page_map[category_name] = category_name
-            overview_structure.append((category_name, []))
+            category_subitems = []
+            if has_category_videos:
+                category_subitems.append((category_name, [category_name], False))
+            overview_structure.append((category_name, category_subitems))
             continue
+
+        # A category may have its own videos as well as child sections.
+        # Put the category-level videos first in the overview.
+        category_video_files = sorted(
+            glob.glob(os.path.join(input_folder, category_name, "*.mp4")),
+            key=sort_key,
+        )
+        if category_video_files and category_name not in used_datasets:
+            pages.append({
+                "id": category_name,
+                "title": category_name,
+                "datasets": [category_name],
+                "is_group": False
+            })
+            page_to_first_dataset_map[category_name] = category_name
+            dataset_to_page_map[category_name] = category_name
+            used_datasets.add(category_name)
+            cat_subitems.append((category_name, [category_name], False))
 
         for item in items:
             is_group = False

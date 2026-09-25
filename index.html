@@ -442,10 +442,10 @@
             const toggleBtn = document.getElementById('sidebar-toggle');
             const body = document.body;
             
-            const overviewVideosMap = {"Animating Gear Systems with Commercial Video Models": ["./video/Animating Gear Systems with Commercial Video Models/0.mp4", "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "./video/Animating Gear Systems with Commercial Video Models/3.mp4"]}; 
-            const datasetToPageMap = {"Task definition": "Task definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models"}; 
-            const pageToFirstDatasetMap = {"Task definition": "Task definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models"};
-            const pagesData = {"Task definition": {"title": "Task definition", "description": "", "is_group": false, "is_text_only": true, "blocks": [{"id": "Task definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": []}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}};
+            const overviewVideosMap = {"Task Definition": ["video/Task Definition/0.mp4", "video/Task Definition/1.mp4", "video/Task Definition/2.mp4", "video/Task Definition/3.mp4", "video/Task Definition/4.mp4"], "Animating Gear Systems with Commercial Video Models": ["video/Animating Gear Systems with Commercial Video Models/0.mp4", "video/Animating Gear Systems with Commercial Video Models/1.mp4", "video/Animating Gear Systems with Commercial Video Models/2.mp4", "video/Animating Gear Systems with Commercial Video Models/3.mp4"]}; 
+            const datasetToPageMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models"}; 
+            const pageToFirstDatasetMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models"};
+            const pagesData = {"Task Definition": {"title": "Task Definition", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Task Definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": [{"src": "video/Task Definition/0.mp4", "caption": ""}, {"src": "video/Task Definition/1.mp4", "caption": ""}, {"src": "video/Task Definition/2.mp4", "caption": ""}, {"src": "video/Task Definition/3.mp4", "caption": ""}, {"src": "video/Task Definition/4.mp4", "caption": ""}]}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}};
 
             const carouselIndices = {};
 
@@ -853,9 +853,10 @@
 
     <div class="dataset-nav">
         <button class="dataset-btn overview-btn" data-target="Overview" onclick="backToOverview()">Overview</button>
-        <button class="dataset-btn level-2" data-target="Task definition" data-section="Task definition" onclick="navigateToSection('Task definition')">Task definition</button>
+        <button class="dataset-btn level-2" data-target="Task Definition" data-section="Task Definition" onclick="navigateToSection('Task Definition')">Task Definition</button>
 <button class="dataset-btn level-2" data-target="Motivation: Why study gear simulation? " data-section="Motivation: Why study gear simulation? " onclick="navigateToSection('Motivation: Why study gear simulation? ')">Motivation: Why study gear simulation? </button>
 <button class="dataset-btn level-3" data-target="Motivation: Why study gear simulation? " data-dataset="Animating Gear Systems with Commercial Video Models" data-section="Animating Gear Systems with Commercial Video Models" onclick="navigateToSection('Animating Gear Systems with Commercial Video Models')">Animating Gear Systems with Commercial Video Models</button>
+<button class="dataset-btn level-2" data-target="Qualitative Results" data-section="Qualitative Results" onclick="navigateToSection('Qualitative Results')">Qualitative Results</button>
 
     </div>
 
@@ -898,8 +899,8 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                 </div>
             </div>
             
-        <div class="hierarchy-bar level-1-header" id="section-Task definition">
-            Task definition
+        <div class="hierarchy-bar level-1-header" id="section-Task Definition">
+            Task Definition
         </div>
         <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
     <div>
@@ -911,6 +912,39 @@ Overall, this work demonstrates that video diffusion transformers are capable of
     </p>
     </div>
     </div>
+            <div class="hierarchy-bar level-2-header">
+                Task Definition
+            </div>
+            
+                <div class="overview-section" id="section-Task Definition">
+                    
+                    <div class="overview-desc">
+    <div>
+    <p>
+        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.
+        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. 
+        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. 
+        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. 
+    </p>
+    </div>
+    </div>
+                    
+                    <div class="carousel-wrapper" id="carousel-Task Definition">
+                        <button class="carousel-btn left" onclick="moveCarousel('Task Definition', -1)">&#10094;</button>
+                        <video class="lazy" data-src="video/Task Definition/0.mp4" preload="none" muted autoplay loop playsinline></video>
+                        <button class="carousel-btn right" onclick="moveCarousel('Task Definition', 1)">&#10095;</button>
+                        <div class="slide-counter">1 / 5</div>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots-Task Definition">
+                        <button class="carousel-dot active" onclick="setCarouselIndex('Task Definition', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('Task Definition', 4)" aria-label="Slide 5"></button>
+                    </div>
+                    
+                    <div class="overview-action">
+                        <button class="btn-view-all" onclick="navigateToDataset('Task Definition')">View Full Examples &rarr;</button>
+                    </div>
+                </div>
+                
         <div class="hierarchy-bar level-1-header" id="section-Motivation: Why study gear simulation? ">
             Motivation: Why study gear simulation? 
         </div>
@@ -940,7 +974,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     
                     <div class="carousel-wrapper" id="carousel-Animating Gear Systems with Commercial Video Models">
                         <button class="carousel-btn left" onclick="moveCarousel('Animating Gear Systems with Commercial Video Models', -1)">&#10094;</button>
-                        <video class="lazy" data-src="./video/Animating Gear Systems with Commercial Video Models/0.mp4" preload="none" muted autoplay loop playsinline></video>
+                        <video class="lazy" data-src="video/Animating Gear Systems with Commercial Video Models/0.mp4" preload="none" muted autoplay loop playsinline></video>
                         <button class="carousel-btn right" onclick="moveCarousel('Animating Gear Systems with Commercial Video Models', 1)">&#10095;</button>
                         <div class="slide-counter">1 / 4</div>
                     </div>
@@ -954,6 +988,17 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                     </div>
                 </div>
                 
+        <div class="hierarchy-bar level-1-header" id="section-Qualitative Results">
+            Qualitative Results
+        </div>
+        <div class="dataset-description" style="margin-bottom: 30px; text-align: left;">
+    <div>
+    <p>
+        Depsite above failures of commer video diffusion models, our initial finding is that if we finetune video diffusion transformers, they can successfully generate video of gear systems where kinematic constraints are satisfied, no matter how many the gear counts are large. 
+        Below demonstrate the some generated examples. 
+    </p>
+    </div>
+    </div>
         </div>
 
         <div id="cards-container" class="container"></div>
