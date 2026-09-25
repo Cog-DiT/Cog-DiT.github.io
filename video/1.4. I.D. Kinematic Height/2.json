@@ -1,0 +1,34 @@
+[
+  {
+    "text": "Table 1 cell: N = 100, h = 10 (82% success; in-distribution height)",
+    "color": [
+      45,
+      45,
+      45
+    ]
+  },
+  {
+    "text": "Sample 22: SUCCESS at the all-gears threshold τ = 0.25",
+    "color": [
+      24,
+      128,
+      56
+    ]
+  },
+  {
+    "text": "Relative motion disparity E_rmd = 0.029; gears below threshold = 100%",
+    "color": [
+      65,
+      65,
+      65
+    ]
+  },
+  {
+    "text": "Panels: initial-frame condition | driving-gear condition | ground truth | generated video",
+    "color": [
+      90,
+      90,
+      90
+    ]
+  }
+]

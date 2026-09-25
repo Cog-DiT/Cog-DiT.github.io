@@ -400,6 +400,12 @@ DATASET_DESCRIPTIONS = {
             <strong>Summary:</strong> the model learns to activate enough transformer blocks to cover the heights seen during training, rather than learning an indefinitely repeatable BFS procedure.
             This explains why gear-count extrapolation succeeds at fixed height while height extrapolation fails.
         </p>
+        <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">Concrete O.O.D. failure examples from Table 1</h5>
+        <p>
+            The five videos below come from the <i>N</i> = 20, <i>h</i> = 20 cell, where the model succeeds on only 1% of the 100 evaluation mechanisms.
+            We show failed samples with especially large relative motion disparity to make the depth-extrapolation breakdown visible.
+            Each comparison contains the initial-frame condition, driving-gear condition, ground truth, and generated video; the caption reports the sample-level error and fraction of gears below the 0.25 threshold.
+        </p>
     </div>
     """,
     "1.4. I.D. Kinematic Height": """
@@ -446,6 +452,12 @@ DATASET_DESCRIPTIONS = {
         <p>
             <strong>Summary:</strong> parallel BFS is sensitive to unseen sequential depth, but not to the number of neighbors processed in parallel.
             Consequently, the model can generalize to unseen gear counts and branching factors as long as the maximum kinematic height remains in-distribution.
+        </p>
+        <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">Concrete in-distribution-height successes from Table 1</h5>
+        <p>
+            The five videos below are the lowest-error successful samples from the <i>N</i> = 100, <i>h</i> = 10 cell, which has an 82% success rate despite containing ten times more gears than seen during training.
+            All 100 gears in each selected sample remain below the 0.25 relative-motion threshold.
+            The panels show the initial-frame condition, driving-gear condition, ground truth, and generated video.
         </p>
     </div>
     """,
