@@ -18,7 +18,12 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 import stack_videos
 #################### Good examples, Do NOT change the examples ##############################
-good_examples = []
+good_examples = ["/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_100_LineDepth100_MinRad25_Efficient2/Gear_Motion_Normalize_HighNoise_GearFixed160GeneralGraph_Depth1100_From160_51000_SKIPLOW_MotionHighFixed160eralGraphDepth1100From160_51000_shift1_1.0_steps5_step32b/results/0_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_100_LineDepth100_MinRad25_Efficient2/Gear_Motion_Normalize_HighNoise_GearFixed160GeneralGraph_Depth1100_From160_51000_SKIPLOW_MotionHighFixed160eralGraphDepth1100From160_51000_shift1_1.0_steps5_step32b/results/1_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_100_LineDepth100_MinRad25_Efficient2/Gear_Motion_Normalize_HighNoise_GearFixed160GeneralGraph_Depth1100_From160_51000_SKIPLOW_MotionHighFixed160eralGraphDepth1100From160_51000_shift1_1.0_steps5_step32b/results/3_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_Depth10_Node100_MinRad25_Efficient2/Gear_Motion_Normalize_HighNoise_GearFixed160GeneralGraph_Depth1100_From160_49800_SKIPLOW_MotionHighFixed160eralGraphDepth1100From160_49800_shift1_1.0_steps5_step32b/results/1_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_Depth40_Node100_MinRad25_Efficient2/Gear_Motion_Normalize_HighNoise_GearFixed160GeneralGraph_Depth1100_From160_51000_SKIPLOW_MotionHighFixed160eralGraphDepth1100From160_51000_shift1_1.0_steps5_step32b/results/37_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_Depth70_Node100_MinRad25_Efficient2/Gear_Motion_Normalize_HighNoise_GearFixed160GeneralGraph_Depth1100_From160_51000_SKIPLOW_MotionHighFixed160eralGraphDepth1100From160_51000_shift1_1.0_steps5_step32b/results/11_loop_0_modality_0.gif"]
 #################################################################
 
 

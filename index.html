@@ -442,10 +442,10 @@
             const toggleBtn = document.getElementById('sidebar-toggle');
             const body = document.body;
             
-            const overviewVideosMap = {"Task Definition": ["./video/Task Definition/0.mp4", "./video/Task Definition/1.mp4", "./video/Task Definition/2.mp4", "./video/Task Definition/3.mp4", "./video/Task Definition/4.mp4"], "Animating Gear Systems with Commercial Video Models": ["./video/Animating Gear Systems with Commercial Video Models/0.mp4", "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "./video/Animating Gear Systems with Commercial Video Models/3.mp4"], "10-Gear Count": ["./video/10-Gear Count/0.mp4", "./video/10-Gear Count/1.mp4", "./video/10-Gear Count/2.mp4", "./video/10-Gear Count/3.mp4", "./video/10-Gear Count/4.mp4"], "20-Gear Count": [], "30-Gear Count": [], "40-Gear Count": [], "50-Gear Count": [], "100-Gear Count": []}; 
+            const overviewVideosMap = {"Task Definition": ["./video/Task Definition/0.mp4", "./video/Task Definition/1.mp4", "./video/Task Definition/2.mp4", "./video/Task Definition/3.mp4", "./video/Task Definition/4.mp4"], "Animating Gear Systems with Commercial Video Models": ["./video/Animating Gear Systems with Commercial Video Models/0.mp4", "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "./video/Animating Gear Systems with Commercial Video Models/3.mp4"], "10-Gear Count": ["./video/10-Gear Count/0.mp4", "./video/10-Gear Count/1.mp4", "./video/10-Gear Count/2.mp4", "./video/10-Gear Count/3.mp4", "./video/10-Gear Count/4.mp4"], "20-Gear Count": ["./video/20-Gear Count/0.mp4", "./video/20-Gear Count/1.mp4", "./video/20-Gear Count/2.mp4", "./video/20-Gear Count/3.mp4", "./video/20-Gear Count/4.mp4", "./video/20-Gear Count/5.mp4"], "30-Gear Count": ["./video/30-Gear Count/0.mp4", "./video/30-Gear Count/1.mp4", "./video/30-Gear Count/2.mp4", "./video/30-Gear Count/3.mp4", "./video/30-Gear Count/4.mp4", "./video/30-Gear Count/5.mp4"], "40-Gear Count": ["./video/40-Gear Count/0.mp4", "./video/40-Gear Count/1.mp4", "./video/40-Gear Count/2.mp4", "./video/40-Gear Count/3.mp4", "./video/40-Gear Count/4.mp4"], "50-Gear Count": ["./video/50-Gear Count/0.mp4", "./video/50-Gear Count/1.mp4", "./video/50-Gear Count/2.mp4", "./video/50-Gear Count/3.mp4", "./video/50-Gear Count/4.mp4"], "100-Gear Count": ["./video/100-Gear Count/0.mp4", "./video/100-Gear Count/1.mp4", "./video/100-Gear Count/2.mp4", "./video/100-Gear Count/3.mp4", "./video/100-Gear Count/4.mp4", "./video/100-Gear Count/5.mp4"]}; 
             const datasetToPageMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count"}; 
             const pageToFirstDatasetMap = {"Task Definition": "Task Definition", "Animating Gear Systems with Commercial Video Models": "Animating Gear Systems with Commercial Video Models", "10-Gear Count": "10-Gear Count", "20-Gear Count": "20-Gear Count", "30-Gear Count": "30-Gear Count", "40-Gear Count": "40-Gear Count", "50-Gear Count": "50-Gear Count", "100-Gear Count": "100-Gear Count"};
-            const pagesData = {"Task Definition": {"title": "Task Definition", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Task Definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Task Definition/0.mp4", "caption": ""}, {"src": "./video/Task Definition/1.mp4", "caption": ""}, {"src": "./video/Task Definition/2.mp4", "caption": ""}, {"src": "./video/Task Definition/3.mp4", "caption": ""}, {"src": "./video/Task Definition/4.mp4", "caption": ""}]}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}, "10-Gear Count": {"title": "10-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "10-Gear Count", "description": "\n    <div>\n    <p>\n        Herem the mode is trained and tested up to 10-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/10-Gear Count/0.mp4", "caption": ""}, {"src": "./video/10-Gear Count/1.mp4", "caption": ""}, {"src": "./video/10-Gear Count/2.mp4", "caption": ""}, {"src": "./video/10-Gear Count/3.mp4", "caption": ""}, {"src": "./video/10-Gear Count/4.mp4", "caption": ""}]}]}, "20-Gear Count": {"title": "20-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "20-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 20-gear system.\n    </p>\n    </div>\n    ", "videos": []}]}, "30-Gear Count": {"title": "30-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "30-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 30-gear system.\n    </p>\n    </div>\n    ", "videos": []}]}, "40-Gear Count": {"title": "40-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "40-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 40-gear system.\n    </p>\n    </div>\n    ", "videos": []}]}, "50-Gear Count": {"title": "50-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "50-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 50-gear system.\n    </p>\n    </div>\n    ", "videos": []}]}, "100-Gear Count": {"title": "100-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "100-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 100-gear system.\n    </p>\n    </div>\n    ", "videos": []}]}};
+            const pagesData = {"Task Definition": {"title": "Task Definition", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Task Definition", "description": "\n    <div>\n    <p>\n        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.\n        Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. \n        The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. \n        We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. \n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Task Definition/0.mp4", "caption": ""}, {"src": "./video/Task Definition/1.mp4", "caption": ""}, {"src": "./video/Task Definition/2.mp4", "caption": ""}, {"src": "./video/Task Definition/3.mp4", "caption": ""}, {"src": "./video/Task Definition/4.mp4", "caption": ""}]}]}, "Animating Gear Systems with Commercial Video Models": {"title": "Animating Gear Systems with Commercial Video Models", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "Animating Gear Systems with Commercial Video Models", "description": "\n    <div>\n    <p>\n       Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.\n       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.\n    </p>\n    <p style=\"margin-top: 1em;\">\n        <small><sup>*</sup>Videos were generated using <a href=\"https://lumalabs.ai\" target=\"_blank\" rel=\"noopener noreferrer\">lumalabs.ai</a>.</small>\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/Animating Gear Systems with Commercial Video Models/0.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/1.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/2.mp4", "caption": ""}, {"src": "./video/Animating Gear Systems with Commercial Video Models/3.mp4", "caption": ""}]}]}, "10-Gear Count": {"title": "10-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "10-Gear Count", "description": "\n    <div>\n    <p>\n        Herem the mode is trained and tested up to 10-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/10-Gear Count/0.mp4", "caption": ""}, {"src": "./video/10-Gear Count/1.mp4", "caption": ""}, {"src": "./video/10-Gear Count/2.mp4", "caption": ""}, {"src": "./video/10-Gear Count/3.mp4", "caption": ""}, {"src": "./video/10-Gear Count/4.mp4", "caption": ""}]}]}, "20-Gear Count": {"title": "20-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "20-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 20-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/20-Gear Count/0.mp4", "caption": ""}, {"src": "./video/20-Gear Count/1.mp4", "caption": ""}, {"src": "./video/20-Gear Count/2.mp4", "caption": ""}, {"src": "./video/20-Gear Count/3.mp4", "caption": ""}, {"src": "./video/20-Gear Count/4.mp4", "caption": ""}, {"src": "./video/20-Gear Count/5.mp4", "caption": ""}]}]}, "30-Gear Count": {"title": "30-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "30-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 30-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/30-Gear Count/0.mp4", "caption": ""}, {"src": "./video/30-Gear Count/1.mp4", "caption": ""}, {"src": "./video/30-Gear Count/2.mp4", "caption": ""}, {"src": "./video/30-Gear Count/3.mp4", "caption": ""}, {"src": "./video/30-Gear Count/4.mp4", "caption": ""}, {"src": "./video/30-Gear Count/5.mp4", "caption": ""}]}]}, "40-Gear Count": {"title": "40-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "40-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 40-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/40-Gear Count/0.mp4", "caption": ""}, {"src": "./video/40-Gear Count/1.mp4", "caption": ""}, {"src": "./video/40-Gear Count/2.mp4", "caption": ""}, {"src": "./video/40-Gear Count/3.mp4", "caption": ""}, {"src": "./video/40-Gear Count/4.mp4", "caption": ""}]}]}, "50-Gear Count": {"title": "50-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "50-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 50-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/50-Gear Count/0.mp4", "caption": ""}, {"src": "./video/50-Gear Count/1.mp4", "caption": ""}, {"src": "./video/50-Gear Count/2.mp4", "caption": ""}, {"src": "./video/50-Gear Count/3.mp4", "caption": ""}, {"src": "./video/50-Gear Count/4.mp4", "caption": ""}]}]}, "100-Gear Count": {"title": "100-Gear Count", "description": "", "is_group": false, "is_text_only": false, "blocks": [{"id": "100-Gear Count", "description": "\n    <div>\n    <p>\n        Here the model is trained and tested up to 100-gear system.\n    </p>\n    </div>\n    ", "videos": [{"src": "./video/100-Gear Count/0.mp4", "caption": ""}, {"src": "./video/100-Gear Count/1.mp4", "caption": ""}, {"src": "./video/100-Gear Count/2.mp4", "caption": ""}, {"src": "./video/100-Gear Count/3.mp4", "caption": ""}, {"src": "./video/100-Gear Count/4.mp4", "caption": ""}, {"src": "./video/100-Gear Count/5.mp4", "caption": ""}]}]}};
 
             const carouselIndices = {};
 
@@ -1039,77 +1039,152 @@ Overall, this work demonstrates that video diffusion transformers are capable of
                 20-Gear Count
             </div>
             
-                    <div class="overview-section" id="section-20-Gear Count">
-                        
-                        <div class="overview-desc">
+                <div class="overview-section" id="section-20-Gear Count">
+                    
+                    <div class="overview-desc">
     <div>
     <p>
         Here the model is trained and tested up to 20-gear system.
     </p>
     </div>
     </div>
+                    
+                    <div class="carousel-wrapper" id="carousel-20-Gear Count">
+                        <button class="carousel-btn left" onclick="moveCarousel('20-Gear Count', -1)">&#10094;</button>
+                        <video class="lazy" data-src="./video/20-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
+                        <button class="carousel-btn right" onclick="moveCarousel('20-Gear Count', 1)">&#10095;</button>
+                        <div class="slide-counter">1 / 6</div>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots-20-Gear Count">
+                        <button class="carousel-dot active" onclick="setCarouselIndex('20-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 4)" aria-label="Slide 5"></button><button class="carousel-dot" onclick="setCarouselIndex('20-Gear Count', 5)" aria-label="Slide 6"></button>
                     </div>
                     
+                    <div class="overview-action">
+                        <button class="btn-view-all" onclick="navigateToDataset('20-Gear Count')">View Full Examples &rarr;</button>
+                    </div>
+                </div>
+                
             <div class="hierarchy-bar level-2-header">
                 30-Gear Count
             </div>
             
-                    <div class="overview-section" id="section-30-Gear Count">
-                        
-                        <div class="overview-desc">
+                <div class="overview-section" id="section-30-Gear Count">
+                    
+                    <div class="overview-desc">
     <div>
     <p>
         Here the model is trained and tested up to 30-gear system.
     </p>
     </div>
     </div>
+                    
+                    <div class="carousel-wrapper" id="carousel-30-Gear Count">
+                        <button class="carousel-btn left" onclick="moveCarousel('30-Gear Count', -1)">&#10094;</button>
+                        <video class="lazy" data-src="./video/30-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
+                        <button class="carousel-btn right" onclick="moveCarousel('30-Gear Count', 1)">&#10095;</button>
+                        <div class="slide-counter">1 / 6</div>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots-30-Gear Count">
+                        <button class="carousel-dot active" onclick="setCarouselIndex('30-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 4)" aria-label="Slide 5"></button><button class="carousel-dot" onclick="setCarouselIndex('30-Gear Count', 5)" aria-label="Slide 6"></button>
                     </div>
                     
+                    <div class="overview-action">
+                        <button class="btn-view-all" onclick="navigateToDataset('30-Gear Count')">View Full Examples &rarr;</button>
+                    </div>
+                </div>
+                
             <div class="hierarchy-bar level-2-header">
                 40-Gear Count
             </div>
             
-                    <div class="overview-section" id="section-40-Gear Count">
-                        
-                        <div class="overview-desc">
+                <div class="overview-section" id="section-40-Gear Count">
+                    
+                    <div class="overview-desc">
     <div>
     <p>
         Here the model is trained and tested up to 40-gear system.
     </p>
     </div>
     </div>
+                    
+                    <div class="carousel-wrapper" id="carousel-40-Gear Count">
+                        <button class="carousel-btn left" onclick="moveCarousel('40-Gear Count', -1)">&#10094;</button>
+                        <video class="lazy" data-src="./video/40-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
+                        <button class="carousel-btn right" onclick="moveCarousel('40-Gear Count', 1)">&#10095;</button>
+                        <div class="slide-counter">1 / 5</div>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots-40-Gear Count">
+                        <button class="carousel-dot active" onclick="setCarouselIndex('40-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('40-Gear Count', 4)" aria-label="Slide 5"></button>
                     </div>
                     
+                    <div class="overview-action">
+                        <button class="btn-view-all" onclick="navigateToDataset('40-Gear Count')">View Full Examples &rarr;</button>
+                    </div>
+                </div>
+                
             <div class="hierarchy-bar level-2-header">
                 50-Gear Count
             </div>
             
-                    <div class="overview-section" id="section-50-Gear Count">
-                        
-                        <div class="overview-desc">
+                <div class="overview-section" id="section-50-Gear Count">
+                    
+                    <div class="overview-desc">
     <div>
     <p>
         Here the model is trained and tested up to 50-gear system.
     </p>
     </div>
     </div>
+                    
+                    <div class="carousel-wrapper" id="carousel-50-Gear Count">
+                        <button class="carousel-btn left" onclick="moveCarousel('50-Gear Count', -1)">&#10094;</button>
+                        <video class="lazy" data-src="./video/50-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
+                        <button class="carousel-btn right" onclick="moveCarousel('50-Gear Count', 1)">&#10095;</button>
+                        <div class="slide-counter">1 / 5</div>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots-50-Gear Count">
+                        <button class="carousel-dot active" onclick="setCarouselIndex('50-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('50-Gear Count', 4)" aria-label="Slide 5"></button>
                     </div>
                     
+                    <div class="overview-action">
+                        <button class="btn-view-all" onclick="navigateToDataset('50-Gear Count')">View Full Examples &rarr;</button>
+                    </div>
+                </div>
+                
             <div class="hierarchy-bar level-2-header">
                 100-Gear Count
             </div>
             
-                    <div class="overview-section" id="section-100-Gear Count">
-                        
-                        <div class="overview-desc">
+                <div class="overview-section" id="section-100-Gear Count">
+                    
+                    <div class="overview-desc">
     <div>
     <p>
         Here the model is trained and tested up to 100-gear system.
     </p>
     </div>
     </div>
+                    
+                    <div class="carousel-wrapper" id="carousel-100-Gear Count">
+                        <button class="carousel-btn left" onclick="moveCarousel('100-Gear Count', -1)">&#10094;</button>
+                        <video class="lazy" data-src="./video/100-Gear Count/0.mp4" preload="none" muted autoplay loop playsinline></video>
+                        <button class="carousel-btn right" onclick="moveCarousel('100-Gear Count', 1)">&#10095;</button>
+                        <div class="slide-counter">1 / 6</div>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots-100-Gear Count">
+                        <button class="carousel-dot active" onclick="setCarouselIndex('100-Gear Count', 0)" aria-label="Slide 1"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 1)" aria-label="Slide 2"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 2)" aria-label="Slide 3"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 3)" aria-label="Slide 4"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 4)" aria-label="Slide 5"></button><button class="carousel-dot" onclick="setCarouselIndex('100-Gear Count', 5)" aria-label="Slide 6"></button>
                     </div>
                     
+                    <div class="overview-action">
+                        <button class="btn-view-all" onclick="navigateToDataset('100-Gear Count')">View Full Examples &rarr;</button>
+                    </div>
+                </div>
+                
         </div>
 
         <div id="cards-container" class="container"></div>

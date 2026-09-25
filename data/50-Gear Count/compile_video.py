@@ -18,7 +18,12 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 import stack_videos
 #################### Good examples, Do NOT change the examples ##############################
-good_examples = []
+good_examples = ["/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_50_LineDepth50_MinRad16/Gear_Motion_Normalize_HighNoise_GearFixed150GeneralGraph_Depth150_From140_LR5e6_28000_SKIPLOW_MotionHighFixed150eralGraphDepth150From140LR5e6_28000_shift1_1.0_step32b/results/14_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_50_LineDepth50_MinRad16/Gear_Motion_Normalize_HighNoise_GearFixed150GeneralGraph_Depth150_From140_LR5e6_28000_SKIPLOW_MotionHighFixed150eralGraphDepth150From140LR5e6_28000_shift1_1.0_step32b/results/7_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_Depth10_Node50_MinRad16/Gear_Motion_Normalize_HighNoise_GearFixed150GeneralGraph_Depth150_From140_LR3e6_35500_SKIPLOW_MotionHighFixed150eralGraphDepth150From140LR3e6_35500_shift1_1.0_step32b/results/1_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_Depth10_Node50_MinRad16/Gear_Motion_Normalize_HighNoise_GearFixed150GeneralGraph_Depth150_From140_LR3e6_35500_SKIPLOW_MotionHighFixed150eralGraphDepth150From140LR3e6_35500_shift1_1.0_step32b/results/2_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_Depth10_Node50_MinRad16/Gear_Motion_Normalize_HighNoise_GearFixed150GeneralGraph_Depth150_From140_LR3e6_35500_SKIPLOW_MotionHighFixed150eralGraphDepth150From140LR3e6_35500_shift1_1.0_step32b/results/3_loop_0_modality_0.gif"
+]
 #################################################################
 
 
@@ -165,7 +170,7 @@ def visualize(grid_inputs, output_path):
         return None
 
 if __name__ == "__main__":
-    output_dir = REPO_ROOT / "video" / "10-Gear Count"
+    output_dir = REPO_ROOT / "video" / "50-Gear Count"
     output_dir.mkdir(parents=True, exist_ok=True)
     reference_cache_dir = output_dir / ".references"
     examples = build_examples(EVAL_DATA_ROOT, reference_cache_dir)

@@ -18,7 +18,13 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 import stack_videos
 #################### Good examples, Do NOT change the examples ##############################
-good_examples = []
+good_examples = ["/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_Depth5_Node30_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed130GeneralGraph_Depth130_EPS1e6_NoDecay_LR3e6_27000_SKIPLOW_MotionHighFixed130eralGraphDepth130EPS1e6NoDecayLR3e6_27000_shift1_1.0_step32b/results/0_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_30_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed130GeneralGraph_Depth130_EPS1e6_NoDecay_LR3e6_27000_SKIPLOW_MotionHighFixed130eralGraphDepth130EPS1e6NoDecayLR3e6_27000_shift1_1.0_steps100_step32b/results/0_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_30_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed130GeneralGraph_Depth130_EPS1e6_NoDecay_LR3e6_27000_SKIPLOW_MotionHighFixed130eralGraphDepth130EPS1e6NoDecayLR3e6_27000_shift1_1.0_steps100_step32b/results/1_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_30_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed130GeneralGraph_Depth130_EPS1e6_NoDecay_LR3e6_27000_SKIPLOW_MotionHighFixed130eralGraphDepth130EPS1e6NoDecayLR3e6_27000_shift1_1.0_steps100_step32b/results/2_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_30_LineDepth30_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed130GeneralGraph_Depth130_EPS1e6_NoDecay_LR3e6_27000_SKIPLOW_MotionHighFixed130eralGraphDepth130EPS1e6NoDecayLR3e6_27000_shift1_1.0_steps10_step32b/results/1_loop_0_modality_0.gif",
+"/work/koichi/Gear/gear_gen_angle_rad_con_auto/eval_results/Motion_30_LineDepth30_MinRad20/Gear_Motion_Normalize_HighNoise_GearFixed130GeneralGraph_Depth130_EPS1e6_NoDecay_LR3e6_27000_SKIPLOW_MotionHighFixed130eralGraphDepth130EPS1e6NoDecayLR3e6_27000_shift1_1.0_steps10_step32b/results/2_loop_0_modality_0.gif"
+]
 #################################################################
 
 
@@ -165,7 +171,7 @@ def visualize(grid_inputs, output_path):
         return None
 
 if __name__ == "__main__":
-    output_dir = REPO_ROOT / "video" / "10-Gear Count"
+    output_dir = REPO_ROOT / "video" / "30-Gear Count"
     output_dir.mkdir(parents=True, exist_ok=True)
     reference_cache_dir = output_dir / ".references"
     examples = build_examples(EVAL_DATA_ROOT, reference_cache_dir)
