@@ -69,8 +69,17 @@ SIDEBAR_CONFIG = [
             "100-Gear Count"
     ]),
     ("Analysis: How does Video Diffusion Transformers simulate gear systems?", [
-                    ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", []),
-                    ("Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", []),
+                    ("Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains", [
+                        "1.1. PCA Analysis",
+                        "1.2. MLP Probing",
+                        "1.3. O.O.D. Kinematic Height",
+                        "1.4. I.D. Kinematic Height",
+                    ]),
+                    ("Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", [
+                        "2.1. PCA Analysis",
+                        "2.2. MLP Probing",
+                        "2.3. Generalizability",
+                    ]),
                 ]
     )
 ]
@@ -160,7 +169,23 @@ DATASET_DESCRIPTIONS = {
     When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. 
     In contrast, when the model is exposed to larger kinematic heights, for which a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.  
     The following two sections demonstrate these two reasoning mechanisms, respectively.
-    """
+    """,
+    "Analysis 1: Emergence of Prallel BFS-like Reasoning in Short Kinematic Chains": """
+    We begin by demonstrating the emergence of parallel BFS reasoning by training a video DiT on gear mechanisms with kinematic heights up to 10, which require only short-chain reasoning, and then performing feature probing.
+    Notably, this maximum height is smaller than the number of transformer layers 30.
+    """,
+    "1.1. PCA Analysis": """
+    The PCA analysis reveals an interesting observation:  there is a principal direction that separates features associated with gears of different rotational parity. 
+    Remarkably, this parity signal first emerges around the driving gear, and then progressively propagates to neighboring gears across successive transformer layers, resembling a parallel BFS-like progression.
+    """,
+    "1.2. MLP Probing": """
+    To quantitatively verify parallel-bfs mechanisms observed in the PCA analysis, we perform MLP probing to measure the amount of information each transformer layer contains about the rotational parity of individual gears relative to the driving gear. 
+    As shown below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.
+    
+    """,
+    "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": """
+    a
+    """,
 }
 
 # --- HTML Template ---
