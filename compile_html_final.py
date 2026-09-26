@@ -627,8 +627,7 @@ DATASET_DESCRIPTIONS = {
         <p>Performance does not degrade on unseen branching structures: the 5-gear model retains 100% SSR, while the 10-gear model changes from 97% on linear chains to 99% on general trees.</p>
 
         <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful unseen-topology examples</h5>
-        <p>These five low-error mechanisms come from the 10-gear general-tree evaluation of the model trained only on linear chains. Each example was verified to contain branching and is therefore non-linear.</p>
-        {render_inline_video_gallery("1.4. I.D. Kinematic Height", range(5, 10))}
+        {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(5, 10))}
 
         <section class="pca-case">
             <div class="pca-case-header"><h5>Parallel propagation extends to unseen branching factors</h5></div>
