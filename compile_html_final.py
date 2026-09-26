@@ -363,26 +363,23 @@ DATASET_DESCRIPTIONS = {
     "Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?": """
     <div>
         <p>
-            Fine-tuned video diffusion transformers can generate kinematically consistent gear motion, but doing so requires resolving rotational parity across the entire mechanism.
-            We therefore inspect their internal features to ask which algorithmic strategy emerges from video-only training.
+            Fine-tuned video diffusion transformers can generate kinematically consistent gear motion, but doing so requires resolving rotational parity across the entire kinematic chain.
+            We therefore perform feature probing on trained DiTs to investigate what reasoning mechanisms emerge internally.
         </p>
         <p>
-            The answer depends on the largest <b>kinematic height</b> <i>h</i>—the maximum graph distance from the driving gear—seen during training:
+            Crucially, the model learns two distinct types of algorithms depending on the **kinematic height** *h*—the maximum graph distance from the driving gear—seen during training:
         </p>
         <ul>
-            <li><b>Short chains:</b> successive transformer layers behave like parallel breadth-first-search steps, propagating parity one graph depth at a time.</li>
-            <li><b>Long chains:</b> when the required number of BFS steps exceeds the 30-layer network depth, the model forms locally consistent parity regions and later merges them in a divide-and-conquer-like process.</li>
+            <li><b>Parallel bfs strategy:</b> When the model is trained on a small number of gears, the successive transformer layers behave like parallel breadth-first search steps, determining parity one graph depth at a time. </li>
+            <li><b>Divide-and-Conquer like strategy:</b> When the required number of BFS steps exceeds the available network depth, the model switches to a divide-and-conquer strategy, in which it forms locally consistent parity regions and later merges them.</li>
         </ul>
-        <p>The sections below summarize the PCA, MLP-probing, and generalization evidence for both mechanisms.</p>
+        <p>The sections below demonstrate these mechanisms.</p>
     </div>
     """,
     "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains": """
     <p>
-        We first study models trained on mechanisms with at most 10 gears and kinematic height <i>h</i> &le; 10.
-        Because this reasoning depth is smaller than the model&apos;s 30 transformer layers, the network can implement a direct layer-by-layer propagation strategy.
-    </p>
-    <p>
-        PCA and MLP probing reveal a parallel-BFS-like mechanism; the quantitative evaluations then separate what it generalizes to—new gear counts and branching factors—from what it does not—kinematic heights beyond the training range.
+        We first study models trained on mechanisms with at most 10 gears and kinematic height.
+        Notably, kinematic height is much smaller than the number of layers (30) in the network.
     </p>
     """,
     "1.1. PCA Analysis": """
