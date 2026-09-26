@@ -434,11 +434,16 @@ DATASET_DESCRIPTIONS = {
             The success-rate matrices and feature probes below show that the learned propagation process stops near the maximum depth encountered during training.
         </p>
 
-        <div class="success-table-grid ood-height-table-pair">
+        <p class="table-focus-legend">
+            <span class="table-focus-swatch height-focus-swatch" aria-hidden="true"></span>
+            <strong>Red outlines:</strong> valid test cases whose kinematic height exceeds the maximum seen during training.
+        </p>
+
+        <div class="success-table-grid comparison-table-pair">
             <!-- Table 6: five-gear training regime (left) -->
             <section class="success-table-card">
                 <div class="table-wrap" style="margin: 0;">
-                    <table class="latex-table ood-height-table" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
+                    <table class="latex-table comparison-success-table" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
                         <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
                             <strong>Table 6. Model trained on up to 5 gears.</strong>
                             Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5; the same height-limited generalization pattern appears at a smaller scale.
@@ -448,11 +453,11 @@ DATASET_DESCRIPTIONS = {
                             <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
                         </thead>
                         <tbody>
-                            <tr><th scope="row">5</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td style="background:#f7e4e2;">3%</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">20</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">30</th><td style="background:#e2efe2;">96%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
-                            <tr><th scope="row">40</th><td style="background:#e8ebe0;">88%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                            <tr><th scope="row">5</th><td style="background:#dff1e1;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f7e4e2;">3%</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">20</th><td style="background:#e3eee2;">94%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">30</th><td style="background:#e2efe2;">96%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                            <tr><th scope="row">40</th><td style="background:#e8ebe0;">88%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -464,10 +469,10 @@ DATASET_DESCRIPTIONS = {
             <!-- Table 1: ten-gear training regime (right) -->
             <section class="success-table-card">
                 <div class="table-wrap" style="margin: 0;">
-                    <table class="latex-table ood-height-table" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
+                    <table class="latex-table comparison-success-table" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
                         <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
                             <strong>Table 1. Model trained on up to 10 gears.</strong>
-                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10. Red outlines mark the in-distribution boundary; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
+                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10. Em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
                         </caption>
                         <thead>
                             <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
@@ -477,16 +482,16 @@ DATASET_DESCRIPTIONS = {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><th scope="row">10</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
-                            <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f8e1e1;">1%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td class="focus-ood-height" style="background:#f8e1e1;">1%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                            <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -501,7 +506,7 @@ DATASET_DESCRIPTIONS = {
         <p>
             The probes expose the same failure internally: parity information propagates through transformer blocks only as far as the training distribution requires.
         </p>
-        <div class="mlp-probing-figures">
+        <div class="mlp-probing-figures figure4-probe-grid">
             <figure>
                 <a href="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" target="_blank" rel="noopener noreferrer">
                     <img src="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" alt="Feature probing for height-5 training evaluated on a height-10 linear chain" loading="lazy" decoding="async">
@@ -534,31 +539,66 @@ DATASET_DESCRIPTIONS = {
         </p>
 
         <h5 style="margin:30px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen gear counts at an in-distribution height</h5>
-        <div style="margin:18px 0 10px;width:100%;">
-            <table class="latex-table full-width-table" aria-label="Table 1 simulation success rates across gear counts and kinematic heights">
-                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
-                    <strong>Table 1. Simulation success rates (%) across varying gear counts and kinematic heights.</strong>
-                    The model is trained with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10. The red-outlined cell is fully in-distribution; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
-                </caption>
-                <thead>
-                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
-                    <tr><th>10</th><th>20</th><th>30</th><th>40</th><th>50</th><th>60</th><th>70</th><th>80</th><th>90</th><th>100</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th scope="row">10</th><td style="background:#dff1e1;border:2px solid #d62728;">100%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td></tr>
-                    <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
-                </tbody>
-            </table>
+        <p class="table-focus-legend">
+            <span class="table-focus-swatch count-focus-swatch" aria-hidden="true"></span>
+            <strong>Blue outlines:</strong> test gear counts exceed the training maximum while kinematic height remains within the training distribution.
+        </p>
+
+        <div class="success-table-grid comparison-table-pair">
+            <!-- Table 6: five-gear training regime (left) -->
+            <section class="success-table-card">
+                <div class="table-wrap" style="margin:0;">
+                    <table class="latex-table comparison-success-table" aria-label="Table 6 highlighting larger gear counts at in-distribution height after training on up to 5 gears">
+                        <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
+                            <strong>Table 6. Model trained on up to 5 gears.</strong>
+                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5.
+                        </caption>
+                        <thead>
+                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">5</th><td style="background:#dff1e1;">100%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">10</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f7e4e2;">3%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">20</th><td class="focus-ood-count" style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">30</th><td class="focus-ood-count" style="background:#e2efe2;">96%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">40</th><td class="focus-ood-count" style="background:#e8ebe0;">88%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-note">At the familiar height <i>h</i> = 5, success remains 88&ndash;100% as the system grows from 5 to 40 gears.</p>
+            </section>
+
+            <!-- Table 1: ten-gear training regime (right) -->
+            <section class="success-table-card">
+                <div class="table-wrap" style="margin:0;">
+                    <table class="latex-table comparison-success-table" aria-label="Table 1 highlighting larger gear counts at in-distribution height after training on up to 10 gears">
+                        <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
+                            <strong>Table 1. Model trained on up to 10 gears.</strong>
+                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10.
+                        </caption>
+                        <thead>
+                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th><th scope="col">50</th><th scope="col">60</th><th scope="col">70</th><th scope="col">80</th><th scope="col">90</th><th scope="col">100</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">20</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">30</th><td class="focus-ood-count" style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">40</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">50</th><td class="focus-ood-count" style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">60</th><td class="focus-ood-count" style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">70</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">80</th><td class="focus-ood-count" style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">90</th><td class="focus-ood-count" style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">100</th><td class="focus-ood-count" style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-note">At the familiar height <i>h</i> = 10, success remains 82&ndash;100% as the system grows from 10 to 100 gears.</p>
+            </section>
         </div>
-        <p class="table-note">At the in-distribution height <i>h</i> = 10, success remains 82&ndash;100% as the system grows from 10 to 100 gears. The model therefore extrapolates to ten times the training gear count when the required propagation depth remains familiar.</p>
+        <p class="table-note">The blue columns isolate gear-count extrapolation: attention updates many additional gears in parallel while the required number of propagation steps remains familiar.</p>
 
         <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful 100-gear examples</h5>
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(0, 5))}
@@ -994,6 +1034,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             font-size: 1.08rem;
         }}
         .analysis2-probe-grid {{ margin-bottom: 34px; }}
+        .figure4-probe-grid {{
+            width: 100%;
+            max-width: 900px;
+            margin: 30px auto 0;
+        }}
         .pairwise-gallery {{ margin-top: 28px; }}
         .pca-analysis-gallery {{
             display: flex;
@@ -1102,23 +1147,57 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             gap: 28px;
             margin-top: 26px;
         }}
-        .ood-height-table-pair {{
+        .comparison-table-pair {{
             align-items: start;
         }}
-        .ood-height-table-pair .table-wrap {{
+        .comparison-table-pair .table-wrap {{
             overflow-x: hidden;
         }}
-        .ood-height-table {{
+        .comparison-success-table {{
             width: 100%;
             table-layout: fixed;
             font-size: clamp(8px, 0.65vw, 10px);
         }}
-        .ood-height-table th,
-        .ood-height-table td {{
+        .comparison-success-table th,
+        .comparison-success-table td {{
             padding: 5px 2px;
         }}
-        .ood-height-table caption {{
+        .comparison-success-table caption {{
             font-size: 0.9rem;
+        }}
+        .focus-ood-height,
+        .focus-ood-count {{
+            position: relative;
+            font-weight: 700;
+        }}
+        .focus-ood-height {{
+            box-shadow: inset 0 0 0 2px #c62828;
+        }}
+        .focus-ood-count {{
+            box-shadow: inset 0 0 0 2px #0078d4;
+        }}
+        .table-focus-legend {{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 16px 0 -8px;
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }}
+        .table-focus-swatch {{
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            box-sizing: border-box;
+            border-radius: 2px;
+            background: #fff;
+        }}
+        .height-focus-swatch {{
+            border: 2px solid #c62828;
+        }}
+        .count-focus-swatch {{
+            border: 2px solid #0078d4;
         }}
         .success-table-card {{
             padding: 20px;
@@ -1147,14 +1226,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             margin-left: auto;
             margin-right: auto;
             box-sizing: border-box;
-        }}
-        .full-width-table {{
-            width: 100%;
-            table-layout: fixed;
-            font-size: clamp(8px, 0.8vw, 11px);
-        }}
-        .full-width-table th, .full-width-table td {{
-            padding: 6px 3px;
         }}
         .inline-carousel {{
             width: 100%;
