@@ -610,28 +610,21 @@ DATASET_DESCRIPTIONS = {
     "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": """
     <p>
         We next train on mechanisms with up to 50 gears and kinematic height 50.
-        Because the video DiT has only 30 transformer layers, a literal one-layer-per-depth BFS strategy cannot cover these chains.
-    </p>
-    <p>
-        PCA and probing instead indicate a divide-and-conquer-like computation: the model first resolves parity inside several local neighborhoods in parallel, then progressively merges those local solutions into one globally consistent assignment.
+        Because the video DiT has only 30 transformer layers, parallel-BFS strategy is infeasible.
     </p>
     """,
     "2.1. PCA Analysis": """
     <div class="pca-analysis-gallery">
         <div class="pca-lead">
             <p>
-                Figure <code>fig:PCA_30_30</code> analyzes a model trained on mechanisms with
-                <i>N</i>, <i>h</i> &le; 30 and evaluated on a 30-gear linear chain of height 30.
-                Early transformer layers still propagate information near the driving gear, but later layers no longer follow a single breadth-first frontier.
-            </p>
-            <p>
-                Instead, parity-sensitive features appear simultaneously in distant portions of the chain.
-                They are first consistent inside local neighborhoods and become aligned across neighborhoods in later layers&mdash;the qualitative signature of a divide-and-conquer-like computation.
+                Early transformer layers still execute parallel-bfs reasoning steps. 
+                But in later layers, parity signals appear simultaneously in other regions.
+                They are first consistent inside local neighborhoods and become aligned globally later.
             </p>
         </div>
         <section class="pca-case">
             <div class="pca-case-header">
-                <h5>Layer-wise PCA: local regions emerge before global alignment</h5>
+                <h5>Layer-wise PCA visualization</h5>
             </div>
             <div class="pca-media-pair">
                 <figure class="pca-media-panel">
@@ -639,20 +632,15 @@ DATASET_DESCRIPTIONS = {
                     <a class="pca-media-link" href="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30.png" target="_blank" rel="noopener noreferrer">
                         <img src="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30.png" alt="Paper PCA figure for a model trained and evaluated on 30-gear height-30 mechanisms" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>The static image used for <code>fig:PCA_30_30</code>; gear colors encode manually identified local parity-consistent groups.</figcaption>
                 </figure>
                 <figure class="pca-media-panel">
                     <div class="pca-media-heading">All frames (automatic blue overlay)</div>
                     <a class="pca-media-link" href="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30_blue.gif" target="_blank" rel="noopener noreferrer">
                         <img src="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30_blue.gif" alt="Animated layer-wise PCA for 30 gears with all gear contours automatically overlaid in blue" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>No manual group labels are used: all gears share one blue contour so the PCA evolution can be inspected directly.</figcaption>
                 </figure>
             </div>
         </section>
-        <div class="pca-takeaway">
-            <b>Takeaway.</b> The later-layer representation contains parity information for gears that a one-layer-per-depth BFS could not yet have reached. Local agreement preceding global agreement is consistent with parallel subproblem solving followed by merging.
-        </div>
     </div>
     """,
     "2.2.1. Root-relative MLP Probing": f"""
