@@ -648,7 +648,6 @@ DATASET_DESCRIPTIONS = {
     In the shallow layers, probing accuracy for the relative parity between the driving gear and each gear increases approximately linearly with kinematic depth.
     In later layers, however, the accuracy increases rapidly.
     </p>
-    <h5 class="analysis2-subheading">Root-relative parity by layer and kinematic depth</h5>
     {render_mlp_probe_gallery()}
     """,
     "2.2.2. Pairwise MLP Probing": f"""
