@@ -564,7 +564,7 @@ DATASET_DESCRIPTIONS = {
                 </div>
             </section>
         </div>
-        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful 100-gear examples</h5>
+        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful 100-Gear Examples (Models Trained on Mechanisms with Up to 10 Gears, Applied to 100-Gear Mechanisms)</h5>
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(0, 5))}
 
         <section class="pca-case">
