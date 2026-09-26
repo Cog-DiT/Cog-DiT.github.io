@@ -206,7 +206,6 @@ def render_pairwise_gallery():
         cases.append(f"""
             <section class="pca-case">
                 <div class="pca-case-header">
-                    <span class="pca-case-label">{count} gears</span>
                     <h5>Pairwise parity across transformer layers</h5>
                 </div>
                 <p class="pca-case-summary">
@@ -565,7 +564,7 @@ DATASET_DESCRIPTIONS = {
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(0, 5))}
 
         <section class="pca-case">
-            <div class="pca-case-header"><span class="pca-case-label">PCA evidence</span><h5>Parity propagation scales to 100 gears at height 10</h5></div>
+            <div class="pca-case-header"><h5>Parity propagation scales to 100 gears at height 10</h5></div>
             <p class="pca-case-summary">The same depth-by-depth feature progression appears when a model trained on at most 10 gears is evaluated on 100 gears. This shows that the learned computation depends on kinematic height rather than total gear count.</p>
             <div class="pca-media-pair">
                 <figure class="pca-media-panel"><div class="pca-media-heading">All video frames</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated PCA overlays for 100 gears at height 10" loading="lazy" decoding="async"></a></figure>
@@ -592,7 +591,7 @@ DATASET_DESCRIPTIONS = {
         {render_inline_video_gallery("1.4. I.D. Kinematic Height", range(5, 10))}
 
         <section class="pca-case">
-            <div class="pca-case-header"><span class="pca-case-label">PCA evidence</span><h5>Parallel propagation extends to unseen branching factors</h5></div>
+            <div class="pca-case-header"><h5>Parallel propagation extends to unseen branching factors</h5></div>
             <p class="pca-case-summary">PCA shows the same layer-wise parity propagation on a branching topology that was never observed during training.</p>
             <div class="pca-media-pair">
                 <figure class="pca-media-panel"><div class="pca-media-heading">All video frames</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated PCA overlays on an unseen branching topology" loading="lazy" decoding="async"></a></figure>
@@ -627,7 +626,6 @@ DATASET_DESCRIPTIONS = {
         </div>
         <section class="pca-case">
             <div class="pca-case-header">
-                <span class="pca-case-label">30 gears / height 30</span>
                 <h5>Layer-wise PCA: local regions emerge before global alignment</h5>
             </div>
             <div class="pca-media-pair">
@@ -1031,17 +1029,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 8px;
-        }}
-        .pca-case-label {{
-            display: inline-block;
-            padding: 4px 9px;
-            border-radius: 999px;
-            background: var(--bg-level1);
-            color: var(--primary-color);
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
         }}
         .pca-case h5 {{
             margin: 0;
