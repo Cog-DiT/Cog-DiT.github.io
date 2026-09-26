@@ -657,7 +657,11 @@ DATASET_DESCRIPTIONS = {
     """,
     "2.3. Generalizability": f"""
     <p>
-        
+    The learned divide-and-conquer strategy does not exhibit the same degree of generalizability as the parallel BFS strategy.
+As shown below, we observe weaker generalization to unseen gear counts, even when the kinematic height remains within the training distribution.
+The main exception is when the kinematic height is up to around $10$, where the model continues to generalize.
+This is because the model can still rely on parallel BFS reasoning.
+Another notable difference is that the model starts exhibiting non-zero success rates on unseen kinematic heights, which was not the case in experiments with shorter kinematic chains. These findings suggest that the learned divide-and-conquer-like strategies are entangled with statistics of various topological factors in the training data distribution. This contrasts with short-chain experiments, where performance depends almost solely on kinematic height. Consequently, while the model exhibits extrapolation in certain cases, the strategy is still not universally generalizable.
     </p>
     <div class="success-table-grid">
         {render_success_table(20, SUCCESS_TABLES[20])}
