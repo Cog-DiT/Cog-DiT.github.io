@@ -608,17 +608,19 @@ DATASET_DESCRIPTIONS = {
     """,
     "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": """
     <p>
-        We next train on mechanisms with up to 50 gears and kinematic height 50.
-        Because the video DiT has only 30 transformer layers, parallel-BFS strategy is infeasible.
+        We next demonstrate the emergence of divide-and-conquer-like reasoning by training models on gear mechanisms with numbers of gears and kinematic heights up to 50.
+        Notably, our video DiT contains only 30 transformer layers.
+        Therefore, a straightforward parallel BFS strategy is infeasible.
     </p>
     """,
     "2.1. PCA Analysis": """
     <div class="pca-analysis-gallery">
         <div class="pca-lead">
             <p>
-                Early transformer layers still execute parallel-bfs reasoning steps. 
-                But in later layers, parity signals appear simultaneously in other regions.
-                They are first consistent inside local neighborhoods and become aligned globally later.
+            Our PCA analysis below reveals an intriguing departure from the short-chain setting.
+            In the early layers, we continue to observe the parallel BFS pattern.
+            However, in mid-late layers, parity signals begin to emerge simultaneously in gears that have not yet been reached by the BFS process.
+            Importantly, these newly emerging signals are initially consistent only within their respective neighborhoods, but subsequently become globally consistent.
             </p>
         </div>
         <section class="pca-case">
