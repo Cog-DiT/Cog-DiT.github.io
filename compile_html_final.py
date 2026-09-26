@@ -644,7 +644,9 @@ DATASET_DESCRIPTIONS = {
     """,
     "2.2.1. Root-relative MLP Probing": f"""
     <p>
-        Acuracy grows roughly linearly in early layers and rises sharply near the end of the transformer stack.
+    MLP probing provides further evidence for this behavior.
+    In the shallow layers, probing accuracy for the relative parity between the driving gear and each gear increases approximately linearly with kinematic depth.
+    In later layers, however, the accuracy increases rapidly.
     </p>
     <h5 class="analysis2-subheading">Root-relative parity by layer and kinematic depth</h5>
     {render_mlp_probe_gallery()}
