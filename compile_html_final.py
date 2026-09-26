@@ -512,10 +512,6 @@ DATASET_DESCRIPTIONS = {
         </p>
 
         <h5 style="margin:30px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen gear counts at an in-distribution height</h5>
-        <p class="table-focus-legend">
-            <span class="table-focus-swatch count-focus-swatch" aria-hidden="true"></span>
-        </p>
-
         <div class="success-table-grid comparison-table-pair">
             <!-- Table 6: five-gear training regime (left) -->
             <section class="success-table-card">
@@ -597,8 +593,8 @@ DATASET_DESCRIPTIONS = {
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(5, 10))}
 
         <section class="pca-case">
-            <div class="pca-case-header"><h5>Parallel propagation extends to unseen branching factors</h5></div>
-            <p class="pca-case-summary">PCA shows that the model successfully propagates parity signals to unseen number of neighbouring gears.</p>
+            <div class="pca-case-header"><h5>PCA analysis on unseen kinematic topologies.</h5></div>
+            <p class="pca-case-summary">The transformer layers successfully propagate parity information to previously unseen numbers of neighboring gears in parallel. </p>
             <div class="pca-media-pair">
                 <figure class="pca-media-panel"><div class="pca-media-heading">All video frames</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated PCA overlays on an unseen branching topology" loading="lazy" decoding="async"></a></figure>
                 <figure class="pca-media-panel"><div class="pca-media-heading">Selected paper frame</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.png" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.png" alt="Static PCA overlays on an unseen branching topology" loading="lazy" decoding="async"></a></figure>
