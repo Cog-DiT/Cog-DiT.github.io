@@ -251,7 +251,7 @@ Overall, this work demonstrates that video DiTs are capable of learning algorith
 # --- 3-LEVEL HIERARCHY CONFIG ---
 # The script automatically detects if an item is a "Group" (tuple with list) or "Single" (string)
 SIDEBAR_CONFIG = [
-    ("Intro",["Task Definition"]),
+    ("Introduction",["Task Definition"]),
     ("Motivation: Why study gear simulation? ", [
         "Animating Gear Systems with Commercial Video Models",
     ]),
