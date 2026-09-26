@@ -508,10 +508,10 @@ DATASET_DESCRIPTIONS = {
     "1.4. I.D. Kinematic Height": f"""
     <div class="full-width-analysis">
         <p>
-            Parallel-BFS reasoning generalizes well unseen kinematic topologies when kinematic height remains within the training distribution. We first examine generalization to many more gears, then isolate generalization to unseen branching structures.
+        The model can generalize to unseen gear counts and branching factors as long as the kinematic height remains within the training distribution.
+        As shown in the tables below, the model performs well on mechanisms containing 100 gears, despite being trained only on mechanisms with up to 10 gears, provided that the kinematic height remains in-distribution (i.e. h = 10).
         </p>
 
-        <h5 style="margin:30px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen gear counts at an in-distribution height</h5>
         <div class="success-table-grid comparison-table-pair">
             <!-- Table 6: five-gear training regime (left) -->
             <section class="success-table-card">
