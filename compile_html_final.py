@@ -498,7 +498,7 @@ DATASET_DESCRIPTIONS = {
                 <figcaption><b>Train: <i>h</i> &le; 10; evaluate: <i>N</i> = <i>h</i> = 20.</b></figcaption>
             </figure>
         </div>
-        <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">Concrete O.O.D. failure examples from Table 1</h5>
+        <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">O.O.D. failure examples</h5>
     </div>
     """,
     "1.4. I.D. Kinematic Height": f"""
