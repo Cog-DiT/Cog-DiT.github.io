@@ -369,10 +369,10 @@ DATASET_DESCRIPTIONS = {
             Crucially, the model learns two distinct types of algorithms depending on the **kinematic height** *h*—the maximum graph distance from the driving gear—seen during training:
         </p>
         <ul>
-            <li><b>Parallel bfs strategy:</b> When the model is trained on a small number of gears, the successive transformer layers behave like parallel breadth-first search steps, determining parity one graph depth at a time. </li>
-            <li><b>Divide-and-Conquer like strategy:</b> When the required number of BFS steps exceeds the available network depth, the model switches to a divide-and-conquer strategy, in which it forms locally consistent parity regions and later merges them.</li>
+            <li><b>Parallel bfs strategy:</b> When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. </li>
+            <li><b>Divide-and-Conquer like strategy:</b> When the model is exposed to larger kinematic heights, for which a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.</li>
         </ul>
-        <p>The sections below demonstrate these mechanisms.</p>
+        <p> The following two sections demonstrate these two reasoning mechanisms, respectively. </p>
     </div>
     """,
     "Analysis 1: Emergence of Parallel BFS-like Reasoning in Short Kinematic Chains": """
