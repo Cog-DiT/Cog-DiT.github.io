@@ -206,7 +206,7 @@ def render_pairwise_gallery():
         cases.append(f"""
             <section class="pca-case">
                 <div class="pca-case-header">
-                    <h5>Pairwise parity across transformer layers</h5>
+                    <h5>Pairwise parity prediction accuracy across transformer layers</h5>
                 </div>
                 <p class="pca-case-summary">
                     Trained through <i>N</i>, <i>h</i> &le; {count} and evaluated on a linear chain of height {count}.
@@ -219,7 +219,7 @@ def render_pairwise_gallery():
                         </a>
                     </figure>
                     <figure class="pca-media-panel">
-                        <div class="pca-media-heading">Layer animation</div>
+                        <div class="pca-media-heading">Animation</div>
                         <a class="pca-media-link" href="data/2.2.%20MLP%20Probing/{gif_name}" target="_blank" rel="noopener noreferrer">
                             <img src="data/2.2.%20MLP%20Probing/{gif_name}" alt="Animation of pairwise parity probing matrices across transformer layers for {count} gears" loading="lazy" decoding="async">
                         </a>
@@ -651,7 +651,9 @@ DATASET_DESCRIPTIONS = {
     """,
     "2.2.2. Pairwise MLP Probing": f"""
     <p>
-        Each matrix asks whether a probe can recover the relative parity of every gear pair. Intermediate bright blocks reveal local clusters.
+        The matrix below visualizes the per-layer pairwise parity prediction accuracy across the linear gear chain.
+        When the model is trained on larger gear counts (e.g., 20, 30, ...), we observe the formation of clusters in which parity predictions are highly accurate locally but remain globally inconsistent.
+        In later layers, these local clusters progressively merge, ultimately yielding a globally consistent parity representation. 
     </p>
     {render_pairwise_gallery()}
     """,
