@@ -303,7 +303,7 @@ DATASET_DESCRIPTIONS = {
     <div>
     <p>
        Indeed off-the-shelf video generation models<sup>*</sup> struggle to synthesize kinematically plausible animations of gear systems, even for the simple case of two meshing gears, where the gears rotate in conflicting directions.
-       This raises the question of whether video diffusion transformers can learn to reason about long-chain kinematic dependencies, and if so, how they achieve this.
+       This raises the question of whether video diffusion transformers are capable of reasoning about such kinematic chain dependencies and, if so, how they achieve this.
     </p>
     <p style="margin-top: 1em;">
         <small><sup>*</sup>Videos were generated using <a href="https://lumalabs.ai" target="_blank" rel="noopener noreferrer">lumalabs.ai</a>.</small>
@@ -313,8 +313,8 @@ DATASET_DESCRIPTIONS = {
    "Qualitative Results": """
     <div>
     <p>
-        Depsite above failures of commer video diffusion models, our initial finding is that if we finetune video diffusion transformers, they can successfully generate video of gear systems where kinematic constraints are satisfied, no matter how many the gear counts are large. 
-        Below demonstrate the some generated examples. 
+       Despite the aforementioned failures of commercial video diffusion models, our initial findings suggest that, with appropriate fine-tuning, video diffusion transformers can successfully generate videos of gear systems that satisfy the underlying kinematic constraints, even as the number of gears increases substantially.
+       Below demonstrate the some generated examples. 
     </p>
     </div>
     """,
