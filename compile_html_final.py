@@ -416,9 +416,6 @@ DATASET_DESCRIPTIONS = {
             <figcaption><b>Train and evaluate at <i>h</i> &le; 10.</b> </figcaption>
         </figure>
     </div>
-    <p>
-        <strong>Key observation:</strong> the high-accuracy region advances approximately one graph depth at a time as transformer depth increases, quantitatively supporting the parallel-BFS reasoning mechanisms. 
-    </p>
     """,
     "1.3. O.O.D. Kinematic Height": """
     <div>
