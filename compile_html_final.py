@@ -130,6 +130,35 @@ def render_success_table(train_limit, rows):
     """
 
 
+
+MANUALLY_EMBEDDED_VIDEO_SECTIONS = {"1.4. I.D. Kinematic Height"}
+
+
+def render_inline_video_gallery(section_name, indices):
+    """Render selected scanned examples at a specific point in a narrative."""
+    figures = []
+    for index in indices:
+        caption_path = os.path.join("video", section_name, f"{index}.json")
+        caption_lines = []
+        try:
+            with open(caption_path, "r", encoding="utf-8") as handle:
+                caption_data = json.load(handle)
+            if isinstance(caption_data, list):
+                for line in caption_data:
+                    text = line.get("text", "")
+                    color = line.get("color", [70, 70, 70])
+                    hex_color = "#{:02x}{:02x}{:02x}".format(*color)
+                    caption_lines.append(f"<span style=\"display:block;color:{hex_color};\">{text}</span>")
+        except (OSError, ValueError, TypeError):
+            pass
+        figures.append(f"""
+            <figure class="pca-media-panel" style="padding:14px;border:1px solid #e0e0e0;border-radius:8px;background:#fff;">
+                <video class="lazy" data-src="./video/{section_name}/{index}.mp4" preload="none" controls autoplay loop muted playsinline style="display:block;width:100%;height:auto;border-radius:6px;"></video>
+                <figcaption style="margin-top:10px;line-height:1.5;">{"".join(caption_lines)}</figcaption>
+            </figure>
+        """)
+    return "<div style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin:18px 0 30px;\">" + "".join(figures) + "</div>"
+
 def render_mlp_probe_gallery():
     figures = []
     for count in (20, 30, 40, 50, 100):
@@ -337,101 +366,15 @@ DATASET_DESCRIPTIONS = {
     "1.1. PCA Analysis": """
     <div class="pca-analysis-gallery">
         <p class="pca-lead">
-            PCA reveals a principal feature direction that separates gears with opposite rotational parity.
-            This parity signal first appears around the driving gear and then expands to progressively more distant gears across transformer layers, resembling parallel breadth-first search (BFS) over the kinematic tree.
+            PCA reveals a principal feature direction that separates gears with opposite rotational parity. Across transformer layers, this parity signal expands outward from the driving gear one graph depth at a time.
         </p>
-
-        <div class="pca-reading-guide">
-            <strong>How to read these visualizations.</strong>
-            Within each image, panels progress from earlier to later transformer layers.
-            The animated view sweeps through all video frames while keeping the selected layers fixed; the paper-frame view shows the representative frame selected for the paper.
-            Red contours indicate gears reached by the corresponding ground-truth BFS depth, while cyan contours indicate gears beyond that frontier.
-            Click any visualization to open it at full resolution.
+        <div class="mlp-probing-figures">
+            <figure><a href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" alt="Animated layer-wise PCA overlays for an in-distribution 10-gear chain" loading="lazy" decoding="async"></a></figure>
+            <figure><a href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated layer-wise PCA overlays for an unseen branching topology" loading="lazy" decoding="async"></a></figure>
+            <figure><a href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated layer-wise PCA overlays for a 100-gear height-10 mechanism" loading="lazy" decoding="async"></a></figure>
         </div>
-
-        <article class="pca-case">
-            <div class="pca-case-header">
-                <span class="pca-case-label">(a) In-distribution chain</span>
-                <h5>General-tree training, 10-gear linear-chain evaluation</h5>
-            </div>
-            <p class="pca-case-summary">
-                The model is trained on general kinematic trees with <i>N</i>, <i>h</i> &le; 10 and evaluated on a linear chain with <i>N</i> = <i>h</i> = 10.
-                The parity-aligned PCA direction spreads outward from the driving gear as layer depth increases.
-            </p>
-            <div class="pca-media-pair">
-                <figure class="pca-media-panel">
-                    <div class="pca-media-heading">All video frames</div>
-                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" target="_blank" rel="noopener noreferrer">
-                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" alt="Animated layer-wise PCA overlays for a 10-gear linear chain" loading="lazy" decoding="async">
-                    </a>
-                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
-                </figure>
-                <figure class="pca-media-panel">
-                    <div class="pca-media-heading">Selected paper frame</div>
-                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png" target="_blank" rel="noopener noreferrer">
-                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.png" alt="Selected layer-wise PCA overlays for a 10-gear linear chain" loading="lazy" decoding="async">
-                    </a>
-                    <figcaption>Representative frames used in the paper figure.</figcaption>
-                </figure>
-            </div>
-        </article>
-
-        <article class="pca-case">
-            <div class="pca-case-header">
-                <span class="pca-case-label">(b) Unseen topology</span>
-                <h5>Linear-chain training, branching-tree evaluation</h5>
-            </div>
-            <p class="pca-case-summary">
-                Although training uses only linear chains with <i>N</i>, <i>h</i> &le; 10, the same layer-wise parity propagation appears on an unseen branching topology.
-                This indicates that the learned parallel update generalizes across branching factors.
-            </p>
-            <div class="pca-media-pair">
-                <figure class="pca-media-panel">
-                    <div class="pca-media-heading">All video frames</div>
-                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer">
-                        <img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated layer-wise PCA overlays on an unseen branching gear topology" loading="lazy" decoding="async">
-                    </a>
-                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
-                </figure>
-                <figure class="pca-media-panel">
-                    <div class="pca-media-heading">Selected paper frame</div>
-                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.png" target="_blank" rel="noopener noreferrer">
-                        <img src="data/1.1.%20PCA%20Analysis/unseen_PCA.png" alt="Selected layer-wise PCA overlays on an unseen branching gear topology" loading="lazy" decoding="async">
-                    </a>
-                    <figcaption>Representative frames used in the paper figure.</figcaption>
-                </figure>
-            </div>
-        </article>
-
-        <article class="pca-case">
-            <div class="pca-case-header">
-                <span class="pca-case-label">(c) O.O.D. gear count</span>
-                <h5>Training on up to 10 gears, evaluation on 100 gears</h5>
-            </div>
-            <p class="pca-case-summary">
-                The model is evaluated on a 100-gear system while the kinematic height remains in-distribution (<i>h</i> &le; 10).
-                The same depth-by-depth progression scales to many more gears, showing that the learned computation depends on kinematic height rather than total gear count.
-            </p>
-            <div class="pca-media-pair">
-                <figure class="pca-media-panel">
-                    <div class="pca-media-heading">All video frames</div>
-                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer">
-                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated layer-wise PCA overlays for an out-of-distribution 100-gear system" loading="lazy" decoding="async">
-                    </a>
-                    <figcaption>Animation across the complete PCA-frame sequence.</figcaption>
-                </figure>
-                <figure class="pca-media-panel">
-                    <div class="pca-media-heading">Selected paper frame</div>
-                    <a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" target="_blank" rel="noopener noreferrer">
-                        <img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" alt="Selected layer-wise PCA overlays for an out-of-distribution 100-gear system" loading="lazy" decoding="async">
-                    </a>
-                    <figcaption>Representative frames used in the paper figure; open full size to inspect individual gears.</figcaption>
-                </figure>
-            </div>
-        </article>
-
         <p class="pca-takeaway">
-            <strong>Takeaway:</strong> across in-distribution chains, unseen branching structures, and much larger gear systems, the parity-separated feature direction advances outward with transformer depth in a parallel-BFS-like pattern.
+            <strong>Together, these three PCA animations demonstrate a parallel-BFS-like mechanism:</strong> rotational parity is determined incrementally and in parallel at each kinematic depth across successive transformer layers.
         </p>
     </div>
     """,
@@ -554,61 +497,80 @@ DATASET_DESCRIPTIONS = {
         </p>
     </div>
     """,
-    "1.4. I.D. Kinematic Height": """
+    "1.4. I.D. Kinematic Height": f"""
     <div>
         <p>
-            When kinematic height remains within the training range, parallel self-attention can update all neighbors at a given BFS depth simultaneously.
-            The resulting computation is therefore robust to new branching factors and tree layouts.
+            Parallel-BFS reasoning generalizes strongly when test kinematic height remains within the training distribution. We first examine generalization to many more gears, then isolate generalization to unseen branching structures.
         </p>
-        <div class="table-wrap" style="margin: 24px 0 10px;">
-            <table class="latex-table" style="min-width: 650px;" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
-                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
-                    <strong>Table 2. Generalization to unseen tree topologies.</strong>
-                    Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for models trained exclusively on linear chains and evaluated on linear chains versus general trees.
+
+        <h5 style="margin:30px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen gear counts at an in-distribution height</h5>
+        <div class="table-wrap" style="margin:18px 0 10px;">
+            <table class="latex-table" style="min-width:940px;" aria-label="Table 1 simulation success rates across gear counts and kinematic heights">
+                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
+                    <strong>Table 1. Simulation success rates (%) across varying gear counts and kinematic heights.</strong>
+                    The model is trained with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10. The red-outlined cell is fully in-distribution; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
                 </caption>
                 <thead>
-                    <tr>
-                        <th rowspan="2" scope="col">Training bound</th>
-                        <th colspan="2" scope="colgroup">Linear chain (I.D.)</th>
-                        <th colspan="2" scope="colgroup" style="color:#b42318;">General tree (O.O.D.)</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">SSR ↑</th><th scope="col"><i>E</i><sub>rmd</sub> ↓</th>
-                        <th scope="col">SSR ↑</th><th scope="col"><i>E</i><sub>rmd</sub> ↓</th>
-                    </tr>
+                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                    <tr><th>10</th><th>20</th><th>30</th><th>40</th><th>50</th><th>60</th><th>70</th><th>80</th><th>90</th><th>100</th></tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th>
-                        <td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td>
-                        <td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10</th>
-                        <td style="background:#e1f0e2;">97%</td><td style="background:#e1f0e2;">0.046</td>
-                        <td style="background:#e0f0e1;">99%</td><td style="background:#e0f0e1;">0.040</td>
-                    </tr>
+                    <tr><th scope="row">10</th><td style="background:#dff1e1;border:2px solid #d62728;">100%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td></tr>
+                    <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
                 </tbody>
             </table>
         </div>
-        <p>
-            Performance does not degrade on unseen branching structures: the 5-gear model retains 100% SSR, while the 10-gear model changes from 97% on linear chains to 99% on general trees.
-            Motion disparity is unchanged or slightly lower.
-        </p>
-        <p>
-            <strong>Summary:</strong> parallel BFS is sensitive to unseen sequential depth, but not to the number of neighbors processed in parallel.
-            Consequently, the model can generalize to unseen gear counts and branching factors as long as the maximum kinematic height remains in-distribution.
-        </p>
-        <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">Concrete successes from Tables 1 and 2</h5>
-        <p>
-            <b>Examples 1&ndash;5 (Table 1)</b> are the lowest-error successful samples from the <i>N</i> = 100, <i>h</i> = 10 cell, which has an 82% success rate despite containing ten times more gears than seen during training.
-            All 100 gears in each selected sample remain below the 0.25 relative-motion threshold.
-        </p>
-        <p>
-            <b>Examples 6&ndash;10 (Table 2)</b> isolate topology generalization: the checkpoint was trained exclusively on linear chains with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10, then evaluated on the 10-gear <code>Motion_10_MinRad20</code> general-tree split corresponding to the O.O.D. cell (99% SSR; aggregate <i>E</i><sub>rmd</sub> = 0.040 in the table).
-            The displayed samples are the five lowest-error successful mechanisms in that run, and their parent relations were checked to confirm that every example branches and is therefore non-linear.
-            Each comparison shows the initial-frame condition, driving-gear condition, ground truth, and generated video.
-        </p>
+        <p class="table-note">At the in-distribution height <i>h</i> = 10, success remains 82&ndash;100% as the system grows from 10 to 100 gears. The model therefore extrapolates to ten times the training gear count when the required propagation depth remains familiar.</p>
+
+        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful 100-gear examples</h5>
+        <p>The following five lowest-error successes come from the <i>N</i> = 100, <i>h</i> = 10 cell. Every gear in each sample remains below the 0.25 relative-motion threshold.</p>
+        {render_inline_video_gallery("1.4. I.D. Kinematic Height", range(0, 5))}
+
+        <section class="pca-case">
+            <div class="pca-case-header"><span class="pca-case-label">PCA evidence</span><h5>Parity propagation scales to 100 gears at height 10</h5></div>
+            <p class="pca-case-summary">The same depth-by-depth feature progression appears when a model trained on at most 10 gears is evaluated on 100 gears. This shows that the learned computation depends on kinematic height rather than total gear count.</p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel"><div class="pca-media-heading">All video frames</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated PCA overlays for 100 gears at height 10" loading="lazy" decoding="async"></a></figure>
+                <figure class="pca-media-panel"><div class="pca-media-heading">Selected paper frame</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" alt="Static PCA overlays for 100 gears at height 10" loading="lazy" decoding="async"></a></figure>
+            </div>
+        </section>
+
+        <h5 style="margin:34px 0 8px;font-size:1.08rem;color:#333;">Generalization from linear chains to unseen tree topologies</h5>
+        <p>We next train exclusively on linear kinematic chains, where each interior gear has exactly two neighbors, and evaluate on arbitrary general trees. This isolates whether parallel attention can propagate parity to an unseen number of neighboring gears at once.</p>
+        <div class="table-wrap" style="margin:18px 0 10px;">
+            <table class="latex-table" style="min-width:650px;" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
+                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;"><strong>Table 2. Generalization to unseen tree topologies.</strong> Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for linear-chain training evaluated on linear chains and general trees.</caption>
+                <thead><tr><th rowspan="2">Training bound</th><th colspan="2">Linear chain (I.D.)</th><th colspan="2" style="color:#b42318;">General tree (O.O.D.)</th></tr><tr><th>SSR &uarr;</th><th><i>E</i><sub>rmd</sub> &darr;</th><th>SSR &uarr;</th><th><i>E</i><sub>rmd</sub> &darr;</th></tr></thead>
+                <tbody>
+                    <tr><th><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th><td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td><td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td></tr>
+                    <tr><th><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10</th><td style="background:#e1f0e2;">97%</td><td style="background:#e1f0e2;">0.046</td><td style="background:#e0f0e1;">99%</td><td style="background:#e0f0e1;">0.040</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Performance does not degrade on unseen branching structures: the 5-gear model retains 100% SSR, while the 10-gear model changes from 97% on linear chains to 99% on general trees.</p>
+
+        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful unseen-topology examples</h5>
+        <p>These five low-error mechanisms come from the 10-gear general-tree evaluation of the model trained only on linear chains. Each example was verified to contain branching and is therefore non-linear.</p>
+        {render_inline_video_gallery("1.4. I.D. Kinematic Height", range(5, 10))}
+
+        <section class="pca-case">
+            <div class="pca-case-header"><span class="pca-case-label">PCA evidence</span><h5>Parallel propagation extends to unseen branching factors</h5></div>
+            <p class="pca-case-summary">PCA shows the same layer-wise parity propagation on a branching topology that was never observed during training.</p>
+            <div class="pca-media-pair">
+                <figure class="pca-media-panel"><div class="pca-media-heading">All video frames</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated PCA overlays on an unseen branching topology" loading="lazy" decoding="async"></a></figure>
+                <figure class="pca-media-panel"><div class="pca-media-heading">Selected paper frame</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.png" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.png" alt="Static PCA overlays on an unseen branching topology" loading="lazy" decoding="async"></a></figure>
+            </div>
+        </section>
+
+        <div class="pca-takeaway" style="margin-top:28px;"><strong>Conclusion.</strong> The transformer activates enough layers to perform the BFS steps required by the heights encountered during training. The parallel nature of self-attention then allows each step to update an unseen number of gears and neighbors simultaneously, enabling extrapolation to larger gear counts and unseen tree topologies as long as kinematic height remains in-distribution.</div>
     </div>
     """,
     "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": """
@@ -632,11 +594,6 @@ DATASET_DESCRIPTIONS = {
                 Instead, parity-sensitive features appear simultaneously in distant portions of the chain.
                 They are first consistent inside local neighborhoods and become aligned across neighborhoods in later layers&mdash;the qualitative signature of a divide-and-conquer-like computation.
             </p>
-        </div>
-        <div class="pca-reading-guide">
-            <b>How to compare the panels.</b>
-            The paper panel uses the authors' manual local-parity grouping to make the emerging regions easy to see.
-            The animation is an inspection-neutral companion: every gear contour, including the driving gear, is overlaid with the same blue color while the underlying PCA frames advance.
         </div>
         <section class="pca-case">
             <div class="pca-case-header">
@@ -1125,8 +1082,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             color: #38444e;
         }}
         .success-table-grid {{
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 28px;
             margin-top: 26px;
         }}
@@ -1321,6 +1278,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         @media (max-width: 800px) {{
             .mlp-probing-figures {{ grid-template-columns: 1fr; }}
             .pca-media-pair {{ grid-template-columns: 1fr; }}
+            .success-table-grid {{ grid-template-columns: 1fr; }}
             .pca-case {{ padding: 18px 14px; }}
         }}
     </style>
@@ -2030,7 +1988,11 @@ def generate_single_index(input_folder):
 
             for d_name in d_list:
                 d_path = os.path.join(input_folder, d_name)
-                files = sorted(glob.glob(os.path.join(d_path, "*.mp4")), key=sort_key)
+                files = (
+                    []
+                    if d_name in MANUALLY_EMBEDDED_VIDEO_SECTIONS
+                    else sorted(glob.glob(os.path.join(d_path, "*.mp4")), key=sort_key)
+                )
                 rel_files = [os.path.join(input_folder, d_name, os.path.basename(f)) for f in files]
                 overview_videos_map[d_name] = rel_files
 
@@ -2120,7 +2082,11 @@ def generate_single_index(input_folder):
         
         for d_name in page["datasets"]:
             dataset_path = os.path.join(input_folder, d_name)
-            mp4_files = sorted(glob.glob(os.path.join(dataset_path, "*.mp4")), key=sort_key)
+            mp4_files = (
+                []
+                if d_name in MANUALLY_EMBEDDED_VIDEO_SECTIONS
+                else sorted(glob.glob(os.path.join(dataset_path, "*.mp4")), key=sort_key)
+            )
             desc = DATASET_DESCRIPTIONS.get(d_name, "")
 
             block_data = {
