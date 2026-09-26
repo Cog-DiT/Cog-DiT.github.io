@@ -420,7 +420,7 @@ DATASET_DESCRIPTIONS = {
     "1.3. O.O.D. Kinematic Height": """
     <div>
         <p>
-        The learned Parallel-BFS reasoning mechanisms generalize poorly to unseen kinematic heights.
+        Notably, the learned Parallel-BFS reasoning mechanisms generalize poorly to unseen kinematic heights.
         As shown in the table below, the model achieves a success rate of almost $0$ on out-of-distribution cases when the kinematic height exceeds the training range.
         </p>
         <div class="success-table-grid comparison-table-pair">
