@@ -480,9 +480,9 @@ DATASET_DESCRIPTIONS = {
         </div>
 
         <!-- Figure 4 -->
-        <h5 style="margin: 34px 0 8px; font-size: 1.05rem; color: #333;">Figure 4. Feature probing on out-of-distribution kinematic heights</h5>
+        <h5 style="margin: 34px 0 8px; font-size: 1.05rem; color: #333;">Feature probing on out-of-distribution kinematic heights</h5>
         <p>
-            The probes expose the same failure: parity information propagates through transformer blocks only as far as the training distribution requires.
+        Feature probing below also reveals that the model successfully propagates parity information across transformer layers up to the height observed during training, but that this iterative propagation ceases beyond that height.
         </p>
         <div class="mlp-probing-figures figure4-probe-grid">
             <figure>
