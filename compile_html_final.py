@@ -574,15 +574,15 @@ DATASET_DESCRIPTIONS = {
 
         <section class="pca-case">
             <div class="pca-case-header"><h5>Parity propagation scales to 100 gears at height 10</h5></div>
-            <p class="pca-case-summary">The same depth-by-depth feature progression appears when a model trained on at most 10 gears is evaluated on 100 gears. This shows that the learned computation depends on kinematic height rather than total gear count.</p>
+            <p class="pca-case-summary">The parallel-BFS-like feature progression appears on 100 gears even when the model is trained only up to 10 Gears.</p>
             <div class="pca-media-pair">
                 <figure class="pca-media-panel"><div class="pca-media-heading">All video frames</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated PCA overlays for 100 gears at height 10" loading="lazy" decoding="async"></a></figure>
                 <figure class="pca-media-panel"><div class="pca-media-heading">Selected paper frame</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.png" alt="Static PCA overlays for 100 gears at height 10" loading="lazy" decoding="async"></a></figure>
             </div>
         </section>
 
-        <h5 style="margin:34px 0 8px;font-size:1.08rem;color:#333;">Generalization from linear chains to unseen tree topologies</h5>
-        <p>We next train exclusively on linear kinematic chains, where each interior gear has exactly two neighbors, and evaluate on arbitrary general trees. This isolates whether parallel attention can propagate parity to an unseen number of neighboring gears at once.</p>
+        <h5 style="margin:34px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen tree topologies</h5>
+        <p>We next train exclusively on linear kinematic chains, where each interior gear has exactly two neighbors, and evaluate on arbitrary general trees.</p>
         <div class="table-wrap" style="margin:18px 0 10px;">
             <table class="latex-table" style="min-width:650px;" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
                 <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;"><strong>Table 2. Generalization to unseen tree topologies.</strong> Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for linear-chain training evaluated on linear chains and general trees.</caption>
@@ -593,21 +593,18 @@ DATASET_DESCRIPTIONS = {
                 </tbody>
             </table>
         </div>
-        <p>Performance does not degrade on unseen branching structures: the 5-gear model retains 100% SSR, while the 10-gear model changes from 97% on linear chains to 99% on general trees.</p>
 
         <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful unseen-topology examples</h5>
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(5, 10))}
 
         <section class="pca-case">
             <div class="pca-case-header"><h5>Parallel propagation extends to unseen branching factors</h5></div>
-            <p class="pca-case-summary">PCA shows the same layer-wise parity propagation on a branching topology that was never observed during training.</p>
+            <p class="pca-case-summary">PCA shows that the model successfully propagates parity signals to unseen number of neighbouring gears.</p>
             <div class="pca-media-pair">
                 <figure class="pca-media-panel"><div class="pca-media-heading">All video frames</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated PCA overlays on an unseen branching topology" loading="lazy" decoding="async"></a></figure>
                 <figure class="pca-media-panel"><div class="pca-media-heading">Selected paper frame</div><a class="pca-media-link" href="data/1.1.%20PCA%20Analysis/unseen_PCA.png" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.png" alt="Static PCA overlays on an unseen branching topology" loading="lazy" decoding="async"></a></figure>
             </div>
         </section>
-
-        <div class="pca-takeaway" style="margin-top:28px;"><strong>Conclusion.</strong> The transformer activates enough layers to perform the BFS steps required by the heights encountered during training. The parallel nature of self-attention then allows each step to update an unseen number of gears and neighbors simultaneously, enabling extrapolation to larger gear counts and unseen tree topologies as long as kinematic height remains in-distribution.</div>
     </div>
     """,
     "Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains": """
