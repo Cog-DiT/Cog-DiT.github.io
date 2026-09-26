@@ -366,7 +366,7 @@ DATASET_DESCRIPTIONS = {
             We therefore perform feature probing on trained DiTs to investigate what reasoning mechanisms emerge internally.
         </p>
         <p>
-            Crucially, the model learns two distinct types of algorithms depending on the <b>kinematic height</b> h —the maximum graph distance from the driving gear—seen during training:
+            Crucially, the model learns two distinct types of algorithms depending on the <b>kinematic height</b> (denoted as <i>h</i>)—the maximum graph distance from the driving gear—seen during training:
         </p>
         <ul>
             <li><b>Parallel-BFS strategy:</b> When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. </li>
