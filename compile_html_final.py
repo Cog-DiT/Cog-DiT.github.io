@@ -509,13 +509,12 @@ DATASET_DESCRIPTIONS = {
     "1.4. I.D. Kinematic Height": f"""
     <div class="full-width-analysis">
         <p>
-            Parallel-BFS reasoning generalizes strongly when test kinematic height remains within the training distribution. We first examine generalization to many more gears, then isolate generalization to unseen branching structures.
+            Parallel-BFS reasoning generalizes well unseen kinematic topologies when kinematic height remains within the training distribution. We first examine generalization to many more gears, then isolate generalization to unseen branching structures.
         </p>
 
         <h5 style="margin:30px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen gear counts at an in-distribution height</h5>
         <p class="table-focus-legend">
             <span class="table-focus-swatch count-focus-swatch" aria-hidden="true"></span>
-            <strong>Blue outlines:</strong> test gear counts exceed the training maximum while kinematic height remains within the training distribution.
         </p>
 
         <div class="success-table-grid comparison-table-pair">
@@ -540,7 +539,6 @@ DATASET_DESCRIPTIONS = {
                         </tbody>
                     </table>
                 </div>
-                <p class="table-note">At the familiar height <i>h</i> = 5, success remains 88&ndash;100% as the system grows from 5 to 40 gears.</p>
             </section>
 
             <!-- Table 1: ten-gear training regime (right) -->
@@ -569,11 +567,8 @@ DATASET_DESCRIPTIONS = {
                         </tbody>
                     </table>
                 </div>
-                <p class="table-note">At the familiar height <i>h</i> = 10, success remains 82&ndash;100% as the system grows from 10 to 100 gears.</p>
             </section>
         </div>
-        <p class="table-note">The blue columns isolate gear-count extrapolation: attention updates many additional gears in parallel while the required number of propagation steps remains familiar.</p>
-
         <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful 100-gear examples</h5>
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(0, 5))}
 
