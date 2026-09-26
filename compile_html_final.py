@@ -385,7 +385,8 @@ DATASET_DESCRIPTIONS = {
     "1.1. PCA Analysis": """
     <div class="pca-analysis-gallery">
         <p class="pca-lead">
-            PCA reveals a principal feature direction that separates gears with opposite rotational parity. Across transformer layers, this parity signal expands outward from the driving gear one graph depth at a time.
+            <b>Key observation.</b> PCA reveals a principal feature direction that separates gears with opposite rotational parity. 
+            Across transformer layers, this parity signal expands outward from the driving gear one graph depth at a time.
         </p>
         <div class="mlp-probing-figures">
             <figure><a href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" alt="Animated layer-wise PCA overlays for an in-distribution 10-gear chain" loading="lazy" decoding="async"></a></figure>
@@ -394,32 +395,29 @@ DATASET_DESCRIPTIONS = {
         <div class="mlp-probing-figures" style="grid-template-columns:minmax(0,80%);justify-content:center;">
             <figure><a href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated layer-wise PCA overlays for a 100-gear height-10 mechanism" loading="lazy" decoding="async"></a></figure>
         </div>
-        <p class="pca-takeaway">
-            <strong>Together, these three PCA animations demonstrate a parallel-BFS-like mechanism:</strong> rotational parity is determined incrementally and in parallel at each kinematic depth across successive transformer layers.
-        </p>
     </div>
     """,
     "1.2. MLP Probing": """
     <p>
-        We train lightweight MLP probes to predict whether pairs of gear features have the same rotational parity.
-        Each heatmap reports probing accuracy by transformer block (vertical axis) and gear depth from the driving gear (horizontal axis).
+        Motivated by the PCA results, we train lightweight MLP probes tasked to predict whether pairs of gear features have the same rotational parity.
+        Each heatmap reports the probing accuracy for predicting the parity of each gear relative to the driving gear, across transformer blocks (vertical axis) and gear depth from the driving gear (horizontal axis).
     </p>
     <div class="mlp-probing-figures">
         <figure>
             <a href="data/1.2%20MLP%20Probing/train_5_eval_5.png" target="_blank" rel="noopener noreferrer">
                 <img src="data/1.2%20MLP%20Probing/train_5_eval_5.png" alt="MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 5" loading="lazy" decoding="async">
             </a>
-            <figcaption><b>Train and evaluate at <i>h</i> &le; 5.</b> Accurate parity information reaches progressively deeper gears in later blocks.</figcaption>
+            <figcaption><b>Train and evaluate at <i>h</i> &le; 5.</b> </figcaption>
         </figure>
         <figure>
             <a href="data/1.2%20MLP%20Probing/train_10_eval_10.png" target="_blank" rel="noopener noreferrer">
                 <img src="data/1.2%20MLP%20Probing/train_10_eval_10.png" alt="MLP parity-probing accuracy across transformer blocks and depths for training and evaluation height 10" loading="lazy" decoding="async">
             </a>
-            <figcaption><b>Train and evaluate at <i>h</i> &le; 10.</b> The same moving accuracy frontier extends across the longer chain.</figcaption>
+            <figcaption><b>Train and evaluate at <i>h</i> &le; 10.</b> </figcaption>
         </figure>
     </div>
     <p>
-        <strong>Result:</strong> the high-accuracy region advances approximately one graph depth at a time as transformer depth increases, quantitatively supporting the parallel-BFS interpretation suggested by PCA.
+        <strong>Key observation:</strong> the high-accuracy region advances approximately one graph depth at a time as transformer depth increases, quantitatively supporting the parallel-BFS reasoning mechanisms. 
     </p>
     """,
     "1.3. O.O.D. Kinematic Height": """
