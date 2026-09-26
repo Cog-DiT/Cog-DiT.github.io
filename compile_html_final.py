@@ -423,13 +423,11 @@ DATASET_DESCRIPTIONS = {
     "1.3. O.O.D. Kinematic Height": """
     <div>
         <p>
-            Parallel-BFS reasoning extrapolates to many more gears, but it is brittle to a larger <em>kinematic height</em>.
-            The success-rate matrices and feature probes below show that the learned propagation process stops near the maximum depth encountered during training.
+            The table below demonstrates that Parallel-BFS has poor generalizability to out-of-distribution kinematic heights.
         </p>
 
         <p class="table-focus-legend">
             <span class="table-focus-swatch height-focus-swatch" aria-hidden="true"></span>
-            <strong>Red outlines:</strong> valid test cases whose kinematic height exceeds the maximum seen during training.
         </p>
 
         <div class="success-table-grid comparison-table-pair">
@@ -439,7 +437,6 @@ DATASET_DESCRIPTIONS = {
                     <table class="latex-table comparison-success-table" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
                         <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
                             <strong>Table 6. Model trained on up to 5 gears.</strong>
-                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5; the same height-limited generalization pattern appears at a smaller scale.
                         </caption>
                         <thead>
                             <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
@@ -454,9 +451,6 @@ DATASET_DESCRIPTIONS = {
                         </tbody>
                     </table>
                 </div>
-                <p class="table-note">
-                    The model extrapolates from 5 to 40 gears at <i>h</i> = 5 (88–100% success), but nearly always fails as soon as the required propagation depth exceeds its training range.
-                </p>
             </section>
 
             <!-- Table 1: ten-gear training regime (right) -->
@@ -465,7 +459,6 @@ DATASET_DESCRIPTIONS = {
                     <table class="latex-table comparison-success-table" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
                         <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
                             <strong>Table 1. Model trained on up to 10 gears.</strong>
-                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10. Em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
                         </caption>
                         <thead>
                             <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
@@ -488,41 +481,29 @@ DATASET_DESCRIPTIONS = {
                         </tbody>
                     </table>
                 </div>
-                <p class="table-note">
-                    At the in-distribution height <i>h</i> = 10, success remains 82–100% even as the gear count grows to 100. Once height increases to 20 or more, success collapses to 0–1%.
-                </p>
             </section>
         </div>
 
         <!-- Figure 4 -->
         <h5 style="margin: 34px 0 8px; font-size: 1.05rem; color: #333;">Figure 4. Feature probing on out-of-distribution kinematic heights</h5>
         <p>
-            The probes expose the same failure internally: parity information propagates through transformer blocks only as far as the training distribution requires.
+            The probes expose the same failure: parity information propagates through transformer blocks only as far as the training distribution requires.
         </p>
         <div class="mlp-probing-figures figure4-probe-grid">
             <figure>
                 <a href="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" target="_blank" rel="noopener noreferrer">
                     <img src="data/1.3.%20O.O.D.%20Kinematic%20Height/train_5_eval_10.png" alt="Feature probing for height-5 training evaluated on a height-10 linear chain" loading="lazy" decoding="async">
                 </a>
-                <figcaption><b>Train: <i>h</i> &le; 5; evaluate: <i>N</i> = <i>h</i> = 10.</b> The accuracy frontier reaches the trained depth and then stalls.</figcaption>
+                <figcaption><b>Train: <i>h</i> &le; 5; evaluate: <i>N</i> = <i>h</i> = 10.</b></figcaption>
             </figure>
             <figure>
                 <a href="data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png" target="_blank" rel="noopener noreferrer">
                     <img src="data/1.3.%20O.O.D.%20Kinematic%20Height/train_10_eval_20.png" alt="Feature probing for height-10 training evaluated on a height-20 linear chain" loading="lazy" decoding="async">
                 </a>
-                <figcaption><b>Train: <i>h</i> &le; 10; evaluate: <i>N</i> = <i>h</i> = 20.</b> Propagation similarly stops beyond the in-distribution height.</figcaption>
+                <figcaption><b>Train: <i>h</i> &le; 10; evaluate: <i>N</i> = <i>h</i> = 20.</b></figcaption>
             </figure>
         </div>
-        <p>
-            <strong>Summary:</strong> the model learns to activate enough transformer blocks to cover the heights seen during training, rather than learning an indefinitely repeatable BFS procedure.
-            This explains why gear-count extrapolation succeeds at fixed height while height extrapolation fails.
-        </p>
         <h5 style="margin: 30px 0 8px; font-size: 1.05rem; color: #333;">Concrete O.O.D. failure examples from Table 1</h5>
-        <p>
-            The five videos below come from the <i>N</i> = 20, <i>h</i> = 20 cell, where the model succeeds on only 1% of the 100 evaluation mechanisms.
-            We show failed samples with especially large relative motion disparity to make the depth-extrapolation breakdown visible.
-            Each comparison contains the initial-frame condition, driving-gear condition, ground truth, and generated video; the caption reports the sample-level error and fraction of gears below the 0.25 threshold.
-        </p>
     </div>
     """,
     "1.4. I.D. Kinematic Height": f"""
