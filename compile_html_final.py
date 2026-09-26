@@ -577,7 +577,10 @@ DATASET_DESCRIPTIONS = {
         </section>
 
         <h5 style="margin:34px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen tree topologies</h5>
-        <p>We next train exclusively on linear kinematic chains, where each interior gear has exactly two neighbors, and evaluate on arbitrary general trees.</p>
+        <p>
+         we train the model exclusively on gear mechanisms forming linear kinematic chains, in which each interior gear has exactly two neighboring gears.
+         Interetingly, the trained model still performs well on arbitrary tree topologies during inference as demonstrated below.
+        </p>
         <div class="table-wrap" style="margin:18px 0 10px;">
             <table class="latex-table" style="min-width:650px;" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
                 <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;"><strong>Table 2. Generalization to unseen tree topologies.</strong> Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for linear-chain training evaluated on linear chains and general trees.</caption>
@@ -589,7 +592,7 @@ DATASET_DESCRIPTIONS = {
             </table>
         </div>
 
-        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful unseen-topology examples</h5>
+        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful unseen-topology examples (Trained on linear graph, tested on general graph)</h5>
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(5, 10))}
 
         <section class="pca-case">
