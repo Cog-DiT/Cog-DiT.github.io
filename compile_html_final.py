@@ -422,13 +422,9 @@ DATASET_DESCRIPTIONS = {
     "1.3. O.O.D. Kinematic Height": """
     <div>
         <p>
-            The table below demonstrates that Parallel-BFS has poor generalizability to out-of-distribution kinematic heights.
+        The learned Parallel-BFS reasoning mechanisms generalize poorly to unseen kinematic heights.
+        As shown in the table below, the model achieves a success rate of almost $0$ on out-of-distribution cases when the kinematic height exceeds the training range.
         </p>
-
-        <p class="table-focus-legend">
-            <span class="table-focus-swatch height-focus-swatch" aria-hidden="true"></span>
-        </p>
-
         <div class="success-table-grid comparison-table-pair">
             <!-- Table 6: five-gear training regime (left) -->
             <section class="success-table-card">
