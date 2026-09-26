@@ -384,8 +384,8 @@ DATASET_DESCRIPTIONS = {
     "1.1. PCA Analysis": """
     <div class="pca-analysis-gallery">
         <p class="pca-lead">
-            <b>Key observation.</b> PCA reveals a principal feature direction that separates gears with opposite rotational parity. 
-            Across transformer layers, this parity signal expands outward from the driving gear one graph depth at a time.
+        The PCA analysis below reveals an interesting pattern: there is a principal axis that separates features associated with gears of different rotational parity.
+        Remarkably, this parity signal first emerges around the driving gear, and then progressively propagates to neighboring gears across successive transformer layers, resembling a parallel BFS-like progression.
         </p>
         <div class="mlp-probing-figures">
             <figure><a href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" alt="Animated layer-wise PCA overlays for an in-distribution 10-gear chain" loading="lazy" decoding="async"></a></figure>
@@ -398,8 +398,9 @@ DATASET_DESCRIPTIONS = {
     """,
     "1.2. MLP Probing": """
     <p>
-        Motivated by the PCA results, we train lightweight MLP probes tasked to predict whether pairs of gear features have the same rotational parity.
-        Each heatmap reports the probing accuracy for predicting the parity of each gear relative to the driving gear, across transformer blocks (vertical axis) and gear depth from the driving gear (horizontal axis).
+        To quantitatively verify this process, we perform MLP probing to measure the amount of information each transformer layer stores about the rotational parity of individual gears relative to the driving gear.
+        As shown in the table below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.
+        (Note: Each heatmap reports the probing accuracy for predicting the parity of each gear relative to the driving gear, across transformer blocks (vertical axis) and gear depth from the driving gear (horizontal axis).)
     </p>
     <div class="mlp-probing-figures">
         <figure>
