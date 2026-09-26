@@ -210,7 +210,6 @@ def render_pairwise_gallery():
                 </div>
                 <p class="pca-case-summary">
                     Trained through <i>N</i>, <i>h</i> &le; {count} and evaluated on a linear chain of height {count}.
-                    Bright blocks indicate locally accurate parity relations; late-layer agreement across the full matrix indicates global consistency.
                 </p>
                 <div class="pca-media-pair">
                     <figure class="pca-media-panel">
