@@ -629,13 +629,13 @@ DATASET_DESCRIPTIONS = {
             </div>
             <div class="pca-media-pair">
                 <figure class="pca-media-panel">
-                    <div class="pca-media-heading">Paper figure (manual grouping)</div>
+                    <div class="pca-media-heading">Paper figure</div>
                     <a class="pca-media-link" href="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30.png" target="_blank" rel="noopener noreferrer">
                         <img src="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30.png" alt="Paper PCA figure for a model trained and evaluated on 30-gear height-30 mechanisms" loading="lazy" decoding="async">
                     </a>
                 </figure>
                 <figure class="pca-media-panel">
-                    <div class="pca-media-heading">All frames (automatic blue overlay)</div>
+                    <div class="pca-media-heading">All frames</div>
                     <a class="pca-media-link" href="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30_blue.gif" target="_blank" rel="noopener noreferrer">
                         <img src="data/2.1.%20PCA%20Analysis/pca_overlays_general30_line30_blue.gif" alt="Animated layer-wise PCA for 30 gears with all gear contours automatically overlaid in blue" loading="lazy" decoding="async">
                     </a>
