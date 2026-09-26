@@ -18,7 +18,7 @@ import urllib.parse
 
 # --- CONFIGURATION ---
 
-PAPER_TITLE = "When Video Diffusion Transformers Meet Long-Chain Kinematic Reasoning: A Study of 2D Gear Systems"
+PAPER_TITLE = "Probing Kinematic Chain Reasoning in Video Diffusion Transformers: A Study of 2D Gear System"
 
 if True:
     AUTHORS = [
@@ -218,14 +218,12 @@ def render_pairwise_gallery():
                         <a class="pca-media-link" href="data/2.2.%20MLP%20Probing/{static_name}" target="_blank" rel="noopener noreferrer">
                             <img src="data/2.2.%20MLP%20Probing/{static_name}" alt="Paper figure showing all pairwise parity probing matrices for {count} gears" loading="lazy" decoding="async">
                         </a>
-                        <figcaption>The exact multi-layer panel included by <code>pairwise_parity_all.tex</code>.</figcaption>
                     </figure>
                     <figure class="pca-media-panel">
                         <div class="pca-media-heading">Layer animation</div>
                         <a class="pca-media-link" href="data/2.2.%20MLP%20Probing/{gif_name}" target="_blank" rel="noopener noreferrer">
                             <img src="data/2.2.%20MLP%20Probing/{gif_name}" alt="Animation of pairwise parity probing matrices across transformer layers for {count} gears" loading="lazy" decoding="async">
                         </a>
-                        <figcaption>The same probe run animated one transformer layer at a time.</figcaption>
                     </figure>
                 </div>
             </section>
@@ -240,13 +238,13 @@ Video diffusion transformers (DiTs) are increasingly viewed as promising models 
 However, off-the-shelf models struggle to generate physically plausible gear motions, even in simple scenarios involving only two gears.
 Simulating gear mechanisms is conceptually simple yet challenging, as the motion of a single gear strictly dictates the kinematics of the entire system.
 In particular, determining the rotation direction of each gear requires computing its rotational parity by traversing the underlying kinematic chain.
-M/p>
+</p>
 <p>
-To investigate whether video DiTs can learn such long-chain kinematic reasoning, we utilize 2D involute gear trains as a testbed to train and analyze fine-tuned video DiTs.
-Our analysis reveals that models can indeed learn long-chain kinematic reasoning, but they acquire two distinct types of reasoning mechanisms depending on the kinematic heights encountered during training:
+To investigate whether video DiTs can learn such kinematic chain reasoning, we utilize 2D involute gear trains as a testbed to train and analyze video DiTs.
+Our analysis reveals that models can indeed learn kinematic chain reasoning, but they acquire two distinct types of reasoning mechanisms depending on the kinematic heights encountered during training:
 when trained on mechanisms with short kinematic heights, the model acquires a parallel BFS-like reasoning, using transformer layers as breadth-first search steps to incrementally determine parity across the kinematic tree.
 Conversely, when exposed to large kinematic heights during training, the model adopts a divide-and-conquer-like strategy—first resolving parity within local neighborhoods and subsequently merging them to achieve global consistency.
-Overall, this work demonstrates that video diffusion transformers are capable of learning algorithmic reasoning over long kinematic chains, while also uncovering their generalization limits and highlighting the critical role of training data complexities.
+Overall, this work demonstrates that video DiTs are capable of learning algorithmic reasoning over kinematic chains, while also uncovering their generalization limits and highlighting the critical role of training data complexities.
 </p>
 """
 
@@ -254,7 +252,7 @@ Overall, this work demonstrates that video diffusion transformers are capable of
 # --- 3-LEVEL HIERARCHY CONFIG ---
 # The script automatically detects if an item is a "Group" (tuple with list) or "Single" (string)
 SIDEBAR_CONFIG = [
-    ("Task Definition",[]),
+    ("Intro",["Task Definition"]),
     ("Motivation: Why study gear simulation? ", [
         "Animating Gear Systems with Commercial Video Models",
     ]),
@@ -288,7 +286,7 @@ DATASET_DESCRIPTIONS = {
     "Task Definition": """
     <div>
     <p>
-        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with long-chain kinematic dependencies.
+        In this paper, we adopt 2D involute gear trains as a testbed for evaluating the ability of video diffusion transformers to simulate systems of simultaneously interacting physical objects with potentially long-chain kinematic dependencies.
         Specifically, as visualized below, the model is provided with the initial spatial layout of a gear system as the first frame. A single gear is designated as the <b>driving gear</b>, and its full rotational trajectory is provided as a conditioning video. 
         The objective is to synthesize the resulting motion of all remaining gears while satisfying the underlying kinematic constraints. 
         We fine-tune the Wan2.1 (1.3B) text-to-video model.  Below, we visualize a few examples of the input and ground-truth data. 
