@@ -645,23 +645,20 @@ DATASET_DESCRIPTIONS = {
     """,
     "2.2.1. Root-relative MLP Probing": f"""
     <p>
-        Root-relative parity probing complements the PCA view. Across the long-chain models below, accuracy grows roughly linearly in shallow layers and rises sharply near the end of the transformer stack.
-        This indicates that early layers create partial parity solutions and later layers consolidate them relative to the driving gear.
+        Acuracy grows roughly linearly in early layers and rises sharply near the end of the transformer stack.
     </p>
     <h5 class="analysis2-subheading">Root-relative parity by layer and kinematic depth</h5>
     {render_mlp_probe_gallery()}
     """,
     "2.2.2. Pairwise MLP Probing": f"""
     <p>
-        Each matrix asks whether a probe can recover the relative parity of every gear pair. Intermediate bright blocks reveal accurate local clusters even when the whole chain is not root-aligned; their merger into a uniformly accurate late-layer matrix exposes the local-to-global transition directly.
+        Each matrix asks whether a probe can recover the relative parity of every gear pair. Intermediate bright blocks reveal local clusters.
     </p>
     {render_pairwise_gallery()}
     """,
     "2.3. Generalizability": f"""
     <p>
-        The tables below reproduce the simulation success rates from <code>success_all.tex</code> for every model trained on at least 20 gears.
-        Rows are test gear count <i>N</i>, columns are test kinematic height <i>h</i>, and values are success percentages.
-        Red inset borders mark the feasible cells inside each model's training envelope.
+        
     </p>
     <div class="success-table-grid">
         {render_success_table(20, SUCCESS_TABLES[20])}
@@ -670,9 +667,6 @@ DATASET_DESCRIPTIONS = {
         {render_success_table(50, SUCCESS_TABLES[50])}
         {render_success_table(100, SUCCESS_TABLES[100])}
     </div>
-    <p class="table-note">
-        Color runs from red (0% success) to green (100% success). Em dashes are entries not reported in the paper table.
-    </p>
     """,
 }
 
