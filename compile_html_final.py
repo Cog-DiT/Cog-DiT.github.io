@@ -159,6 +159,30 @@ def render_inline_video_gallery(section_name, indices):
         """)
     return "<div style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin:18px 0 30px;\">" + "".join(figures) + "</div>"
 
+
+
+def render_inline_video_carousel(section_name, indices):
+    """Render an unlabeled, self-contained carousel inside narrative HTML."""
+    video_paths = [f"./video/{section_name}/{index}.mp4" for index in indices]
+    encoded_paths = urllib.parse.quote(json.dumps(video_paths))
+    dots = []
+    for position in range(len(video_paths)):
+        active = " active" if position == 0 else ""
+        dots.append(
+            f"<button class=\"carousel-dot{active}\" onclick=\"setInlineCarousel(this.closest(&quot;.inline-carousel&quot;), {position})\" aria-label=\"Slide {position + 1}\"></button>"
+        )
+    return f"""
+        <div class="inline-carousel" data-videos="{encoded_paths}" data-index="0">
+            <div class="carousel-wrapper">
+                <button class="carousel-btn left" onclick="moveInlineCarousel(this, -1)">&#10094;</button>
+                <video class="lazy" data-src="{video_paths[0]}" preload="none" controls autoplay loop muted playsinline></video>
+                <button class="carousel-btn right" onclick="moveInlineCarousel(this, 1)">&#10095;</button>
+                <div class="slide-counter">1 / {len(video_paths)}</div>
+            </div>
+            <div class="carousel-dots">{"".join(dots)}</div>
+        </div>
+    """
+
 def render_mlp_probe_gallery():
     figures = []
     for count in (20, 30, 40, 50, 100):
@@ -252,7 +276,8 @@ SIDEBAR_CONFIG = [
                     ]),
                     ("Analysis 2: Emergence of Divide-and-Conquer-like Reasoning in Long Kinematic Chains", [
                         "2.1. PCA Analysis",
-                        "2.2. MLP Probing",
+                        "2.2.1. Root-relative MLP Probing",
+                        "2.2.2. Pairwise MLP Probing",
                         "2.3. Generalizability",
                     ]),
                 ]
@@ -371,6 +396,8 @@ DATASET_DESCRIPTIONS = {
         <div class="mlp-probing-figures">
             <figure><a href="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general10_line10.gif" alt="Animated layer-wise PCA overlays for an in-distribution 10-gear chain" loading="lazy" decoding="async"></a></figure>
             <figure><a href="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/unseen_PCA.gif" alt="Animated layer-wise PCA overlays for an unseen branching topology" loading="lazy" decoding="async"></a></figure>
+        </div>
+        <div class="mlp-probing-figures" style="grid-template-columns:minmax(0,80%);justify-content:center;">
             <figure><a href="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" target="_blank" rel="noopener noreferrer"><img src="data/1.1.%20PCA%20Analysis/pca_overlays_general100_line10.gif" alt="Animated layer-wise PCA overlays for a 100-gear height-10 mechanism" loading="lazy" decoding="async"></a></figure>
         </div>
         <p class="pca-takeaway">
@@ -408,63 +435,67 @@ DATASET_DESCRIPTIONS = {
             The success-rate matrices and feature probes below show that the learned propagation process stops near the maximum depth encountered during training.
         </p>
 
-        <!-- Table 1 -->
-        <div class="table-wrap" style="margin: 24px 0 10px;">
-            <table class="latex-table" style="min-width: 940px;" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
-                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
-                    <strong>Table 1. Simulation success rates (%) across varying gear counts and kinematic heights.</strong>
-                    The model is trained with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10.
-                    The red-outlined cell is in-distribution; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
-                </caption>
-                <thead>
-                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
-                    <tr>
-                        <th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th><th scope="col">50</th>
-                        <th scope="col">60</th><th scope="col">70</th><th scope="col">80</th><th scope="col">90</th><th scope="col">100</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><th scope="row">10</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
-                    <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <p class="table-note">
-            At the in-distribution height <i>h</i> = 10, success remains 82–100% even as the gear count grows to 100.
-            Once height increases to 20 or more, success collapses to 0–1%.
-        </p>
+        <div class="success-table-grid ood-height-table-pair">
+            <!-- Table 6: five-gear training regime (left) -->
+            <section class="success-table-card">
+                <div class="table-wrap" style="margin: 0;">
+                    <table class="latex-table ood-height-table" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
+                        <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                            <strong>Table 6. Model trained on up to 5 gears.</strong>
+                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5; the same height-limited generalization pattern appears at a smaller scale.
+                        </caption>
+                        <thead>
+                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">5</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td style="background:#f7e4e2;">3%</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">20</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">30</th><td style="background:#e2efe2;">96%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                            <tr><th scope="row">40</th><td style="background:#e8ebe0;">88%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-note">
+                    The model extrapolates from 5 to 40 gears at <i>h</i> = 5 (88–100% success), but nearly always fails as soon as the required propagation depth exceeds its training range.
+                </p>
+            </section>
 
-        <!-- Table 6 -->
-        <div class="table-wrap" style="margin: 30px 0 10px;">
-            <table class="latex-table" style="min-width: 580px;" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
-                <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
-                    <strong>Table 6. Simulation success rates (%) for models trained on up to 5 gears.</strong>
-                    Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5; the same height-limited generalization pattern appears at a smaller scale.
-                </caption>
-                <thead>
-                    <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
-                    <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th scope="row">5</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td style="background:#f7e4e2;">3%</td><td>—</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">20</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
-                    <tr><th scope="row">30</th><td style="background:#e2efe2;">96%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
-                    <tr><th scope="row">40</th><td style="background:#e8ebe0;">88%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
-                </tbody>
-            </table>
+            <!-- Table 1: ten-gear training regime (right) -->
+            <section class="success-table-card">
+                <div class="table-wrap" style="margin: 0;">
+                    <table class="latex-table ood-height-table" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
+                        <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
+                            <strong>Table 1. Model trained on up to 10 gears.</strong>
+                            Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10. Red outlines mark the in-distribution boundary; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
+                        </caption>
+                        <thead>
+                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr>
+                                <th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th><th scope="col">50</th>
+                                <th scope="col">60</th><th scope="col">70</th><th scope="col">80</th><th scope="col">90</th><th scope="col">100</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1; border:2px solid #d62728;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>—</td></tr>
+                            <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-note">
+                    At the in-distribution height <i>h</i> = 10, success remains 82–100% even as the gear count grows to 100. Once height increases to 20 or more, success collapses to 0–1%.
+                </p>
+            </section>
         </div>
-        <p class="table-note">
-            The model extrapolates from 5 to 40 gears at <i>h</i> = 5 (88–100% success), but nearly always fails as soon as the required propagation depth exceeds its training range.
-        </p>
 
         <!-- Figure 4 -->
         <h5 style="margin: 34px 0 8px; font-size: 1.05rem; color: #333;">Figure 4. Feature probing on out-of-distribution kinematic heights</h5>
@@ -498,14 +529,14 @@ DATASET_DESCRIPTIONS = {
     </div>
     """,
     "1.4. I.D. Kinematic Height": f"""
-    <div>
+    <div class="full-width-analysis">
         <p>
             Parallel-BFS reasoning generalizes strongly when test kinematic height remains within the training distribution. We first examine generalization to many more gears, then isolate generalization to unseen branching structures.
         </p>
 
         <h5 style="margin:30px 0 8px;font-size:1.08rem;color:#333;">Generalization to unseen gear counts at an in-distribution height</h5>
-        <div class="table-wrap" style="margin:18px 0 10px;">
-            <table class="latex-table" style="min-width:940px;" aria-label="Table 1 simulation success rates across gear counts and kinematic heights">
+        <div style="margin:18px 0 10px;width:100%;">
+            <table class="latex-table full-width-table" aria-label="Table 1 simulation success rates across gear counts and kinematic heights">
                 <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
                     <strong>Table 1. Simulation success rates (%) across varying gear counts and kinematic heights.</strong>
                     The model is trained with <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10. The red-outlined cell is fully in-distribution; em dashes denote impossible combinations where <i>h</i> &gt; <i>N</i>.
@@ -531,8 +562,7 @@ DATASET_DESCRIPTIONS = {
         <p class="table-note">At the in-distribution height <i>h</i> = 10, success remains 82&ndash;100% as the system grows from 10 to 100 gears. The model therefore extrapolates to ten times the training gear count when the required propagation depth remains familiar.</p>
 
         <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful 100-gear examples</h5>
-        <p>The following five lowest-error successes come from the <i>N</i> = 100, <i>h</i> = 10 cell. Every gear in each sample remains below the 0.25 relative-motion threshold.</p>
-        {render_inline_video_gallery("1.4. I.D. Kinematic Height", range(0, 5))}
+        {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(0, 5))}
 
         <section class="pca-case">
             <div class="pca-case-header"><span class="pca-case-label">PCA evidence</span><h5>Parity propagation scales to 100 gears at height 10</h5></div>
@@ -622,17 +652,18 @@ DATASET_DESCRIPTIONS = {
         </div>
     </div>
     """,
-    "2.2. MLP Probing": f"""
+    "2.2.1. Root-relative MLP Probing": f"""
     <p>
         Root-relative parity probing complements the PCA view. Across the long-chain models below, accuracy grows roughly linearly in shallow layers and rises sharply near the end of the transformer stack.
         This indicates that early layers create partial parity solutions and later layers consolidate them relative to the driving gear.
     </p>
     <h5 class="analysis2-subheading">Root-relative parity by layer and kinematic depth</h5>
     {render_mlp_probe_gallery()}
-    <div class="pca-reading-guide">
-        <b>Pairwise view.</b> Each matrix asks whether a probe can recover the relative parity of every gear pair.
-        Intermediate bright blocks reveal accurate local clusters even when the whole chain is not root-aligned; their merger into a uniformly accurate late-layer matrix exposes the local-to-global transition directly.
-    </div>
+    """,
+    "2.2.2. Pairwise MLP Probing": f"""
+    <p>
+        Each matrix asks whether a probe can recover the relative parity of every gear pair. Intermediate bright blocks reveal accurate local clusters even when the whole chain is not root-aligned; their merger into a uniformly accurate late-layer matrix exposes the local-to-global transition directly.
+    </p>
     {render_pairwise_gallery()}
     """,
     "2.3. Generalizability": f"""
@@ -651,11 +682,6 @@ DATASET_DESCRIPTIONS = {
     <p class="table-note">
         Color runs from red (0% success) to green (100% success). Em dashes are entries not reported in the paper table.
     </p>
-    <div class="pca-takeaway">
-        <b>Interpretation.</b> In-distribution long mechanisms are simulated reliably, including heights greater than the 30 transformer layers.
-        Generalization nevertheless weakens as unseen gear counts introduce new topology statistics, even when height is within the training range.
-        Shallow tests around <i>h</i> &le; 10 remain robust because the model can still fall back on parallel BFS; the learned decomposition-and-merge strategy is more sensitive to topology shifts.
-    </div>
     """,
 }
 
@@ -957,7 +983,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         .dataset-description:has(.pca-analysis-gallery),
         .overview-desc:has(.pca-analysis-gallery),
         .dataset-description:has(.success-table-grid),
-        .overview-desc:has(.success-table-grid) {{
+        .overview-desc:has(.success-table-grid),
+        .dataset-description:has(.full-width-analysis),
+        .overview-desc:has(.full-width-analysis) {{
             width: 100%;
             max-width: 1400px;
             box-sizing: border-box;
@@ -1087,6 +1115,24 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             gap: 28px;
             margin-top: 26px;
         }}
+        .ood-height-table-pair {{
+            align-items: start;
+        }}
+        .ood-height-table-pair .table-wrap {{
+            overflow-x: hidden;
+        }}
+        .ood-height-table {{
+            width: 100%;
+            table-layout: fixed;
+            font-size: clamp(8px, 0.65vw, 10px);
+        }}
+        .ood-height-table th,
+        .ood-height-table td {{
+            padding: 5px 2px;
+        }}
+        .ood-height-table caption {{
+            font-size: 0.9rem;
+        }}
         .success-table-card {{
             padding: 20px;
             border: 1px solid var(--border-color);
@@ -1107,6 +1153,26 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
         .table-wrap {{ overflow-x: auto; }}
         .table-note {{ font-size: 12px; color: #666; margin-top: 6px; }}
+        .full-width-analysis > p,
+        .full-width-analysis > h5,
+        .full-width-analysis > .pca-takeaway {{
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+        }}
+        .full-width-table {{
+            width: 100%;
+            table-layout: fixed;
+            font-size: clamp(8px, 0.8vw, 11px);
+        }}
+        .full-width-table th, .full-width-table td {{
+            padding: 6px 3px;
+        }}
+        .inline-carousel {{
+            width: 100%;
+            margin: 18px 0 30px;
+        }}
         .latex-table {{
             width: 100%;
             border-collapse: collapse;
@@ -1440,6 +1506,35 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
                 let newIndex = carouselIndices[datasetName] + direction;
                 window.setCarouselIndex(datasetName, newIndex);
+            }};
+
+            window.setInlineCarousel = function(wrapper, newIndex) {{
+                if (!wrapper) return;
+                const videoList = JSON.parse(decodeURIComponent(wrapper.dataset.videos || "%5B%5D"));
+                if (!videoList.length) return;
+
+                if (newIndex >= videoList.length) newIndex = 0;
+                if (newIndex < 0) newIndex = videoList.length - 1;
+                wrapper.dataset.index = newIndex;
+
+                const videoEl = wrapper.querySelector("video");
+                const counterEl = wrapper.querySelector(".slide-counter");
+                videoEl.dataset.src = videoList[newIndex];
+                videoEl.src = videoList[newIndex];
+                const playPromise = videoEl.play();
+                if (playPromise !== undefined) playPromise.catch(() => {{}});
+
+                if (counterEl) counterEl.innerText = `${{newIndex + 1}} / ${{videoList.length}}`;
+                wrapper.querySelectorAll(".carousel-dot").forEach((dot, index) => {{
+                    dot.classList.toggle("active", index === newIndex);
+                }});
+            }};
+
+            window.moveInlineCarousel = function(button, direction) {{
+                const wrapper = button.closest(".inline-carousel");
+                if (!wrapper) return;
+                const currentIndex = Number.parseInt(wrapper.dataset.index || "0", 10);
+                window.setInlineCarousel(wrapper, currentIndex + direction);
             }};
 
             // --- NAVIGATION HELPERS ---
