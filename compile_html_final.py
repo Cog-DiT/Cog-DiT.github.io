@@ -133,8 +133,10 @@ def render_success_table(train_limit, rows):
 
 
 MANUALLY_EMBEDDED_VIDEO_SECTIONS = {"1.4. I.D. Kinematic Height"}
+REBUTTAL_SUBSECTION_NAME = "Analysis with a different video backbone (CogVideoX-5B)"
+REBUTTAL_ONLY_PAGE_ID = "rebuttal-only"
 SECTION_ANCHOR_IDS = {
-    "Analysis with a different video backbone (CogVideoX-5B)": "section-rebuttal-cogvideox5b",
+    REBUTTAL_SUBSECTION_NAME: "section-rebuttal-cogvideox5b",
 }
 
 
@@ -386,7 +388,7 @@ SIDEBAR_CONFIG = [
                     ]),
                 ]
     ),
-    ("Rebuttal", [("Analysis with a different video backbone (CogVideoX-5B)", [])])
+    ("Rebuttal", [(REBUTTAL_SUBSECTION_NAME, [])])
 ]
 
 
@@ -2235,7 +2237,10 @@ def generate_single_index(input_folder):
                     section_html = f"""
                     <div class="overview-section" id="{section_anchor_id(d_name)}">
                         {header_html}
-                        <div class="overview-desc">{desc}</div>
+                        <div class="overview-desc">
+                            {'<p><a href="#' + REBUTTAL_ONLY_PAGE_ID + '">Open this rebuttal section on its own</a></p>' if d_name == REBUTTAL_SUBSECTION_NAME else ''}
+                            {desc}
+                        </div>
                     </div>
                     """
                     overview_html += section_html
@@ -2348,6 +2353,14 @@ def generate_single_index(input_folder):
             current_page_data["blocks"].append(block_data)
         
         pages_data[page_id] = current_page_data
+
+    pages_data[REBUTTAL_ONLY_PAGE_ID] = {
+        "title": "Rebuttal",
+        "description": DATASET_DESCRIPTIONS[REBUTTAL_SUBSECTION_NAME],
+        "is_group": False,
+        "is_text_only": True,
+        "blocks": [],
+    }
 
     # --- FINALIZE ---
     dataset_descriptions_json = json.dumps(DATASET_DESCRIPTIONS)
