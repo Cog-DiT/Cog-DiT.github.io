@@ -2356,10 +2356,14 @@ def generate_single_index(input_folder):
 
     pages_data[REBUTTAL_ONLY_PAGE_ID] = {
         "title": "Rebuttal",
-        "description": DATASET_DESCRIPTIONS[REBUTTAL_SUBSECTION_NAME],
-        "is_group": False,
+        "description": "",
+        "is_group": True,
         "is_text_only": True,
-        "blocks": [],
+        "blocks": [{
+            "id": REBUTTAL_SUBSECTION_NAME,
+            "description": DATASET_DESCRIPTIONS[REBUTTAL_SUBSECTION_NAME],
+            "videos": [],
+        }],
     }
 
     # --- FINALIZE ---
