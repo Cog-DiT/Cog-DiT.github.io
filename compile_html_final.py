@@ -328,7 +328,7 @@ def render_rebuttal_description():
             content.append(f"""
                 <figure style="max-width:700px;margin:24px auto;text-align:center;">
                     <a href="{figure_path}" target="_blank" rel="noopener noreferrer">
-                        <img src="{figure_path}" alt="CogVideoX-5B confidence heatmap showing target-depth prediction confidence across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;">
+                        <img src="{figure_path}" alt="CogVideoX-5B confidence heatmap showing target-depth prediction confidence across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;max-width:500px;margin:0 auto;height:auto;">
                     </a>
                     <figcaption style="margin-top:8px;color:#555;line-height:1.5;"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; {20}; evaluated on a {20}-gear linear chain. Training has not yet converged, so accuracy at greater kinematic depths remains limited. We will update the results as training progresses.</figcaption>
                 </figure>
