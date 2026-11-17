@@ -2151,6 +2151,18 @@ Overall, this work demonstrates that video DiTs are capable of learning algorith
     </div>
                     </div>
                     
+        <section class="overview-section" id="section-Rebuttal">
+            <div class="overview-section-header"><h2>Rebuttal</h2></div>
+            <div class="overview-desc"><p>W1: Analysis with a different video backbone</p><p>To test whether our findings extend beyond Wan2.1-1.3B (a 30-layer DiT with cross-attention), we conducted additional experiments with CogVideoX-5B, a 42-layer MMDiT. Given the time and compute available during rebuttal, we partially fine-tuned CogVideoX-5B on gear systems with up to 20 gears and kinematic depth 20. The heatmap below shows a layerwise progression: confidence in predicting increasingly deep targets becomes high at progressively later transformer blocks, consistent with the approximately linear trend observed in Wan2.1-1.3B (Figures 3d and 4) and with parallel BFS-like reasoning.</p>
+                <figure style="max-width:900px;margin:24px auto;text-align:center;">
+                    <a href="data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap.png" target="_blank" rel="noopener noreferrer">
+                        <img src="data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap.png" alt="CogVideoX-5B confidence heatmap showing target-depth prediction confidence across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;">
+                    </a>
+                    <figcaption style="margin-top:8px;color:#555;line-height:1.5;">Driving-depth-to-target-depth correctness confidence across the 42 transformer blocks.</figcaption>
+                </figure>
+            <p>When evaluated on unseen gear counts up to 100, the partially trained model retains some performance at in-distribution kinematic depths (for example, depth 10), but shows no performance at out-of-distribution depths. Training had not fully converged within the rebuttal compute budget, so we focus on depths up to approximately 10. These results indicate that the observed reasoning pattern is not specific to Wan2.1-1.3B.</p></div>
+        </section>
+    
         </div>
 
         <div id="cards-container" class="container"></div>

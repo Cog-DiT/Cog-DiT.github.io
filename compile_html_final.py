@@ -15,6 +15,7 @@ import glob
 import json
 import argparse
 import urllib.parse
+import html
 
 # --- CONFIGURATION ---
 
@@ -228,6 +229,36 @@ def render_pairwise_gallery():
             </section>
         """)
     return '<div class="pca-analysis-gallery pairwise-gallery">' + "".join(cases) + "</div>"
+
+
+def render_rebuttal_section():
+    """Render the rebuttal note and its inline figure at the end of the overview."""
+    note_path = os.path.join("data", "Rebuttal", "note.txt")
+    figure_path = "data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap.png"
+    with open(note_path, "r", encoding="utf-8") as handle:
+        note = handle.read().strip()
+
+    content = []
+    for paragraph in note.split("\n\n"):
+        paragraph = paragraph.strip()
+        if paragraph == "[[FIGURE]]":
+            content.append(f"""
+                <figure style="max-width:900px;margin:24px auto;text-align:center;">
+                    <a href="{figure_path}" target="_blank" rel="noopener noreferrer">
+                        <img src="{figure_path}" alt="CogVideoX-5B confidence heatmap showing target-depth prediction confidence across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;">
+                    </a>
+                    <figcaption style="margin-top:8px;color:#555;line-height:1.5;">Driving-depth-to-target-depth correctness confidence across the 42 transformer blocks.</figcaption>
+                </figure>
+            """)
+        else:
+            content.append(f"<p>{html.escape(paragraph)}</p>")
+
+    return f"""
+        <section class="overview-section" id="section-Rebuttal">
+            <div class="overview-section-header"><h2>Rebuttal</h2></div>
+            <div class="overview-desc">{"".join(content)}</div>
+        </section>
+    """
 
 
 ABSTRACT_TEXT = """
@@ -2160,6 +2191,8 @@ def generate_single_index(input_folder):
                 </div>
                 """
                 overview_html += section_html
+
+    overview_html += render_rebuttal_section()
 
     # --- GATHER CONTENT DATA ---
     pages_data = {}
