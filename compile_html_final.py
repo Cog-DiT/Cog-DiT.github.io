@@ -306,8 +306,8 @@ def render_rebuttal_description():
     rebuttal_table = f"""
         <div class="table-wrap" style="margin:24px 0;">
             <table class="latex-table success-heatmap" style="width:100%;table-layout:fixed;font-size:clamp(8px,0.68vw,11px);" aria-label="CogVideoX-5B all-gears success rate by number of gears and kinematic depth">
-                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
-                    <strong>CogVideoX-5B evaluation results.</strong> All-gears success rate at the 0.25 threshold; rows give the number of gears and columns give kinematic depth. Gray cells have invalid depth (depth &gt; number of gears); em dashes in white cells indicate unreported valid combinations. Red outlines mark valid in-distribution entries (gears &le; 20 and depth &le; 20).
+                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;font-size:1rem;line-height:1.6;">
+                    <strong>CogVideoX-5B evaluation results.</strong> Simulation success rate (%). Red outlines mark valid entries within the training distribution (gears &le; 20 and depth &le; 20). Training has not yet converged, and we will update the results as training progresses. These preliminary results show some generalization to unseen gear counts when the kinematic depth remains within the training distribution (e.g., depth 10), but substantially lower performance at unseen kinematic depths (e.g., depths 30 and 40).
                 </caption>
                 <thead>
                     <tr>
@@ -330,7 +330,7 @@ def render_rebuttal_description():
                     <a href="{figure_path}" target="_blank" rel="noopener noreferrer">
                         <img src="{figure_path}" alt="CogVideoX-5B confidence heatmap showing target-depth prediction confidence across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;">
                     </a>
-                    <figcaption style="margin-top:8px;color:#555;line-height:1.5;">Driving-depth-to-target-depth correctness confidence across the 42 transformer blocks.</figcaption>
+                    <figcaption style="margin-top:8px;color:#555;line-height:1.5;"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; {20}; evaluated on a {20}-gear linear chain. Training has not yet converged, so accuracy at greater kinematic depths remains limited. We will update the results as training progresses.</figcaption>
                 </figure>
             """)
         elif paragraph == "[[TABLE]]":
