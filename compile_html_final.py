@@ -15,7 +15,7 @@ import glob
 import json
 import argparse
 import urllib.parse
-import html
+import re
 
 # --- CONFIGURATION ---
 
@@ -312,7 +312,7 @@ def render_rebuttal_description():
     """
 
     content = []
-    for paragraph in REBUTTAL_TEXT.split("\n\n"):
+    for paragraph in re.split(r"\n\s*\n", REBUTTAL_TEXT.strip()):
         paragraph = paragraph.strip()
         if paragraph == "[[FIGURE]]":
             content.append(f"""
@@ -326,7 +326,7 @@ def render_rebuttal_description():
         elif paragraph == "[[TABLE]]":
             content.append(rebuttal_table)
         else:
-            content.append(f"<p>{html.escape(paragraph)}</p>")
+            content.append(f"<p>{paragraph}</p>")
 
     return "".join(content)
 
