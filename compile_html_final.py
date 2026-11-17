@@ -171,9 +171,9 @@ def render_inline_video_gallery(section_name, indices):
 
 
 
-def render_inline_video_carousel(section_name, indices):
+def render_inline_video_carousel(section_name, indices, base_folder="video"):
     """Render an unlabeled, self-contained carousel inside narrative HTML."""
-    video_paths = [f"./video/{section_name}/{index}.mp4" for index in indices]
+    video_paths = [f"./{base_folder}/{section_name}/{index}.mp4" for index in indices]
     encoded_paths = urllib.parse.quote(json.dumps(video_paths))
     dots = []
     for position in range(len(video_paths)):
@@ -251,7 +251,9 @@ Furthermore, when evaluated on unseen gear counts (e.g., 70, 80, 90, 100 gears),
 Please note that because training has not yet fully converged under the limited rebuttal budget, we currently focus on kinematic heights up to approximately 10, where the model performs reliably. 
 We will continue updating the supplemental webpage with further results as training progresses. Nevertheless, these preliminary results already strongly confirm that <b>our core findings are not specific to Wan2.1-1.3B</b>. 
  
-[[TABLE]]"""
+[[TABLE]]
+
+[[SUCCESSFUL_EXAMPLES]]"""
 
 
 def render_rebuttal_description():
@@ -335,6 +337,15 @@ def render_rebuttal_description():
             """)
         elif paragraph == "[[TABLE]]":
             content.append(rebuttal_table)
+        elif paragraph == "[[SUCCESSFUL_EXAMPLES]]":
+            content.append(
+                '<h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">'
+                'Successful 100-Gear Examples (CogVideoX-5B Trained on Mechanisms with Up to 20 Gears, Applied to 100-Gear Mechanisms at Depth 10)'
+                '</h5>'
+            )
+            content.append(render_inline_video_carousel(
+                "Rebuttal/CogvideoX-5b/successful_100_gear", range(5), base_folder="data"
+            ))
         else:
             content.append(f"<p>{paragraph}</p>")
 
