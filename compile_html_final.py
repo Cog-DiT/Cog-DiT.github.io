@@ -309,7 +309,7 @@ def render_rebuttal_description():
         <div class="table-wrap" style="margin:24px 0;">
             <table class="latex-table success-heatmap" style="width:100%;table-layout:fixed;font-size:clamp(8px,0.68vw,11px);" aria-label="CogVideoX-5B all-gears success rate by number of gears and kinematic depth">
                 <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;font-size:1rem;line-height:1.6;">
-                    <strong>CogVideoX-5B evaluation results.</strong> Simulation success rate (%). Red outlines mark valid entries within the training distribution (gears &le; 20 and depth &le; 20). Training has not yet converged, and we will update the results as training progresses. These preliminary results show generalization to unseen gear counts when the kinematic depth remains within the training distribution (e.g., depth 10), but substantially low performance at out-of-distribution kinematic depths (e.g., depths 30 and 40).
+                    <strong>CogVideoX-5B evaluation results.</strong> Simulation success rate (%). Red outlines mark valid entries within the training distribution (gears &le; 20 and depth &le; 20). Training has not yet converged, and we will update the results as training progresses. These preliminary results already show generalization to unseen gear counts when the kinematic depth remains within the training distribution (e.g., depth 10), but substantially low performance at out-of-distribution kinematic depths (e.g., depths 30 and 40).
                 </caption>
                 <thead>
                     <tr>
@@ -344,7 +344,7 @@ def render_rebuttal_description():
                 '</h5>'
             )
             content.append(render_inline_video_carousel(
-                "Rebuttal/CogvideoX-5b/successful_100_gear", range(5), base_folder="data"
+                "Rebuttal/CogvideoX-5b/successful_100_gear_comparisons", range(5), base_folder="data"
             ))
         else:
             content.append(f"<p>{paragraph}</p>")
