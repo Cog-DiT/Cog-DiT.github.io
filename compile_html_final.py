@@ -231,8 +231,8 @@ def render_pairwise_gallery():
     return '<div class="pca-analysis-gallery pairwise-gallery">' + "".join(cases) + "</div>"
 
 
-def render_rebuttal_section():
-    """Render the rebuttal note and its inline figure at the end of the overview."""
+def render_rebuttal_description():
+    """Render the rebuttal note and its inline figure."""
     note_path = os.path.join("data", "Rebuttal", "note.txt")
     figure_path = "data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap.png"
     with open(note_path, "r", encoding="utf-8") as handle:
@@ -243,7 +243,7 @@ def render_rebuttal_section():
         paragraph = paragraph.strip()
         if paragraph == "[[FIGURE]]":
             content.append(f"""
-                <figure style="max-width:900px;margin:24px auto;text-align:center;">
+                <figure style="max-width:700px;margin:24px auto;text-align:center;">
                     <a href="{figure_path}" target="_blank" rel="noopener noreferrer">
                         <img src="{figure_path}" alt="CogVideoX-5B confidence heatmap showing target-depth prediction confidence across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;">
                     </a>
@@ -253,12 +253,7 @@ def render_rebuttal_section():
         else:
             content.append(f"<p>{html.escape(paragraph)}</p>")
 
-    return f"""
-        <section class="overview-section" id="section-Rebuttal">
-            <div class="overview-section-header"><h2>Rebuttal</h2></div>
-            <div class="overview-desc">{"".join(content)}</div>
-        </section>
-    """
+    return "".join(content)
 
 
 ABSTRACT_TEXT = """
@@ -308,7 +303,8 @@ SIDEBAR_CONFIG = [
                         "2.3. Generalizability",
                     ]),
                 ]
-    )
+    ),
+    ("Rebuttal", [])
 ]
 
 
@@ -1908,6 +1904,8 @@ def generate_single_index(input_folder):
         print(f"Error: Input directory '{input_folder}' not found.")
         return
 
+    DATASET_DESCRIPTIONS["Rebuttal"] = render_rebuttal_description()
+
     # 1. Scan available datasets
     found_datasets = set([d for d in os.listdir(input_folder) if os.path.isdir(os.path.join(input_folder, d))])
     
@@ -2191,8 +2189,6 @@ def generate_single_index(input_folder):
                 </div>
                 """
                 overview_html += section_html
-
-    overview_html += render_rebuttal_section()
 
     # --- GATHER CONTENT DATA ---
     pages_data = {}
