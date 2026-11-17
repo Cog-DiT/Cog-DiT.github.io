@@ -242,13 +242,14 @@ def render_pairwise_gallery():
 
 REBUTTAL_TEXT = """
 
-To test whether our findings extend beyond Wan2.1-1.3B (a 30-layer DiT with cross-attention), we conducted additional experiments with <b>CogVideoX-5B, a 42-layer MMDiT</b>. Given the time and compute available during rebuttal, we <b>partially</b> fine-tuned CogVideoX-5B on gear systems with up to <b>20 gear counts and kinematic depth 20</b>. 
-Despite <b>limited training</b>, MLP probing reveals the same linear trend observed in Wan2.1-1.3B (Figures 3.d and 4): kinematic depth prediction accuracy increases approximately <b>linearly</b> across transformer layers, characteristic of <b>parallel BFS-like reasoning</b>. 
+To test whether our findings extend beyond Wan2.1-1.3B (a 30-layer DiT with cross-attention), we conducted additional experiments with <b>CogVideoX-5B, a 42-layer MMDiT</b>. Given the time and compute available during rebuttal, we <b>partially</b> fine-tuned CogVideoX-5B on gear systems with up to <b>20 gear counts and kinematic depth</b>. 
+Despite <b>limited training</b>, MLP probing below reveals the same <b>linear trend</b> observed in Wan2.1-1.3B (Figures 3.d and 4 in the paper): kinematic depth prediction accuracy increases approximately linearly across transformer layers, characteristic of <b>parallel BFS-like reasoning</b>. 
 
 [[FIGURE]]
 
-Furthermore, when evaluated on unseen gear counts of up to 100 gears, the partially trained model generalizes to in-distribution kinematic heights (e.g., 10), while exhibiting significant performance drop at out-of-distribution depths. (Note that training has not yet fully converged due to the limited rebuttal budget, so we focus on kinematic heights of up to approximately 10.) 
-These results confirm that <b>our findings are not specific to Wan2.1-1.3B</b>. 
+Furthermore, when evaluated on unseen gear counts (e.g., 70, 80, 90, 100 gears), the partially trained model generalizes to in-distribution kinematic heights (e.g., depths 7, 8, 9, 10), while exhibiting significant performance drop at out-of-distribution depths (e.g., depths 30, 40, etc.). 
+Please note that because training has not yet fully converged under the limited rebuttal budget, we currently focus on kinematic heights up to approximately 10, where the model performs reliably. 
+We will continue updating the supplemental webpage with further results as training progresses. Nevertheless, these preliminary results already strongly confirm that <b>our core findings are not specific to Wan2.1-1.3B</b>. 
  
 [[TABLE]]"""
 
@@ -2238,7 +2239,6 @@ def generate_single_index(input_folder):
                     <div class="overview-section" id="{section_anchor_id(d_name)}">
                         {header_html}
                         <div class="overview-desc">
-                            {'<p><a href="#' + REBUTTAL_ONLY_PAGE_ID + '">Open this rebuttal section on its own</a></p>' if d_name == REBUTTAL_SUBSECTION_NAME else ''}
                             {desc}
                         </div>
                     </div>
