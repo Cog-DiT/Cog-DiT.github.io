@@ -133,6 +133,13 @@ def render_success_table(train_limit, rows):
 
 
 MANUALLY_EMBEDDED_VIDEO_SECTIONS = {"1.4. I.D. Kinematic Height"}
+SECTION_ANCHOR_IDS = {
+    "Analysis with a different video backbone (CogVideoX-5B)": "section-rebuttal-cogvideox5b",
+}
+
+
+def section_anchor_id(section_name):
+    return SECTION_ANCHOR_IDS.get(section_name, f"section-{section_name}")
 
 
 def render_inline_video_gallery(section_name, indices):
@@ -1468,7 +1475,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             const overviewVideosMap = {overview_videos_map_json};
             const datasetToPageMap = {dataset_to_page_map_json}; 
             const pageToFirstDatasetMap = {page_to_first_dataset_map_json};
+            const overviewSectionAnchorIds = {section_anchor_map_json};
             const pagesData = {pages_data_json};
+
+            function getOverviewSection(sectionName) {{
+                const anchorId = overviewSectionAnchorIds[sectionName] || ('section-' + sectionName);
+                return document.getElementById(anchorId);
+            }}
 
             const carouselIndices = {{}};
 
@@ -1694,7 +1707,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 updateView();
 
                 setTimeout(() => {{
-                    const targetSection = document.getElementById('section-' + sectionName);
+                    const targetSection = getOverviewSection(sectionName);
                     if (targetSection) {{
                         targetSection.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
                     }}
@@ -1714,7 +1727,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
                 if (sectionDataset) {{
                     setTimeout(() => {{
-                        const targetSection = document.getElementById('section-' + sectionDataset);
+                        const targetSection = getOverviewSection(sectionDataset);
                         if (targetSection) {{
                             targetSection.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
                         }} else {{
@@ -1861,7 +1874,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     activePage = "Overview";
                     activeDatasetName = null;
                 }} else {{
-                    const overviewSection = document.getElementById('section-' + decodedHash);
+                    const overviewSection = getOverviewSection(decodedHash);
                     if (overviewSection) {{
                         activePage = "Overview";
                         activeDatasetName = decodedHash;
@@ -1881,7 +1894,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
                 if (activePage === "Overview" && activeDatasetName) {{
                     setTimeout(() => {{
-                        const targetSection = document.getElementById('section-' + activeDatasetName);
+                        const targetSection = getOverviewSection(activeDatasetName);
                         if (targetSection) {{
                             targetSection.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
                         }}
@@ -2220,7 +2233,7 @@ def generate_single_index(input_folder):
                         '''
 
                     section_html = f"""
-                    <div class="overview-section" id="section-{d_name}">
+                    <div class="overview-section" id="{section_anchor_id(d_name)}">
                         {header_html}
                         <div class="overview-desc">{desc}</div>
                     </div>
@@ -2341,6 +2354,7 @@ def generate_single_index(input_folder):
     overview_videos_map_json = json.dumps(overview_videos_map)
     dataset_to_page_map_json = json.dumps(dataset_to_page_map)
     page_to_first_dataset_map_json = json.dumps(page_to_first_dataset_map)
+    section_anchor_map_json = json.dumps(SECTION_ANCHOR_IDS)
     pages_data_json = json.dumps(pages_data)
 
     final_html = HTML_TEMPLATE.format(
@@ -2356,6 +2370,7 @@ def generate_single_index(input_folder):
         overview_videos_map_json=overview_videos_map_json,
         dataset_to_page_map_json=dataset_to_page_map_json,
         page_to_first_dataset_map_json=page_to_first_dataset_map_json,
+        section_anchor_map_json=section_anchor_map_json,
         pages_data_json=pages_data_json,
         dataset_category_map_json="{}" 
     )
