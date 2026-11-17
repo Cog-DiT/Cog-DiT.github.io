@@ -231,12 +231,22 @@ def render_pairwise_gallery():
     return '<div class="pca-analysis-gallery pairwise-gallery">' + "".join(cases) + "</div>"
 
 
+REBUTTAL_TEXT = """
+
+To test whether our findings extend beyond Wan2.1-1.3B (a 30-layer DiT with cross-attention), we conducted additional experiments with <b>CogVideoX-5B, a 42-layer MMDiT</b>. Given the time and compute available during rebuttal, we <b>partially</b> fine-tuned CogVideoX-5B on gear systems with up to <b>20 gear counts and kinematic depth 20</b>. 
+Despite <b>limited training</b>, MLP probing reveals the same linear trend observed in Wan2.1-1.3B (Figures 3.d and 4): kinematic depth prediction accuracy increases approximately <b>linearly</b> across transformer layers, characteristic of <b>parallel BFS-like reasoning</b>. 
+
+[[FIGURE]]
+
+Furthermore, when evaluated on unseen gear counts of up to 100 gears, the partially trained model generalizes to in-distribution kinematic heights (e.g., 10), while exhibiting significant performance drop at out-of-distribution depths. (Note that training has not yet fully converged due to the limited rebuttal budget, so we focus on kinematic heights of up to approximately 10.) 
+These results confirm that <b>our findings are not specific to Wan2.1-1.3B</b>. 
+ 
+[[TABLE]]"""
+
+
 def render_rebuttal_description():
-    """Render the rebuttal note and its inline figure."""
-    note_path = os.path.join("data", "Rebuttal", "note.txt")
+    """Render the rebuttal text and its inline figure and table."""
     figure_path = "data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap.png"
-    with open(note_path, "r", encoding="utf-8") as handle:
-        note = handle.read().strip()
 
     depths = (5, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90)
     results = {
@@ -302,7 +312,7 @@ def render_rebuttal_description():
     """
 
     content = []
-    for paragraph in note.split("\n\n"):
+    for paragraph in REBUTTAL_TEXT.split("\n\n"):
         paragraph = paragraph.strip()
         if paragraph == "[[FIGURE]]":
             content.append(f"""

@@ -1,9 +1,0 @@
-W1: Analysis with a different video backbone
-
-To test whether our findings extend beyond Wan2.1-1.3B (a 30-layer DiT with cross-attention), we conducted additional experiments with CogVideoX-5B, a 42-layer MMDiT. Given the time and compute available during rebuttal, we partially fine-tuned CogVideoX-5B on gear systems with up to 20 gears and kinematic depth 20. The heatmap below shows a layerwise progression: confidence in predicting increasingly deep targets becomes high at progressively later transformer blocks, consistent with the approximately linear trend observed in Wan2.1-1.3B (Figures 3d and 4) and with parallel BFS-like reasoning.
-
-[[FIGURE]]
-
-When evaluated on unseen gear counts up to 100, the partially trained model retains some performance at in-distribution kinematic depths (for example, depth 10), but shows no performance at out-of-distribution depths. Training had not fully converged within the rebuttal compute budget, so we focus on depths up to approximately 10. These results indicate that the observed reasoning pattern is not specific to Wan2.1-1.3B.
-
-[[TABLE]]
