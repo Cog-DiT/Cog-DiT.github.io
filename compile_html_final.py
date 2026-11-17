@@ -256,7 +256,7 @@ We will continue updating the supplemental webpage with further results as train
 
 def render_rebuttal_description():
     """Render the rebuttal text and its inline figure and table."""
-    figure_path = "data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap.png"
+    figure_path = "data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap_red.png"
 
     depths = (5, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90)
     results = {
