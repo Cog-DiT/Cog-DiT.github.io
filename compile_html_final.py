@@ -238,6 +238,69 @@ def render_rebuttal_description():
     with open(note_path, "r", encoding="utf-8") as handle:
         note = handle.read().strip()
 
+    depths = (5, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90)
+    results = {
+        10: {10: 96},
+        20: {10: 99, 20: 75},
+        30: {30: 35},
+        40: {5: 100, 40: 17},
+        50: {50: 8},
+        60: {7: 100, 8: 99, 60: 5},
+        70: {70: 4},
+        80: {8: 94, 80: 2},
+        90: {9: 85, 90: 0},
+        100: {9: 62, 10: 58},
+    }
+    compact_cell_style = "padding:5px 2px;text-align:center;font-size:clamp(8px,0.68vw,11px);white-space:nowrap;"
+    table_head = "".join(
+        f'<th scope="col" style="{compact_cell_style}">{depth}</th>' for depth in depths
+    )
+    table_rows = []
+    for gear_count, values in results.items():
+        cells = []
+        for depth in depths:
+            valid_entry = depth <= gear_count
+            in_distribution = gear_count <= 20 and depth <= 20
+            training_region = ' class="training-region"' if valid_entry and in_distribution else ""
+            invalid_class = ' class="invalid-entry"' if not valid_entry else ""
+            cell_class = training_region or invalid_class
+            invalid_style = "background-color:#e5e7eb;" if not valid_entry else ""
+            if depth in values:
+                value = values[depth]
+                cells.append(
+                    f'<td{cell_class} data-value="{value}" style="{compact_cell_style}{invalid_style}">{value}</td>'
+                )
+            else:
+                cells.append(
+                    f'<td{cell_class} style="{compact_cell_style}{invalid_style}">&mdash;</td>'
+                )
+        axis_label = (
+            f'<th scope="rowgroup" rowspan="{len(results)}" '
+            'style="writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;text-align:center;vertical-align:middle;padding:8px 5px;">'
+            'Number of Gears</th>'
+            if not table_rows else ""
+        )
+        table_rows.append(
+            f'<tr>{axis_label}<th scope="row" style="{compact_cell_style}">{gear_count}</th>{"".join(cells)}</tr>'
+        )
+    rebuttal_table = f"""
+        <div class="table-wrap" style="margin:24px 0;">
+            <table class="latex-table success-heatmap" style="width:100%;table-layout:fixed;font-size:clamp(8px,0.68vw,11px);" aria-label="CogVideoX-5B all-gears success rate by number of gears and kinematic depth">
+                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
+                    <strong>CogVideoX-5B evaluation results.</strong> All-gears success rate at the 0.25 threshold; rows give the number of gears and columns give kinematic depth. Gray cells have invalid depth (depth &gt; number of gears); em dashes in white cells indicate unreported valid combinations. Red outlines mark valid in-distribution entries (gears &le; 20 and depth &le; 20).
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2" rowspan="2" aria-hidden="true"></th>
+                        <th scope="colgroup" colspan="{len(depths)}" style="{compact_cell_style}">Kinematic depth</th>
+                    </tr>
+                    <tr>{table_head}</tr>
+                </thead>
+                <tbody>{''.join(table_rows)}</tbody>
+            </table>
+        </div>
+    """
+
     content = []
     for paragraph in note.split("\n\n"):
         paragraph = paragraph.strip()
@@ -250,6 +313,8 @@ def render_rebuttal_description():
                     <figcaption style="margin-top:8px;color:#555;line-height:1.5;">Driving-depth-to-target-depth correctness confidence across the 42 transformer blocks.</figcaption>
                 </figure>
             """)
+        elif paragraph == "[[TABLE]]":
+            content.append(rebuttal_table)
         else:
             content.append(f"<p>{html.escape(paragraph)}</p>")
 
@@ -304,7 +369,7 @@ SIDEBAR_CONFIG = [
                     ]),
                 ]
     ),
-    ("Rebuttal", [])
+    ("Rebuttal", [("Analysis with a different video backbone (CogVideoX-5B)", [])])
 ]
 
 
@@ -1192,6 +1257,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         .success-heatmap td.training-region {{
             box-shadow: inset 0 0 0 1.5px #d62728;
         }}
+        .success-heatmap td.invalid-entry {{
+            background-color: #e5e7eb !important;
+            color: #555;
+        }}
         .table-wrap {{ overflow-x: auto; }}
         .table-note {{ font-size: 12px; color: #666; margin-top: 6px; }}
         .full-width-analysis > p,
@@ -1904,7 +1973,7 @@ def generate_single_index(input_folder):
         print(f"Error: Input directory '{input_folder}' not found.")
         return
 
-    DATASET_DESCRIPTIONS["Rebuttal"] = render_rebuttal_description()
+    DATASET_DESCRIPTIONS["Analysis with a different video backbone (CogVideoX-5B)"] = render_rebuttal_description()
 
     # 1. Scan available datasets
     found_datasets = set([d for d in os.listdir(input_folder) if os.path.isdir(os.path.join(input_folder, d))])

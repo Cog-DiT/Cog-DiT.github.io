@@ -5,3 +5,5 @@ To test whether our findings extend beyond Wan2.1-1.3B (a 30-layer DiT with cros
 [[FIGURE]]
 
 When evaluated on unseen gear counts up to 100, the partially trained model retains some performance at in-distribution kinematic depths (for example, depth 10), but shows no performance at out-of-distribution depths. Training had not fully converged within the rebuttal compute budget, so we focus on depths up to approximately 10. These results indicate that the observed reasoning pattern is not specific to Wan2.1-1.3B.
+
+[[TABLE]]
