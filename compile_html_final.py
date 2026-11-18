@@ -261,17 +261,18 @@ def render_rebuttal_description():
     figure_path = "data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap_red.png"
 
     depths = (5, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90)
+    # CogVideoX5B_1_20_Resize: "All gears ≤ 0.25 (%)" in rebuttal_model_metrics.html.
     results = {
-        10: {10: 96},
-        20: {10: 99, 20: 75},
-        30: {30: 35},
-        40: {5: 100, 40: 17},
-        50: {50: 8},
-        60: {7: 100, 8: 99, 60: 5},
-        70: {70: 4},
-        80: {8: 94, 80: 2},
-        90: {9: 85, 90: 0},
-        100: {9: 62, 10: 58},
+        10: {10: 99},
+        20: {10: 100, 20: 88},
+        30: {10: 97, 20: 84, 30: 37},
+        40: {5: 100, 10: 99, 20: 75, 30: 42, 40: 30},
+        50: {10: 97, 20: 70, 30: 38, 50: 14},
+        60: {7: 100, 8: 99, 10: 94, 20: 62, 30: 24, 60: 6},
+        70: {10: 94, 20: 44, 30: 25, 70: 1},
+        80: {8: 99, 10: 87, 20: 39, 30: 22, 80: 0},
+        90: {9: 96, 10: 87, 20: 46, 90: 0},
+        100: {9: 79, 10: 84, 20: 30},
     }
     compact_cell_style = "padding:5px 2px;text-align:center;font-size:clamp(8px,0.68vw,11px);white-space:nowrap;"
     table_head = "".join(
