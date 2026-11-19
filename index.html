@@ -546,9 +546,9 @@
         /* --- Overview Styling --- */
         .overview-container { width: 98%; max-width: 1600px; padding: 0 20px 100px 20px; display: none; box-sizing: border-box; margin: 0 auto; }
         
-        .abstract-section { max-width: 900px; margin: 0 auto 60px auto; text-align: justify; background-color: #ffffff; padding: 30px 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; scroll-margin-top: 24px; }
-        .abstract-title { text-align: center; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; color: #444; margin-bottom: 15px; letter-spacing: 1px; }
-        .abstract-content { font-size: 1.05rem; line-height: 1.8; color: #333; }
+        .abstract-section { max-width: 900px; margin: 0 auto 60px auto; text-align: justify; background-color: #ffffff; padding: 30px 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; scroll-margin-top: 24px; font-family: var(--font-stack); }
+        .abstract-title { text-align: center; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; color: #000; margin-bottom: 15px; letter-spacing: 1px; }
+        .abstract-content { font-size: 1.05rem; line-height: 1.8; color: #000; }
 
         /* === HIERARCHY STYLES (UPDATED) === */
         
@@ -1258,11 +1258,11 @@ Simulating gear mechanisms is conceptually simple yet challenging, as the motion
 In particular, determining the rotation direction of each gear requires computing its rotational parity by traversing the underlying kinematic chain.
 </p>
 <p>
-To investigate whether video DiTs can learn such kinematic chain reasoning, we utilize 2D involute gear trains as a testbed to train and analyze video DiTs.
-Our analysis reveals that models can indeed learn kinematic chain reasoning, but they acquire two distinct types of reasoning mechanisms depending on the kinematic heights encountered during training:
+To investigate whether video DiTs can learn such kinematic chain reasoning, we utilize 2D involute gear trains as a testbed to fine-tune and analyze off-the-shelf video DiTs.
+Our analysis reveals that, after fine-tuning in this setting, models can indeed learn kinematic chain reasoning, but they acquire two distinct types of reasoning mechanisms depending on the kinematic heights encountered during training:
 when trained on mechanisms with short kinematic heights, the model acquires a parallel BFS-like reasoning, using transformer layers as breadth-first search steps to incrementally determine parity across the kinematic tree.
 Conversely, when exposed to large kinematic heights during training, the model adopts a divide-and-conquer-like strategy—first resolving parity within local neighborhoods and subsequently merging them to achieve global consistency.
-Overall, this work demonstrates that video DiTs are capable of learning algorithmic reasoning over kinematic chains, while also uncovering their generalization limits and highlighting the critical role of training data complexities.
+Overall, our work demonstrates an example of video DiTs learning algorithmic reasoning over kinematic chains, while also uncovering their generalization limits and highlighting the critical role of training data complexities.
 </p>
 
                 </div>
