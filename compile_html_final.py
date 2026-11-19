@@ -517,7 +517,7 @@ DATASET_DESCRIPTIONS = {
     "Analysis: How Do Video Diffusion Transformers Simulate Gear Systems?": """
     <div>
         <p>
-            Fine-tuned video diffusion transformers can generate kinematically consistent gear motion, but doing so requires resolving rotational parity across the entire kinematic chain.
+            Fine-tuned video diffusion transformers can generate kinematically plausible gear motion, but doing so requires resolving rotational parity across the entire kinematic chain.
             We therefore perform feature probing on trained DiTs to investigate what reasoning mechanisms emerge internally.
         </p>
         <p>
@@ -554,8 +554,8 @@ DATASET_DESCRIPTIONS = {
     "1.2. MLP Probing": """
     <p>
         To quantitatively verify this process, we perform MLP probing to measure the amount of information each transformer layer stores about the rotational parity of individual gears relative to the driving gear.
-        As shown in the table below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers.
-        (Note: Each heatmap reports the probing accuracy for predicting the parity of each gear relative to the driving gear, across transformer blocks (vertical axis) and gear depth from the driving gear (horizontal axis).)
+        As shown in the heatmap below, the probing accuracy increases almost linearly with network depth, providing evidence that gear parity is determined incrementally across layers. <br>
+        Note: The heatmaps report the probing accuracy for predicting the parity of each gear relative to the driving gear, across transformer blocks (vertical axis) and gear depth from the driving gear (horizontal axis).
     </p>
     <div class="mlp-probing-figures">
         <figure>
