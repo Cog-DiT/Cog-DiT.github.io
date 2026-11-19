@@ -372,7 +372,7 @@ def render_rebuttal_description():
         elif paragraph == "[[SUCCESSFUL_EXAMPLES]]":
             content.append(
                 '<h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">'
-                'Successful 100-Gear Examples (CogVideoX-5B Trained on Mechanisms with Up to 20 Gears, Applied to 100-Gear Mechanisms at Depth 10)'
+                '100-Gear Examples at Kinematic Height 10 (Trained on Up to 20 Gear Counts and Kinematic Height)'
                 '</h5>'
             )
             content.append(render_inline_video_carousel(
