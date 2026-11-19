@@ -243,15 +243,18 @@ def render_pairwise_gallery():
 REBUTTAL_TEXT = """
 
 To test whether our findings extend beyond Wan2.1-1.3B (a 30-layer DiT with cross-attention), we conducted additional experiments with <b>CogVideoX-5B, a 42-layer MMDiT</b>. Given the time and compute available during rebuttal, we <b>partially</b> fine-tuned CogVideoX-5B on gear systems with up to <b>20 gear counts and kinematic depth</b>. 
-Despite <b>limited training</b>, MLP probing below reveals the same <b>linear trend</b> observed in Wan2.1-1.3B (Figures 3.d and 4 in the paper): kinematic depth prediction accuracy increases approximately linearly across transformer layers, characteristic of <b>parallel BFS-like reasoning</b>. 
+Despite <b>limited training</b>, the MLP probing results below reveal the same <b>linear trend</b> observed in Wan2.1-1.3B (Figures 3.d and 4 in the paper) for kinematic heights up to approximately 10: parity prediction accuracy increases approximately linearly across transformer layers, which is characteristic of <b>parallel BFS-like reasoning</b>.
 
 [[FIGURE]]
 
+We also observe characteristics of divide-and-conquer-like reasoning around layer 16: clusters with locally accurate parity predictions emerge and merge in later layers.
+
 [[PAIRWISE_FIGURE]]
 
-Furthermore, when evaluated on unseen gear counts (e.g., 70, 80, 90, 100 gears), the partially trained model generalizes to in-distribution kinematic heights (e.g., depths 7, 8, 9, 10), while exhibiting significant performance drop at out-of-distribution depths (e.g., depths 30, 40, etc.). 
-Please note that because training has not yet fully converged under the limited rebuttal budget, we currently focus on kinematic heights up to approximately 10, where the model performs reliably. 
-We will continue updating the supplemental webpage with further results as training progresses. Nevertheless, these preliminary results already strongly confirm that <b>our core findings are not specific to Wan2.1-1.3B</b>. 
+Furthermore, when evaluated on unseen gear counts (e.g., 70, 80, 90, and 100 gears), the partially trained model generalizes to in-distribution kinematic heights where it relies on parallel BFS-like reasoning (e.g., depth 10), but shows a moderate performance drop at kinematic heights where divide-and-conquer-like reasoning emerges (e.g., depth 20) and a significant performance drop at out-of-distribution kinematic heights (e.g., depth 40).
+These observations are consistent with our findings for Wan2.1-1.3B trained on kinematic heights up to 20, where both parallel BFS-like and divide-and-conquer-like reasoning emerge.
+Please note that training has not yet fully converged within the limited rebuttal budget, so the model has not yet achieved perfect performance in some in-distribution cases (e.g., 20 gears at depth 20).
+We will continue to update the supplemental webpage with further results as training progresses. Nevertheless, these preliminary results already confirm that <b>our core findings are not specific to Wan2.1-1.3B</b>.
  
 [[TABLE]]
 
