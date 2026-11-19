@@ -843,7 +843,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             --text-main: #333333;            
             --text-title: #222222;           
             --text-secondary: #555555;       
-            --bg-sidebar: #f4f4f4;
+            --bg-sidebar: #f8fafc;
             --bg-body: #ffffff;
             --border-color: #e0e0e0;
             --bg-section: #f4f4f4;
@@ -877,142 +877,109 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         /* --- Sidebar --- */
         .dataset-nav {{
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px; 
+            inset: 0 auto 0 0;
+            width: 300px;
             height: 100vh;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid #d0d0d0;
-            padding-top: 60px; 
-            padding-left: 0;
-            padding-right: 0;
+            height: 100dvh;
             z-index: 1002;
             display: flex;
-            flex-direction: column; 
-            gap: 2px; 
-            overflow-y: auto; 
-            overflow-x: hidden;
+            flex-direction: column;
+            overflow: hidden;
             box-sizing: border-box;
-            transition: width 0.3s ease; 
+            padding-top: 64px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid #dce5ed;
+            box-shadow: 3px 0 18px rgba(21, 48, 72, 0.04);
+            transition: width 0.25s ease, transform 0.25s ease;
         }}
 
-        .dataset-nav::-webkit-scrollbar {{ width: 5px; }}
-        .dataset-nav::-webkit-scrollbar-thumb {{ background: #ccc; border-radius: 4px; }}
-        .dataset-nav::-webkit-scrollbar-track {{ background: transparent; }}
-
-        .nav-category {{
-            font-size: 11px;
-            text-transform: none; 
-            color: #777; 
-            font-weight: 700;
-            margin-top: 25px;
-            margin-bottom: 5px;
-            padding-left: 15px;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-            transition: opacity 0.2s ease;
+        .sidebar-links {{
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 12px 0 30px;
+            scrollbar-color: #bfceda transparent;
+            scrollbar-width: thin;
         }}
-        
-        .nav-subcategory {{
-            font-size: 12px;
-            color: #444;
-            font-weight: 700;
-            margin-top: 10px;
-            margin-bottom: 2px;
-            padding-left: 12px;
-            text-transform: none;
-        }}
-
-        /* Base Sidebar Button */
+        .sidebar-links::-webkit-scrollbar {{ width: 6px; }}
+        .sidebar-links::-webkit-scrollbar-thumb {{ background: #bfceda; border-radius: 6px; }}
         .dataset-btn {{
-            background-color: transparent;
-            color: #444;
-            border: none;
-            border-left: 4px solid transparent;
-            cursor: pointer;
-            text-align: left;
-            word-break: break-word; 
-            white-space: normal;    
-            line-height: 1.4;        
-            transition: all 0.2s ease;
-            font-family: var(--font-stack);
-            width: 100%;
             display: block;
             box-sizing: border-box;
+            font-family: var(--font-stack);
+            text-align: left;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            line-height: 1.45;
+            border: 0;
+            cursor: pointer;
+            background: transparent;
+            color: #34485a;
+            transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }}
+        .dataset-btn:hover {{ background: #eaf0f5; color: #153b58; }}
+        .dataset-btn:focus-visible, #sidebar-toggle:focus-visible {{
+            outline: 2px solid #5fa9dc;
+            outline-offset: 2px;
         }}
 
-        .dataset-btn:hover {{
-            background-color: #e0e0e0;
-            color: #000;
-        }}
-
-        .dataset-btn.active {{
-            background-color: var(--bg-level1);
-            color: #000;
-            border-left-color: var(--primary-color);
-            font-weight: 600;
-        }}
-
-        /* Overview Button */
         .dataset-btn.overview-btn {{
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 14px;
-            padding: 8px 15px;
-        }}
-
-        /* Level 2 Button (Sub-Category) */
-        .dataset-btn.level-2 {{
+            width: calc(100% - 24px);
+            margin: 0 12px 18px;
+            padding: 11px 13px;
+            border-radius: 9px;
             font-size: 13px;
-            font-weight: 600;
-            padding: 8px 15px 8px 15px; 
-            margin-top: 2px;
-            color: #333;
+            font-weight: 700;
         }}
-
-        /* Level 3 Button (Content) */
+        .dataset-btn.level-2 {{
+            width: calc(100% - 24px);
+            margin: 13px 12px 3px;
+            padding: 10px 12px;
+            border-left: 3px solid transparent;
+            border-radius: 7px;
+            color: #223b50;
+            font-size: 12.5px;
+            font-weight: 700;
+        }}
         .dataset-btn.level-3 {{
+            width: calc(100% - 38px);
+            margin: 2px 12px 2px 26px;
+            padding: 8px 10px 8px 15px;
+            border-left: 2px solid #d6e2ec;
+            border-radius: 0 7px 7px 0;
+            color: #526679;
             font-size: 12px;
-            font-weight: 400;
-            padding: 6px 15px 6px 30px; /* Indented */
-            color: #555;
+            font-weight: 500;
         }}
-        
-        .dataset-btn.level-3.active {{
-             background-color: #f0f8ff; 
-             color: var(--primary-color);
-        }}
+        .dataset-btn.active {{ background: #e5f2fb; color: #075987; }}
+        .dataset-btn.level-2.active, .dataset-btn.level-3.active {{ border-left-color: var(--primary-color); }}
+        .dataset-btn.level-3.active {{ font-weight: 600; }}
 
-        /* --- Toggle Button --- */
         #sidebar-toggle {{
             position: fixed;
-            top: 10px;
-            left: 5px; 
+            top: 18px;
+            left: 16px;
             z-index: 1003;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid #dce5ed;
+            border-radius: 8px;
+            background: #fff;
+            color: #28526f;
             cursor: pointer;
-            font-size: 18px;
-            line-height: 1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: left 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #333;
+            transition: background-color 0.18s ease;
         }}
-        #sidebar-toggle:hover {{
-            background-color: #f0f0f0;
-        }}
+        #sidebar-toggle:hover {{ background: #eaf3f9; }}
+        #sidebar-toggle svg {{ width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; }}
 
         /* --- Main Content --- */
         .main-content {{
-            margin-left: 250px;
-            width: calc(100% - 250px); 
+            margin-left: 300px;
+            width: calc(100% - 300px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1501,12 +1468,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         .page-view.active {{ display: flex; }}
 
         /* Collapsed Sidebar */
-        body.sidebar-collapsed .dataset-nav {{ width: 50px; padding-left: 5px; padding-right: 5px; }}
-        body.sidebar-collapsed .main-content {{ margin-left: 50px; width: calc(100% - 50px); }}
-        body.sidebar-collapsed .dataset-btn, body.sidebar-collapsed .nav-subcategory {{ opacity: 0; pointer-events: none; white-space: nowrap; }}
-        body.sidebar-collapsed #sidebar-toggle {{ background-color: #e6e6e6; }}
+        body.sidebar-collapsed .dataset-nav {{ width: 64px; }}
+        body.sidebar-collapsed .sidebar-links {{ visibility: hidden; }}
+        body.sidebar-collapsed .main-content {{ margin-left: 64px; width: calc(100% - 64px); }}
+        body.sidebar-collapsed #sidebar-toggle svg {{ transform: rotate(180deg); }}
 
         @media (max-width: 800px) {{
+            .dataset-nav {{ width: min(300px, 86vw); box-shadow: 12px 0 30px rgba(20, 46, 70, 0.18); }}
+            .main-content, body.sidebar-collapsed .main-content {{ margin-left: 0; width: 100%; }}
+            body.sidebar-collapsed .dataset-nav {{ width: min(300px, 86vw); transform: translateX(-100%); }}
+            body.sidebar-collapsed #sidebar-toggle {{ left: 16px; box-shadow: 0 2px 10px rgba(20, 46, 70, 0.12); }}
             .mlp-probing-figures {{ grid-template-columns: 1fr; }}
             .pca-media-pair {{ grid-template-columns: 1fr; }}
             .success-table-grid {{ grid-template-columns: 1fr; }}
@@ -1531,9 +1502,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
             const carouselIndices = {{}};
 
+            function syncSidebarToggle() {{
+                const expanded = !body.classList.contains('sidebar-collapsed');
+                toggleBtn.setAttribute('aria-expanded', String(expanded));
+                toggleBtn.setAttribute('aria-label', expanded ? 'Collapse navigation' : 'Expand navigation');
+                toggleBtn.title = expanded ? 'Collapse navigation' : 'Expand navigation';
+            }}
+
+            const mobileSidebar = window.matchMedia('(max-width: 800px)');
+            if (mobileSidebar.matches) body.classList.add('sidebar-collapsed');
+            syncSidebarToggle();
+            mobileSidebar.addEventListener('change', event => {{
+                if (event.matches) body.classList.add('sidebar-collapsed');
+                syncSidebarToggle();
+            }});
             toggleBtn.addEventListener('click', () => {{
                 body.classList.toggle('sidebar-collapsed');
-                toggleBtn.innerHTML = body.classList.contains('sidebar-collapsed') ? "&#9776;" : "&laquo;";
+                syncSidebarToggle();
             }});
 
             let activePage = "Overview"; 
@@ -1959,9 +1944,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
             document.querySelectorAll('.dataset-btn').forEach(btn => {{
                 btn.addEventListener('click', () => {{
-                    if (window.innerWidth < 768) {{
+                    if (mobileSidebar.matches) {{
                         body.classList.add('sidebar-collapsed');
-                        toggleBtn.innerHTML = "&#9776;";
+                        syncSidebarToggle();
                     }}
                 }});
             }});
@@ -1972,12 +1957,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
 
-    <button id="sidebar-toggle" title="Toggle Sidebar">&laquo;</button>
+    <button id="sidebar-toggle" type="button" aria-controls="sidebar-nav" aria-expanded="true" aria-label="Collapse navigation" title="Collapse navigation">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
 
-    <div class="dataset-nav">
-        <button class="dataset-btn overview-btn" data-target="Overview" onclick="backToOverview()">Overview</button>
-        {dataset_nav_buttons}
-    </div>
+    <nav class="dataset-nav" id="sidebar-nav" aria-label="Paper sections">
+        <div class="sidebar-links">
+            <button class="dataset-btn overview-btn" data-target="Overview" onclick="backToOverview()">Overview</button>
+            {dataset_nav_buttons}
+        </div>
+    </nav>
 
     <div class="main-content">
         <header class="paper-header">
