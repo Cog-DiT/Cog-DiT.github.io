@@ -247,6 +247,8 @@ Despite <b>limited training</b>, MLP probing below reveals the same <b>linear tr
 
 [[FIGURE]]
 
+[[PAIRWISE_FIGURE]]
+
 Furthermore, when evaluated on unseen gear counts (e.g., 70, 80, 90, 100 gears), the partially trained model generalizes to in-distribution kinematic heights (e.g., depths 7, 8, 9, 10), while exhibiting significant performance drop at out-of-distribution depths (e.g., depths 30, 40, etc.). 
 Please note that because training has not yet fully converged under the limited rebuttal budget, we currently focus on kinematic heights up to approximately 10, where the model performs reliably. 
 We will continue updating the supplemental webpage with further results as training progresses. Nevertheless, these preliminary results already strongly confirm that <b>our core findings are not specific to Wan2.1-1.3B</b>. 
@@ -258,7 +260,9 @@ We will continue updating the supplemental webpage with further results as train
 
 def render_rebuttal_description():
     """Render the rebuttal text and its inline figure and table."""
-    figure_path = "data/Rebuttal/CogvideoX-5b/balanced_confidence_heatmap_red.png"
+    figure_path = "data/Rebuttal/CogvideoX-5b/balanced_accuracy_heatmap_red.png"
+    pairwise_static_path = "data/Rebuttal/CogvideoX-5b/pairwise_parity_all_20.png"
+    pairwise_animation_path = "data/Rebuttal/CogvideoX-5b/node_to_node_confidence.gif"
 
     depths = (10, 20, 30, 40, 50, 60, 70, 80, 90)
     # CogVideoX5B_1_20_Resize: "All gears ≤ 0.25 (%)" in rebuttal_model_metrics.html.
@@ -331,10 +335,34 @@ def render_rebuttal_description():
             content.append(f"""
                 <figure style="max-width:700px;margin:24px auto;text-align:center;">
                     <a href="{figure_path}" target="_blank" rel="noopener noreferrer">
-                        <img src="{figure_path}" alt="CogVideoX-5B confidence heatmap showing target-depth prediction confidence across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;max-width:500px;margin:0 auto;height:auto;">
+                        <img src="{figure_path}" alt="CogVideoX-5B accuracy heatmap showing target-depth prediction accuracy across transformer blocks" loading="lazy" decoding="async" style="display:block;width:100%;max-width:500px;margin:0 auto;height:auto;">
                     </a>
                     <figcaption style="margin-top:8px;color:#555;line-height:1.5;"><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; {20}; evaluated on a {20}-gear linear chain. Training has not yet converged, so accuracy at greater kinematic depths remains limited. We will update the results as training progresses.</figcaption>
                 </figure>
+            """)
+        elif paragraph == "[[PAIRWISE_FIGURE]]":
+            content.append(f"""
+                <div class="pairwise-gallery">
+                    <section class="pca-case">
+                        <div class="pca-case-header">
+                            <h5>Pairwise parity prediction accuracy across transformer layers</h5>
+                        </div>
+                        <div class="pca-media-pair">
+                            <figure class="pca-media-panel">
+                                <div class="pca-media-heading">Paper figure</div>
+                                <a class="pca-media-link" href="{pairwise_static_path}" target="_blank" rel="noopener noreferrer">
+                                    <img src="{pairwise_static_path}" alt="CogVideoX-5B pairwise parity prediction accuracy across all 42 transformer layers" loading="lazy" decoding="async">
+                                </a>
+                            </figure>
+                            <figure class="pca-media-panel">
+                                <div class="pca-media-heading">Animation</div>
+                                <a class="pca-media-link" href="{pairwise_animation_path}" target="_blank" rel="noopener noreferrer">
+                                    <img src="{pairwise_animation_path}" alt="Animation of CogVideoX-5B pairwise parity prediction confidence across transformer layers" loading="lazy" decoding="async">
+                                </a>
+                            </figure>
+                        </div>
+                    </section>
+                </div>
             """)
         elif paragraph == "[[TABLE]]":
             content.append(rebuttal_table)
