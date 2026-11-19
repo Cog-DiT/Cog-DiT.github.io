@@ -732,7 +732,7 @@ DATASET_DESCRIPTIONS = {
         </p>
         <div class="table-wrap" style="margin:18px 0 10px;">
             <table class="latex-table topology-table" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
-                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;"><strong>Table 2. Generalization to unseen tree topologies.</strong> Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for linear-chain training evaluated on linear chains and general trees. Error colors are relative to the values shown.</caption>
+                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;"><strong>Table 2. Generalization to unseen tree topologies.</strong> Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for linear-chain training evaluated on linear chains and general trees. Green shading indicates successful cases.</caption>
                 <thead><tr><th rowspan="2">Training bound</th><th colspan="2">Linear chain (I.D.)</th><th colspan="2" style="color:#b42318;">General tree (O.O.D.)</th></tr><tr><th>SSR &uarr;</th><th><i>E</i><sub>rmd</sub> &darr;</th><th>SSR &uarr;</th><th><i>E</i><sub>rmd</sub> &darr;</th></tr></thead>
                 <tbody>
                     <tr><th><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th><td data-success="100">100%</td><td data-error="0.058">0.058</td><td data-success="100">100%</td><td data-error="0.058">0.058</td></tr>
@@ -1371,6 +1371,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
         .topology-table thead tr:first-child th:first-child {{ width: 24%; }}
         .topology-table td {{ font-variant-numeric: tabular-nums; }}
+        .topology-table td[data-error] {{ background-color: #b4e6b9; }}
 
         /* --- Overview Styling --- */
         .overview-container {{ width: 98%; max-width: 1600px; padding: 0 20px 100px 20px; display: none; box-sizing: border-box; margin: 0 auto; }}
@@ -1675,16 +1676,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 document.querySelectorAll('table.topology-table').forEach(table => {{
                     table.querySelectorAll('td[data-success]').forEach(cell => {{
                         colorSuccessCell(cell, Number.parseFloat(cell.dataset.success));
-                    }});
-
-                    const errorCells = Array.from(table.querySelectorAll('td[data-error]'));
-                    const errors = errorCells.map(cell => Number.parseFloat(cell.dataset.error));
-                    const minError = Math.min(...errors);
-                    const maxError = Math.max(...errors);
-                    const errorRange = maxError - minError || 1;
-                    errorCells.forEach(cell => {{
-                        const error = Number.parseFloat(cell.dataset.error);
-                        colorSuccessCell(cell, 100 * (maxError - error) / errorRange);
                     }});
                 }});
             }}
