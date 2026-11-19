@@ -576,7 +576,7 @@ DATASET_DESCRIPTIONS = {
     <div>
         <p>
         Notably, the learned Parallel-BFS reasoning mechanisms generalize poorly to unseen kinematic heights.
-        As shown in the table below, the model achieves a success rate of almost <b>0</b> on out-of-distribution cases when the kinematic height exceeds the training range.
+        As shown in the table below, the model achieves a success rate of almost <b>0</b> on out-of-distribution cases <b>when the kinematic height exceeds the training range.</b>
         </p>
         <div class="success-table-grid comparison-table-pair">
             <!-- Table 6: five-gear training regime (left) -->
