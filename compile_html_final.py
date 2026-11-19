@@ -281,7 +281,7 @@ def render_rebuttal_description():
         90: {10: 84, 20: 44, 30: 7, 40: 7, 50: 2, 60: 1, 90: 0},
         100: {10: 87, 20: 28, 30: 14, 40: 5, 50: 1},
     }
-    compact_cell_style = "padding:5px 2px;text-align:center;font-size:clamp(8px,0.68vw,11px);white-space:nowrap;"
+    compact_cell_style = "padding:5px 0;text-align:center;font-size:clamp(7px,2.5vw,11px);white-space:nowrap;"
     table_head = "".join(
         f'<th scope="col" style="{compact_cell_style}">{depth}</th>' for depth in depths
     )
@@ -306,7 +306,7 @@ def render_rebuttal_description():
                 )
         axis_label = (
             f'<th scope="rowgroup" rowspan="{len(results)}" '
-            'style="writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;text-align:center;vertical-align:middle;padding:8px 5px;">'
+            'style="writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;text-align:center;vertical-align:middle;padding:8px 1px;">'
             'Number of Gears</th>'
             if not table_rows else ""
         )
@@ -315,7 +315,7 @@ def render_rebuttal_description():
         )
     rebuttal_table = f"""
         <div class="table-wrap" style="margin:24px 0;">
-            <table class="latex-table success-heatmap" style="width:100%;table-layout:fixed;font-size:clamp(8px,0.68vw,11px);" aria-label="CogVideoX-5B all-gears success rate by number of gears and kinematic depth">
+            <table class="latex-table success-heatmap" style="width:100%;table-layout:fixed;font-size:clamp(7px,2.5vw,11px);" aria-label="CogVideoX-5B all-gears success rate by number of gears and kinematic depth">
                 <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;font-size:0.9rem;line-height:1.6;">
                     <strong>CogVideoX-5B evaluation results.</strong> Simulation success rate (%). Red outlines mark valid entries within the training distribution (gears &le; 20 and depth &le; 20). Training has not yet converged, and we will update the results as training progresses.
                 </caption>
@@ -576,7 +576,7 @@ DATASET_DESCRIPTIONS = {
     <div>
         <p>
         Notably, the learned Parallel-BFS reasoning mechanisms generalize poorly to unseen kinematic heights.
-        As shown in the table below, the model achieves a success rate of almost $0$ on out-of-distribution cases when the kinematic height exceeds the training range.
+        As shown in the table below, the model achieves a success rate of almost <b>0</b> on out-of-distribution cases when the kinematic height exceeds the training range.
         </p>
         <div class="success-table-grid comparison-table-pair">
             <!-- Table 6: five-gear training regime (left) -->
@@ -584,18 +584,18 @@ DATASET_DESCRIPTIONS = {
                 <div class="table-wrap" style="margin: 0;">
                     <table class="latex-table comparison-success-table" aria-label="Table 6 simulation success rates for a model trained on up to 5 gears and height 5">
                         <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
-                            <strong>Table 6. Model trained on up to 5 gears.</strong>
+                            <strong>Table 6. Model trained on up to 5 gears.</strong> Simulation success rate (%).
                         </caption>
                         <thead>
-                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr><th rowspan="2" scope="col" aria-label="Number of gears"><i>N</i></th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
                             <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
                         </thead>
                         <tbody>
-                            <tr><th scope="row">5</th><td style="background:#dff1e1;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f7e4e2;">3%</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">20</th><td style="background:#e3eee2;">94%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">30</th><td style="background:#e2efe2;">96%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td></tr>
-                            <tr><th scope="row">40</th><td style="background:#e8ebe0;">88%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td></tr>
+                            <tr><th scope="row">5</th><td style="background:#dff1e1;">100</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100</td><td class="focus-ood-height" style="background:#f7e4e2;">3</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">20</th><td style="background:#e3eee2;">94</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">30</th><td style="background:#e2efe2;">96</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td></tr>
+                            <tr><th scope="row">40</th><td style="background:#e8ebe0;">88</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -604,28 +604,28 @@ DATASET_DESCRIPTIONS = {
             <!-- Table 1: ten-gear training regime (right) -->
             <section class="success-table-card">
                 <div class="table-wrap" style="margin: 0;">
-                    <table class="latex-table comparison-success-table" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
+                    <table class="latex-table comparison-success-table comparison-success-table-wide" aria-label="Table 1 simulation success rates for a model trained on up to 10 gears and height 10">
                         <caption style="caption-side: top; text-align: left; padding: 0 0 10px; color: #333; line-height: 1.5;">
-                            <strong>Table 1. Model trained on up to 10 gears.</strong>
+                            <strong>Table 1. Model trained on up to 10 gears.</strong> Simulation success rate (%).
                         </caption>
                         <thead>
-                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr><th rowspan="2" scope="col" aria-label="Number of gears"><i>N</i></th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
                             <tr>
                                 <th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th><th scope="col">50</th>
                                 <th scope="col">60</th><th scope="col">70</th><th scope="col">80</th><th scope="col">90</th><th scope="col">100</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">20</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f8e1e1;">1%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">30</th><td style="background:#e1f0e2;">97%</td><td class="focus-ood-height" style="background:#f8e1e1;">1%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">40</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">50</th><td style="background:#e3eee2;">94%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">60</th><td style="background:#e6ece1;">90%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">70</th><td style="background:#dff1e1;">100%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">80</th><td style="background:#e0f0e1;">99%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td><td>—</td></tr>
-                            <tr><th scope="row">90</th><td style="background:#e7ebe0;">89%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td>—</td></tr>
-                            <tr><th scope="row">100</th><td style="background:#ebeadf;">82%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td><td class="focus-ood-height" style="background:#f8dfdf;">0%</td></tr>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">20</th><td style="background:#dff1e1;">100</td><td class="focus-ood-height" style="background:#f8e1e1;">1</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">30</th><td style="background:#e1f0e2;">97</td><td class="focus-ood-height" style="background:#f8e1e1;">1</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">40</th><td style="background:#dff1e1;">100</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">50</th><td style="background:#e3eee2;">94</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">60</th><td style="background:#e6ece1;">90</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">70</th><td style="background:#dff1e1;">100</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">80</th><td style="background:#e0f0e1;">99</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td><td>—</td></tr>
+                            <tr><th scope="row">90</th><td style="background:#e7ebe0;">89</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td>—</td></tr>
+                            <tr><th scope="row">100</th><td style="background:#ebeadf;">82</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td><td class="focus-ood-height" style="background:#f8dfdf;">0</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -667,19 +667,19 @@ DATASET_DESCRIPTIONS = {
                 <div class="table-wrap" style="margin:0;">
                     <table class="latex-table comparison-success-table" aria-label="Table 6 highlighting larger gear counts at in-distribution height after training on up to 5 gears">
                         <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
-                            <strong>Table 6. Model trained on up to 5 gears.</strong>
+                            <strong>Table 6. Model trained on up to 5 gears.</strong> Simulation success rate (%).
                             Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5.
                         </caption>
                         <thead>
-                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr><th rowspan="2" scope="col" aria-label="Number of gears"><i>N</i></th><th colspan="5" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
                             <tr><th scope="col">5</th><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th></tr>
                         </thead>
                         <tbody>
-                            <tr><th scope="row">5</th><td style="background:#dff1e1;">100%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">10</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f7e4e2;">3%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">20</th><td class="focus-ood-count" style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">30</th><td class="focus-ood-count" style="background:#e2efe2;">96%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">40</th><td class="focus-ood-count" style="background:#e8ebe0;">88%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                            <tr><th scope="row">5</th><td style="background:#dff1e1;">100</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">10</th><td class="focus-ood-count" style="background:#dff1e1;">100</td><td style="background:#f7e4e2;">3</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">20</th><td class="focus-ood-count" style="background:#e3eee2;">94</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">30</th><td class="focus-ood-count" style="background:#e2efe2;">96</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">40</th><td class="focus-ood-count" style="background:#e8ebe0;">88</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -688,26 +688,26 @@ DATASET_DESCRIPTIONS = {
             <!-- Table 1: ten-gear training regime (right) -->
             <section class="success-table-card">
                 <div class="table-wrap" style="margin:0;">
-                    <table class="latex-table comparison-success-table" aria-label="Table 1 highlighting larger gear counts at in-distribution height after training on up to 10 gears">
+                    <table class="latex-table comparison-success-table comparison-success-table-wide" aria-label="Table 1 highlighting larger gear counts at in-distribution height after training on up to 10 gears">
                         <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;">
-                            <strong>Table 1. Model trained on up to 10 gears.</strong>
+                            <strong>Table 1. Model trained on up to 10 gears.</strong> Simulation success rate (%).
                             Here <i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10.
                         </caption>
                         <thead>
-                            <tr><th rowspan="2" scope="col">Gears (<i>N</i>)</th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
+                            <tr><th rowspan="2" scope="col" aria-label="Number of gears"><i>N</i></th><th colspan="10" scope="colgroup">Kinematic height (<i>h</i>)</th></tr>
                             <tr><th scope="col">10</th><th scope="col">20</th><th scope="col">30</th><th scope="col">40</th><th scope="col">50</th><th scope="col">60</th><th scope="col">70</th><th scope="col">80</th><th scope="col">90</th><th scope="col">100</th></tr>
                         </thead>
                         <tbody>
-                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">20</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f8e1e1;">1%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">30</th><td class="focus-ood-count" style="background:#e1f0e2;">97%</td><td style="background:#f8e1e1;">1%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">40</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">50</th><td class="focus-ood-count" style="background:#e3eee2;">94%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">60</th><td class="focus-ood-count" style="background:#e6ece1;">90%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">70</th><td class="focus-ood-count" style="background:#dff1e1;">100%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">80</th><td class="focus-ood-count" style="background:#e0f0e1;">99%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">90</th><td class="focus-ood-count" style="background:#e7ebe0;">89%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td>&mdash;</td></tr>
-                            <tr><th scope="row">100</th><td class="focus-ood-count" style="background:#ebeadf;">82%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td><td style="background:#f8dfdf;">0%</td></tr>
+                            <tr><th scope="row">10</th><td style="background:#dff1e1;">100</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">20</th><td class="focus-ood-count" style="background:#dff1e1;">100</td><td style="background:#f8e1e1;">1</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">30</th><td class="focus-ood-count" style="background:#e1f0e2;">97</td><td style="background:#f8e1e1;">1</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">40</th><td class="focus-ood-count" style="background:#dff1e1;">100</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">50</th><td class="focus-ood-count" style="background:#e3eee2;">94</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">60</th><td class="focus-ood-count" style="background:#e6ece1;">90</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">70</th><td class="focus-ood-count" style="background:#dff1e1;">100</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">80</th><td class="focus-ood-count" style="background:#e0f0e1;">99</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">90</th><td class="focus-ood-count" style="background:#e7ebe0;">89</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td>&mdash;</td></tr>
+                            <tr><th scope="row">100</th><td class="focus-ood-count" style="background:#ebeadf;">82</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td><td style="background:#f8dfdf;">0</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -731,12 +731,12 @@ DATASET_DESCRIPTIONS = {
          Interetingly, the trained model still performs well on arbitrary tree topologies during inference as demonstrated below.
         </p>
         <div class="table-wrap" style="margin:18px 0 10px;">
-            <table class="latex-table" style="min-width:650px;" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
-                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;"><strong>Table 2. Generalization to unseen tree topologies.</strong> Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for linear-chain training evaluated on linear chains and general trees.</caption>
+            <table class="latex-table topology-table" aria-label="Table 2 generalization from linear chains to unseen general tree topologies">
+                <caption style="caption-side:top;text-align:left;padding:0 0 10px;color:#333;line-height:1.5;"><strong>Table 2. Generalization to unseen tree topologies.</strong> Simulation success rate (SSR; higher is better) and relative motion disparity (<i>E</i><sub>rmd</sub>; lower is better) for linear-chain training evaluated on linear chains and general trees. Error colors are relative to the values shown.</caption>
                 <thead><tr><th rowspan="2">Training bound</th><th colspan="2">Linear chain (I.D.)</th><th colspan="2" style="color:#b42318;">General tree (O.O.D.)</th></tr><tr><th>SSR &uarr;</th><th><i>E</i><sub>rmd</sub> &darr;</th><th>SSR &uarr;</th><th><i>E</i><sub>rmd</sub> &darr;</th></tr></thead>
                 <tbody>
-                    <tr><th><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th><td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td><td style="background:#dff1e1;">100%</td><td style="background:#dff1e1;">0.058</td></tr>
-                    <tr><th><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10</th><td style="background:#e1f0e2;">97%</td><td style="background:#e1f0e2;">0.046</td><td style="background:#e0f0e1;">99%</td><td style="background:#e0f0e1;">0.040</td></tr>
+                    <tr><th><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 5</th><td data-success="100">100%</td><td data-error="0.058">0.058</td><td data-success="100">100%</td><td data-error="0.058">0.058</td></tr>
+                    <tr><th><i>N</i><sub>train</sub>, <i>h</i><sub>train</sub> &le; 10</th><td data-success="97">97%</td><td data-error="0.046">0.046</td><td data-success="99">99%</td><td data-error="0.040">0.040</td></tr>
                 </tbody>
             </table>
         </div>
@@ -1213,25 +1213,27 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
         .success-table-grid {{
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr);
             gap: 28px;
-            margin-top: 26px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 26px auto 0;
         }}
         .comparison-table-pair {{
             align-items: start;
         }}
-        .comparison-table-pair .table-wrap {{
-            overflow-x: hidden;
+        .comparison-table-pair > .success-table-card:first-child {{
+            width: 100%;
+            max-width: 760px;
+            justify-self: center;
+            box-sizing: border-box;
         }}
         .comparison-success-table {{
             width: 100%;
             table-layout: fixed;
-            font-size: clamp(8px, 0.65vw, 10px);
+            font-size: clamp(10px, 1.1vw, 13px);
         }}
-        .comparison-success-table th,
-        .comparison-success-table td {{
-            padding: 5px 2px;
-        }}
+        .comparison-success-table-wide {{ font-size: clamp(7px, 2.5vw, 13px); }}
         .comparison-success-table caption {{
             font-size: 0.9rem;
         }}
@@ -1270,7 +1272,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             border: 2px solid #0078d4;
         }}
         .success-table-card {{
-            padding: 20px;
+            min-width: 0;
+            padding: clamp(8px, 1.4vw, 20px);
             border: 1px solid var(--border-color);
             border-radius: 9px;
             background: #fff;
@@ -1291,7 +1294,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             background-color: #e5e7eb !important;
             color: #555;
         }}
-        .table-wrap {{ overflow-x: auto; }}
+        .table-wrap {{ width: 100%; max-width: 100%; overflow-x: visible; }}
         .table-note {{ font-size: 12px; color: #666; margin-top: 6px; }}
         .full-width-analysis > p,
         .full-width-analysis > h5,
@@ -1348,6 +1351,26 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             letter-spacing: 0.5px;
             color: #222;
         }}
+        .success-heatmap,
+        .comparison-success-table,
+        .topology-table {{ table-layout: fixed; max-width: 100%; }}
+        .success-heatmap {{ font-size: clamp(7px, 2.5vw, 13px); }}
+        .success-heatmap th, .success-heatmap td,
+        .comparison-success-table th, .comparison-success-table td {{
+            padding: 6px clamp(1px, 0.4vw, 6px);
+            text-align: center;
+            overflow-wrap: anywhere;
+        }}
+        .success-heatmap td[data-value] {{ text-align: center; white-space: nowrap; }}
+        .comparison-success-table tbody td {{ white-space: nowrap; }}
+        .topology-table {{ font-size: clamp(10px, 0.9vw, 13px); }}
+        .topology-table th, .topology-table td {{
+            padding: 8px clamp(3px, 0.7vw, 10px);
+            text-align: center;
+            overflow-wrap: anywhere;
+        }}
+        .topology-table thead tr:first-child th:first-child {{ width: 24%; }}
+        .topology-table td {{ font-variant-numeric: tabular-nums; }}
 
         /* --- Overview Styling --- */
         .overview-container {{ width: 98%; max-width: 1600px; padding: 0 20px 100px 20px; display: none; box-sizing: border-box; margin: 0 auto; }}
@@ -1483,6 +1506,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             .pca-media-pair {{ grid-template-columns: 1fr; }}
             .success-table-grid {{ grid-template-columns: 1fr; }}
             .pca-case {{ padding: 18px 14px; }}
+        }}
+        @media (max-width: 480px) {{
+            .success-heatmap th, .success-heatmap td,
+            .comparison-success-table-wide th, .comparison-success-table-wide td {{ padding-left: 0; padding-right: 0; }}
         }}
     </style>
     <script>
@@ -1627,8 +1654,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     applyGroup('ar', 1.4);
                 }});
 
-                document.querySelectorAll('table.success-heatmap td[data-value]').forEach(cell => {{
-                    const value = Math.max(0, Math.min(100, parseFloat(cell.dataset.value)));
+                const colorSuccessCell = (cell, rawValue) => {{
+                    const value = Math.max(0, Math.min(100, rawValue));
                     if (Number.isNaN(value)) return;
                     const t = value / 100;
                     const low = [248, 180, 180];
@@ -1637,6 +1664,28 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     const g = Math.round(low[1] + (high[1] - low[1]) * t);
                     const b = Math.round(low[2] + (high[2] - low[2]) * t);
                     cell.style.backgroundColor = `rgb(${{r}}, ${{g}}, ${{b}})`;
+                }};
+
+                document.querySelectorAll('table.success-heatmap td[data-value]').forEach(cell => {{
+                    colorSuccessCell(cell, Number.parseFloat(cell.dataset.value));
+                }});
+                document.querySelectorAll('table.comparison-success-table tbody td').forEach(cell => {{
+                    colorSuccessCell(cell, Number.parseFloat(cell.textContent));
+                }});
+                document.querySelectorAll('table.topology-table').forEach(table => {{
+                    table.querySelectorAll('td[data-success]').forEach(cell => {{
+                        colorSuccessCell(cell, Number.parseFloat(cell.dataset.success));
+                    }});
+
+                    const errorCells = Array.from(table.querySelectorAll('td[data-error]'));
+                    const errors = errorCells.map(cell => Number.parseFloat(cell.dataset.error));
+                    const minError = Math.min(...errors);
+                    const maxError = Math.max(...errors);
+                    const errorRange = maxError - minError || 1;
+                    errorCells.forEach(cell => {{
+                        const error = Number.parseFloat(cell.dataset.error);
+                        colorSuccessCell(cell, 100 * (maxError - error) / errorRange);
+                    }});
                 }});
             }}
 
