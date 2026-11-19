@@ -924,7 +924,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             outline-offset: 2px;
         }}
 
-        .dataset-btn.overview-btn {{
+        .dataset-btn.abstract-btn {{
             width: calc(100% - 24px);
             margin: 0 12px 18px;
             padding: 11px 13px;
@@ -1352,7 +1352,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         /* --- Overview Styling --- */
         .overview-container {{ width: 98%; max-width: 1600px; padding: 0 20px 100px 20px; display: none; box-sizing: border-box; margin: 0 auto; }}
         
-        .abstract-section {{ max-width: 900px; margin: 0 auto 60px auto; text-align: justify; background-color: #ffffff; padding: 30px 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; }}
+        .abstract-section {{ max-width: 900px; margin: 0 auto 60px auto; text-align: justify; background-color: #ffffff; padding: 30px 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; scroll-margin-top: 24px; }}
         .abstract-title {{ text-align: center; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; color: #444; margin-bottom: 15px; letter-spacing: 1px; }}
         .abstract-content {{ font-size: 1.05rem; line-height: 1.8; color: #333; }}
 
@@ -1360,6 +1360,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         
         /* Base styles for Level 1 & 2 Headers */
         .hierarchy-bar {{
+            scroll-margin-top: 24px;
             width: 100%;
             box-sizing: border-box;
             text-align: center; 
@@ -1548,19 +1549,33 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             }}, {{ rootMargin: "200px" }});
 
             function handleScrollSpy() {{
-                if (activePage === "Overview") return;
-                const blocks = cardsContainer.querySelectorAll('.content-block');
-                
-                blocks.forEach(block => {{
-                    const rect = block.getBoundingClientRect();
-                    if (rect.top >= -50 && rect.top < 300) {{
-                        const id = block.id.replace('dataset-block-', '');
-                        if (id !== activeDatasetName) {{
-                            activeDatasetName = id;
-                            updateSidebarHighlight();
+                const marker = Math.min(96, window.innerHeight * 0.15);
+                let currentSection = null;
+
+                if (activePage === "Overview") {{
+                    const sectionButtons = document.querySelectorAll('.dataset-btn[data-section]');
+                    currentSection = 'Abstract';
+                    sectionButtons.forEach(btn => {{
+                        const section = getOverviewSection(btn.dataset.section);
+                        if (section && section.getBoundingClientRect().top <= marker) {{
+                            currentSection = btn.dataset.section;
                         }}
+                    }});
+                    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {{
+                        currentSection = sectionButtons[sectionButtons.length - 1].dataset.section;
                     }}
-                }});
+                }} else {{
+                    cardsContainer.querySelectorAll('.content-block').forEach(block => {{
+                        if (block.getBoundingClientRect().top <= marker) {{
+                            currentSection = block.id.replace('dataset-block-', '');
+                        }}
+                    }});
+                }}
+
+                if (currentSection && currentSection !== activeDatasetName) {{
+                    activeDatasetName = currentSection;
+                    updateSidebarHighlight();
+                }}
             }}
 
             window.addEventListener('scroll', handleScrollSpy);
@@ -1771,29 +1786,29 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             }};
 
             function updateSidebarHighlight() {{
-                const datasetBtns = document.querySelectorAll('.dataset-btn');
-                datasetBtns.forEach(btn => {{
-                    const targetPage = btn.dataset.target;
-                    const targetDataset = btn.dataset.dataset; 
-
-                    btn.classList.remove('active');
-
-                    if (activePage === "Overview") {{
-                         if (targetPage === "Overview" || btn.dataset.section === activeDatasetName) {{
-                             btn.classList.add('active');
-                         }}
-                    }} 
-                    else if (btn.classList.contains('level-2')) {{
-                        if (targetPage === activePage) {{
-                            btn.classList.add('active');
-                        }}
-                    }} 
-                    else if (btn.classList.contains('level-3')) {{
-                        if (targetDataset === activeDatasetName) {{
-                            btn.classList.add('active');
-                        }}
+                const sectionName = activeDatasetName || (activePage === "Overview" ? "Abstract" : activePage);
+                let activeButton = null;
+                document.querySelectorAll('.dataset-btn[data-section]').forEach(btn => {{
+                    const isActive = btn.dataset.section === sectionName;
+                    btn.classList.toggle('active', isActive);
+                    if (isActive) {{
+                        btn.setAttribute('aria-current', 'location');
+                        activeButton = btn;
+                    }} else {{
+                        btn.removeAttribute('aria-current');
                     }}
                 }});
+
+                if (activeButton && !body.classList.contains('sidebar-collapsed')) {{
+                    const links = document.querySelector('.sidebar-links');
+                    const listRect = links.getBoundingClientRect();
+                    const buttonRect = activeButton.getBoundingClientRect();
+                    if (buttonRect.top < listRect.top + 8) {{
+                        links.scrollBy({{ top: buttonRect.top - listRect.top - 16, behavior: 'smooth' }});
+                    }} else if (buttonRect.bottom > listRect.bottom - 8) {{
+                        links.scrollBy({{ top: buttonRect.bottom - listRect.bottom + 16, behavior: 'smooth' }});
+                    }}
+                }}
             }}
 
             function renderPage(pageId) {{
@@ -1903,7 +1918,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 
                 if (!decodedHash || decodedHash === "Overview") {{
                     activePage = "Overview";
-                    activeDatasetName = null;
+                    activeDatasetName = "Abstract";
                 }} else {{
                     const overviewSection = getOverviewSection(decodedHash);
                     if (overviewSection) {{
@@ -1917,13 +1932,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                         activeDatasetName = null;
                     }} else {{
                         activePage = "Overview";
-                        activeDatasetName = null;
+                        activeDatasetName = "Abstract";
                     }}
                 }}
                 
                 updateView();
 
-                if (activePage === "Overview" && activeDatasetName) {{
+                if (activePage === "Overview" && activeDatasetName && decodedHash && decodedHash !== "Overview") {{
                     setTimeout(() => {{
                         const targetSection = getOverviewSection(activeDatasetName);
                         if (targetSection) {{
@@ -1937,6 +1952,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                             targetCard.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
                         }}
                     }}, 100);
+                }} else {{
+                    setTimeout(handleScrollSpy, 100);
                 }}
             }}
 
@@ -1963,7 +1980,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     <nav class="dataset-nav" id="sidebar-nav" aria-label="Paper sections">
         <div class="sidebar-links">
-            <button class="dataset-btn overview-btn" data-target="Overview" onclick="backToOverview()">Overview</button>
+            <button class="dataset-btn abstract-btn" data-section="Abstract" onclick="navigateToSection('Abstract')">Abstract</button>
             {dataset_nav_buttons}
         </div>
     </nav>
@@ -1985,7 +2002,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         </button>
 
         <div id="overview-container" class="overview-container">
-            <div class="abstract-section">
+            <div class="abstract-section" id="section-Abstract">
                 <div class="abstract-title">Abstract</div>
                 <div class="abstract-content">
                     {abstract_text}
@@ -2230,7 +2247,7 @@ def generate_single_index(input_folder):
             )
         
         for sub_name, d_list, is_group in sub_items:
-            sub_header_id = f' id="section-{sub_name}"' if is_group else ""
+            sub_header_id = f' id="{section_anchor_id(sub_name)}"' if sub_name != category_name else ""
             overview_html += f'''
             <div class="hierarchy-bar level-2-header"{sub_header_id}>
                 {sub_name}
@@ -2267,8 +2284,9 @@ def generate_single_index(input_folder):
                         </div>
                         '''
 
+                    section_id = f' id="{section_anchor_id(d_name)}"' if is_group else ""
                     section_html = f"""
-                    <div class="overview-section" id="{section_anchor_id(d_name)}">
+                    <div class="overview-section"{section_id}>
                         {header_html}
                         <div class="overview-desc">
                             {desc}
@@ -2296,8 +2314,9 @@ def generate_single_index(input_folder):
                     ]
                 )
                 
+                section_id = f' id="{section_anchor_id(d_name)}"' if is_group else ""
                 section_html = f"""
-                <div class="overview-section" id="section-{d_name}">
+                <div class="overview-section"{section_id}>
                     {header_html}
                     <div class="overview-desc">{desc}</div>
                     
