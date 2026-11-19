@@ -658,7 +658,7 @@ DATASET_DESCRIPTIONS = {
     <div class="full-width-analysis">
         <p>
         The model can generalize to unseen gear counts and branching factors as long as the kinematic height remains within the training distribution.
-        As shown in the tables below, <b>the model performs well on mechanisms containing 100 gears, despite being trained only on mechanisms with up to 10 gears, provided that the kinematic height remains in-distribution (i.e. h = 10).</b>
+        As shown in the tables below, the model performs well on mechanisms containing 100 gears, despite being trained only on mechanisms with up to 10 gears, provided that the kinematic height remains in-distribution (i.e. h = 10).
         </p>
 
         <div class="success-table-grid comparison-table-pair">
