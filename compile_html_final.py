@@ -460,14 +460,14 @@ DATASET_DESCRIPTIONS = {
        This raises the question of whether video diffusion transformers are capable of reasoning about such kinematic chain dependencies and, if so, how they achieve this.
     </p>
     <p style="margin-top: 1em;">
-        <small><sup>*</sup>Videos were generated using <a href="https://lumalabs.ai" target="_blank" rel="noopener noreferrer">lumalabs.ai</a>.</small>
+        <small><sup>*</sup>Videos were generated using <a href="https://lumalabs.ai" target="_blank" rel="noopener noreferrer">lumalabs.ai</a> in a standard first-frame-to-video setting.</small>
     </p>
     </div>
     """,
    "Qualitative Results": """
     <div>
     <p>
-       Despite the aforementioned failures of commercial video diffusion models, our initial findings suggest that, with appropriate fine-tuning, video diffusion transformers can successfully generate videos of gear systems that satisfy the underlying kinematic constraints, even as the number of gears increases substantially.
+       Despite the aforementioned failures of commercial video diffusion models, our initial findings suggest that, with appropriate fine-tuning, video diffusion transformers can successfully generate videos of gear systems that satisfy the kinematic constraints, even as the number of gears increases substantially.
        Below demonstrate the some generated examples. 
     </p>
     </div>
@@ -475,7 +475,7 @@ DATASET_DESCRIPTIONS = {
     "10-Gear Count": """
     <div>
     <p>
-        Herem the mode is trained and tested up to 10-gear system.
+        Here the model is trained and tested up to 10-gear system.
     </p>
     </div>
     """,
@@ -525,7 +525,7 @@ DATASET_DESCRIPTIONS = {
         </p>
         <ul>
             <li><b>Parallel-BFS strategy:</b> When the training data contains only small kinematic heights, the model learns a parallel BFS strategy, in which successive groups of transformer layers propagate information outward from the driving gear, one depth at a time. </li>
-            <li><b>Divide-and-Conquer-like strategy:</b> When the model is exposed to larger kinematic heights, for which a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.</li>
+            <li><b>Divide-and-Conquer-like strategy:</b> When the model is exposed to larger kinematic heights, for example, when a parallel BFS strategy cannot be implemented due to the limited number of layers, it instead learns a divide-and-conquer-like strategy, in which local parities are first determined and subsequently merged.</li>
         </ul>
         <p> The following two sections demonstrate these two reasoning mechanisms, respectively. </p>
     </div>
