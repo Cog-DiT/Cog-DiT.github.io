@@ -741,7 +741,7 @@ DATASET_DESCRIPTIONS = {
             </table>
         </div>
 
-        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Successful unseen-topology examples (Trained on linear graph, tested on general graph)</h5>
+        <h5 style="margin:28px 0 8px;font-size:1.05rem;color:#333;">Unseen-topology examples (Trained on linear graph, tested on general graph)</h5>
         {render_inline_video_carousel("1.4. I.D. Kinematic Height", range(5, 10))}
 
         <section class="pca-case">
